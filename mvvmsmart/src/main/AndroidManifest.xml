@@ -1,0 +1,17 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wzq.mvvmsmart">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application>
+
+        <activity
+            android:name=".crash.DefaultErrorActivity"
+            android:process=":error_activity" />
+
+        <provider
+            android:name=".crash.CaocInitProvider"
+            android:authorities="${applicationId}.customactivityoncrashinitprovider"
+            android:exported="false"
+            android:initOrder="101" />
+    </application>
+</manifest>
