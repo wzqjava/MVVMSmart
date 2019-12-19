@@ -3,8 +3,7 @@ package com.wzq.sample.ui.network;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.ObservableArrayList;
-import androidx.databinding.ObservableList;
+import androidx.lifecycle.MutableLiveData;
 
 import com.wzq.mvvmsmart.base.BaseViewModel;
 import com.wzq.mvvmsmart.binding.command.BindingAction;
@@ -12,20 +11,33 @@ import com.wzq.mvvmsmart.binding.command.BindingCommand;
 import com.wzq.mvvmsmart.event.SingleLiveEvent;
 import com.wzq.mvvmsmart.http.BaseResponse;
 import com.wzq.mvvmsmart.http.ResponseThrowable;
+import com.wzq.mvvmsmart.utils.KLog;
 import com.wzq.mvvmsmart.utils.RxUtils;
 import com.wzq.mvvmsmart.utils.ToastUtils;
 import com.wzq.sample.data.DemoRepository;
-import com.wzq.sample.entity.DemoEntity;
+import com.wzq.sample.entity.DemoBean;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 
 public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
+    private final MutableLiveData<List<DemoBean.ItemsEntity>> liveData;
     public SingleLiveEvent<NetWorkItemViewModel> deleteItemLiveData = new SingleLiveEvent<>();
+    public NetWorkViewModel(@NonNull Application application, DemoRepository repository) {
+        super(application, repository);
+        liveData = new MutableLiveData<>();
+        liveData.setValue(new ArrayList<DemoBean.ItemsEntity>());
+    }
+    public MutableLiveData<List<DemoBean.ItemsEntity>> getLiveData() {
+        return liveData;
+    }
+
     //封装一个界面发生改变的观察者
     public UIChangeObservable uc = new UIChangeObservable();
-
     public class UIChangeObservable {
         //下拉刷新完成
         public SingleLiveEvent finishRefreshing = new SingleLiveEvent<>();
@@ -33,28 +45,21 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
         public SingleLiveEvent finishLoadmore = new SingleLiveEvent<>();
     }
 
-    public NetWorkViewModel(@NonNull Application application, DemoRepository repository) {
-        super(application, repository);
-    }
-
-    //给RecyclerView添加ObservableList
-    public ObservableList<DemoEntity.ItemsEntity> observableList = new ObservableArrayList<>();
-    //给RecyclerView添加ItemBinding
 
     //下拉刷新
     public BindingCommand onRefreshCommand = new BindingCommand(new BindingAction() {
         @Override
         public void call() {
-            ToastUtils.showShort("下拉刷新");
             requestNetWork();
         }
     });
+
     //上拉加载
     public BindingCommand onLoadMoreCommand = new BindingCommand(new BindingAction() {
         @Override
         public void call() {
-            if (observableList.size() > 50) {
-                ToastUtils.showLong("兄dei，你太无聊啦~崩是不可能的~");
+            if (liveData.getValue().size() > 50) {
+                ToastUtils.showLong("兄dei，崩是不可能的~");
                 uc.finishLoadmore.call();
                 return;
             }
@@ -68,13 +73,13 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
                             ToastUtils.showShort("上拉加载");
                         }
                     })
-                    .subscribe(new Consumer<DemoEntity>() {
+                    .subscribe(new Consumer<DemoBean>() {
                         @Override
-                        public void accept(DemoEntity entity) throws Exception {
-                            for (DemoEntity.ItemsEntity itemsEntity : entity.getItems()) {
-//                                NetWorkItemViewModel itemViewModel = new NetWorkItemViewModel(NetWorkViewModel.this, itemsEntity);
+                        public void accept(DemoBean demoBean) throws Exception {
+                            for (DemoBean.ItemsEntity itemsEntity : demoBean.getItems()) {
+//                                NetWorkItemViewModel itemViewModel = new NetWorkItemViewModel(NetWorkViewModel.this, student);
                                 //双向绑定动态添加Item
-                                observableList.add(itemsEntity);
+                                liveData.getValue().add(itemsEntity);
                             }
                             //刷新完成收回
                             uc.finishLoadmore.call();
@@ -88,6 +93,7 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
      */
     public void requestNetWork() {
         //可以调用addSubscribe()添加Disposable，请求与View周期同步
+        KLog.e("开始请求数据");
         model.demoGet()
                 .compose(RxUtils.schedulersTransformer()) //线程调度
                 .compose(RxUtils.exceptionTransformer()) // 网络错误的异常转换, 这里可以换成自己的ExceptionHandle
@@ -98,18 +104,18 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
                         showDialog("正在请求...");
                     }
                 })
-                .subscribe(new Consumer<BaseResponse<DemoEntity>>() {
+                .subscribe(new Consumer<BaseResponse<DemoBean>>() {
                     @Override
-                    public void accept(BaseResponse<DemoEntity> response) throws Exception {
+                    public void accept(BaseResponse<DemoBean> response) throws Exception {
+                        ToastUtils.showShort("请求成功");
                         //清除列表
-                        observableList.clear();
+                        liveData.getValue().clear();
                         //请求成功
                         if (response.getCode() == 1) {
-                            for (DemoEntity.ItemsEntity entity : response.getResult().getItems()) {
-//                                NetWorkItemViewModel itemViewModel = new NetWorkItemViewModel(NetWorkViewModel.this, entity);
-                                //双向绑定动态添加Item
-                                observableList.add(entity);
-                            }
+                            ToastUtils.showShort("服务器返回数据");
+                            List<DemoBean.ItemsEntity> itemsEntities = response.getResult().getItems();
+                            KLog.e("请求到数据students.size"+itemsEntities.size());
+                            liveData.setValue(itemsEntities);
                         } else {
                             //code错误时也可以定义Observable回调到View层去处理
                             ToastUtils.showShort("数据错误");
@@ -129,6 +135,7 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
                 }, new Action() {
                     @Override
                     public void run() throws Exception {
+                        ToastUtils.showShort("throws Exception ");
                         //关闭对话框
                         dismissDialog();
                         //请求刷新完成收回
@@ -139,12 +146,11 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
 
     /**
      * 删除条目
-     *
      * @param netWorkItemViewModel
      */
     public void deleteItem(NetWorkItemViewModel netWorkItemViewModel) {
         //点击确定，在 observableList 绑定中删除，界面立即刷新
-        observableList.remove(netWorkItemViewModel);
+        liveData.getValue().remove(netWorkItemViewModel);
     }
 
     /**
@@ -154,7 +160,7 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
      * @return
      */
     public int getItemPosition(NetWorkItemViewModel netWorkItemViewModel) {
-        return observableList.indexOf(netWorkItemViewModel);
+        return  liveData.getValue().indexOf(netWorkItemViewModel);
     }
 
     @Override

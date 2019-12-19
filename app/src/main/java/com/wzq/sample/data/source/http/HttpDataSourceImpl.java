@@ -3,7 +3,7 @@ package com.wzq.sample.data.source.http;
 
 import com.wzq.sample.data.source.HttpDataSource;
 import com.wzq.sample.data.source.http.service.DemoApiService;
-import com.wzq.sample.entity.DemoEntity;
+import com.wzq.sample.entity.DemoBean;
 import com.wzq.mvvmsmart.http.BaseResponse;
 
 import java.util.ArrayList;
@@ -44,32 +44,32 @@ public class HttpDataSourceImpl implements HttpDataSource {
     }
 
     @Override
-    public Observable<DemoEntity> loadMore() {
-        return Observable.create(new ObservableOnSubscribe<DemoEntity>() {
+    public Observable<DemoBean> loadMore() {
+        return Observable.create(new ObservableOnSubscribe<DemoBean>() {
             @Override
-            public void subscribe(ObservableEmitter<DemoEntity> observableEmitter) throws Exception {
-                DemoEntity entity = new DemoEntity();
-                List<DemoEntity.ItemsEntity> itemsEntities = new ArrayList<>();
+            public void subscribe(ObservableEmitter<DemoBean> observableEmitter) throws Exception {
+                DemoBean entity = new DemoBean();
+                List<DemoBean.ItemsEntity> students = new ArrayList<>();
                 //模拟一部分假数据
                 for (int i = 0; i < 10; i++) {
-                    DemoEntity.ItemsEntity item = new DemoEntity.ItemsEntity();
-                    item.setId(-1);
-                    item.setName("模拟条目");
-                    itemsEntities.add(item);
+                    DemoBean.ItemsEntity student = new DemoBean.ItemsEntity();
+                    student.setId(-1);
+                    student.setName("模拟条目");
+                    students.add(student);
                 }
-                entity.setItems(itemsEntities);
+                entity.setItems(students);
                 observableEmitter.onNext(entity);
             }
         }).delay(2, TimeUnit.SECONDS); //延迟3秒
     }
 
     @Override
-    public Observable<BaseResponse<DemoEntity>> demoGet() {
+    public Observable<BaseResponse<DemoBean>> demoGet() {
         return apiService.demoGet();
     }
 
     @Override
-    public Observable<BaseResponse<DemoEntity>> demoPost(String catalog) {
+    public Observable<BaseResponse<DemoBean>> demoPost(String catalog) {
         return apiService.demoPost(catalog);
     }
 }

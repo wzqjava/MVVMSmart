@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import com.wzq.mvvmsmart.base.BaseFragment;
 import com.wzq.sample.R;
 import com.wzq.sample.databinding.FragmentDetailBinding;
-import com.wzq.sample.entity.DemoEntity;
+import com.wzq.sample.entity.DemoBean;
 
 
 /**
@@ -16,7 +16,7 @@ import com.wzq.sample.entity.DemoEntity;
 
 public class DetailFragment extends BaseFragment<FragmentDetailBinding, DetailViewModel> {
 
-    private DemoEntity.ItemsEntity entity;
+    private DemoBean.ItemsEntity entity;
 
     @Override
     public void initParam() {

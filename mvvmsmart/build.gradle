@@ -34,7 +34,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
     //-------------- Androidx,google_AAC start-----------------------------
     api 'androidx.appcompat:appcompat:1.1.0'
     api 'androidx.lifecycle:lifecycle-extensions:2.1.0' // ViewModel and LiveData
@@ -55,11 +54,9 @@ dependencies {
     api rootProject.ext.dependencies["adapter-rxjava"]
     //-------------- network finish-----------------------------
     api rootProject.ext.dependencies["liveEventBus"]  //    基于livedata的事件通信,完爆EventBus
-//    api rootProject.ext.dependencies["MMKV"]  //    共享参数
     api rootProject.ext.dependencies["gson"] //     Gson
     api rootProject.ext.dependencies["glide"] //    Glide
     annotationProcessor rootProject.ext.dependencies["glide-compiler"]  //  Glide
-//    api rootProject.ext.dependencies["glide-transformations"]   //  glide各种样式的图片转换
     //material-dialogs
     api rootProject.ext.dependencies["material-dialogs-core"]
     api rootProject.ext.dependencies["material-dialogs-commons"]

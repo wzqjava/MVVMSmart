@@ -142,6 +142,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
      */
     private void requestCameraPermissions() {
         // TODO: wzq 2019/12/17  依赖冲突,暂时注释
+        ToastUtils.showShort("请求相机权限");
         //请求打开相机权限
        /* RxPermissions rxPermissions = new RxPermissions(DemoActivity.this);
         rxPermissions.request(Manifest.permission.CAMERA)
