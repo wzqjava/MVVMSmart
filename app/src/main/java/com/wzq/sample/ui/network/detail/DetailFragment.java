@@ -16,7 +16,7 @@ import com.wzq.sample.entity.DemoBean;
 
 public class DetailFragment extends BaseFragment<FragmentDetailBinding, DetailViewModel> {
 
-    private DemoBean.Student entity;
+    private DemoBean.ItemsEntity entity;
 
     @Override
     public void initParam() {

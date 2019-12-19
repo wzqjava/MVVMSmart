@@ -15,10 +15,10 @@ import com.wzq.sample.R;
 import com.wzq.sample.entity.DemoBean;
 
 public class NetWorkItemViewModel extends ItemViewModel<NetWorkViewModel> {
-    public ObservableField<DemoBean.Student> entity = new ObservableField<>();
+    public ObservableField<DemoBean.ItemsEntity> entity = new ObservableField<>();
     public Drawable drawableImg;
 
-    public NetWorkItemViewModel(@NonNull NetWorkViewModel viewModel, DemoBean.Student entity) {
+    public NetWorkItemViewModel(@NonNull NetWorkViewModel viewModel, DemoBean.ItemsEntity entity) {
         super(viewModel);
         this.entity.set(entity);
         //ImageView的占位图片，可以解决RecyclerView中图片错误问题

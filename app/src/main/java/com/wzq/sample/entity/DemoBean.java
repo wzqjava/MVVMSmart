@@ -2,16 +2,15 @@ package com.wzq.sample.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import java.util.List;
 
-public class DemoBean {
+public class DemoBean{
     private String nextPageToken;
     private String prevPageToken;
     private int requestCount;
     private int responseCount;
     private int totalResults;
-    private List<Student> items;
+    private List<ItemsEntity> items;
 
     public String getNextPageToken() {
         return nextPageToken;
@@ -53,15 +52,15 @@ public class DemoBean {
         this.totalResults = totalResults;
     }
 
-    public List<Student> getItems() {
+    public List<ItemsEntity> getItems() {
         return items;
     }
 
-    public void setItems(List<Student> items) {
+    public void setItems(List<ItemsEntity> items) {
         this.items = items;
     }
 
-    public static class Student implements Parcelable {
+    public static class ItemsEntity implements Parcelable{
         private String detail;
         private String href;
         private int id;
@@ -142,10 +141,10 @@ public class DemoBean {
             dest.writeInt(this.type);
         }
 
-        public Student() {
+        public ItemsEntity() {
         }
 
-        protected Student(Parcel in) {
+        protected ItemsEntity(Parcel in) {
             this.detail = in.readString();
             this.href = in.readString();
             this.id = in.readInt();
@@ -155,15 +154,15 @@ public class DemoBean {
             this.type = in.readInt();
         }
 
-        public static final Creator<Student> CREATOR = new Creator<Student>() {
+        public static final Creator<ItemsEntity> CREATOR = new Creator<ItemsEntity>() {
             @Override
-            public Student createFromParcel(Parcel source) {
-                return new Student(source);
+            public ItemsEntity createFromParcel(Parcel source) {
+                return new ItemsEntity(source);
             }
 
             @Override
-            public Student[] newArray(int size) {
-                return new Student[size];
+            public ItemsEntity[] newArray(int size) {
+                return new ItemsEntity[size];
             }
         };
     }

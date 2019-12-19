@@ -2,6 +2,7 @@ package com.wzq.sample.ui.network;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -19,7 +20,6 @@ import com.wzq.mvvmsmart.base.BaseFragment;
 import com.wzq.mvvmsmart.rv_adapter.BaseViewAdapter;
 import com.wzq.mvvmsmart.rv_adapter.BindingViewHolder;
 import com.wzq.mvvmsmart.rv_adapter.SingleTypeAdapter;
-import com.wzq.mvvmsmart.utils.KLog;
 import com.wzq.mvvmsmart.utils.MaterialDialogUtils;
 import com.wzq.mvvmsmart.utils.ToastUtils;
 import com.wzq.sample.R;
@@ -30,9 +30,9 @@ import com.wzq.sample.entity.DemoBean;
 
 import java.util.List;
 
-
 /**
  * 网络请求列表界面
+ * https://www.oschina.net/action/apiv2/banner?catalog=1
  */
 
 public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWorkViewModel> {
@@ -73,12 +73,12 @@ public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWor
         binding.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.setAdapter(singleTypeAdapter);
 
-        MutableLiveData<List<DemoBean.Student>> liveData = viewModel.getLiveData();
-        liveData.observe(this, listBeans -> {
-            ToastUtils.showShort("livedata数据改变监听,"+listBeans.size());
-            KLog.e("livedata数据改变,listBeans.size()::"+listBeans.size());
-            singleTypeAdapter.addAll(listBeans);
+        MutableLiveData<List<DemoBean.ItemsEntity>> liveData = viewModel.getLiveData();
+        liveData.observe(this, itemsEntities -> {
+            Log.e("","livedata数据改变,listBeans.size()::"+itemsEntities.size());
+            singleTypeAdapter.addAll(itemsEntities);
         });
+
     }
 
     @Override
@@ -126,7 +126,7 @@ public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWor
 
 
     public class DemoAdapterPresenter implements BaseViewAdapter.Presenter {
-        public void onItemClick(DemoBean.Student student) {
+        public void onItemClick(DemoBean.ItemsEntity student) {
             ToastUtils.showShort(student.getName());
         }
 

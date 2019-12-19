@@ -49,10 +49,10 @@ public class HttpDataSourceImpl implements HttpDataSource {
             @Override
             public void subscribe(ObservableEmitter<DemoBean> observableEmitter) throws Exception {
                 DemoBean entity = new DemoBean();
-                List<DemoBean.Student> students = new ArrayList<>();
+                List<DemoBean.ItemsEntity> students = new ArrayList<>();
                 //模拟一部分假数据
                 for (int i = 0; i < 10; i++) {
-                    DemoBean.Student student = new DemoBean.Student();
+                    DemoBean.ItemsEntity student = new DemoBean.ItemsEntity();
                     student.setId(-1);
                     student.setName("模拟条目");
                     students.add(student);

@@ -9,13 +9,13 @@ import com.wzq.mvvmsmart.base.BaseViewModel;
 import com.wzq.sample.entity.DemoBean;
 
 public class DetailViewModel extends BaseViewModel {
-    public ObservableField<DemoBean.Student> entity = new ObservableField<>();
+    public ObservableField<DemoBean.ItemsEntity> entity = new ObservableField<>();
 
     public DetailViewModel(@NonNull Application application) {
         super(application);
     }
 
-    public void setDemoEntity(DemoBean.Student entity) {
+    public void setDemoEntity(DemoBean.ItemsEntity entity) {
         this.entity.set(entity);
     }
 

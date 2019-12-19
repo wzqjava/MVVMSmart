@@ -25,14 +25,14 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 
 public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
-    private final MutableLiveData<List<DemoBean.Student>> liveData;
+    private final MutableLiveData<List<DemoBean.ItemsEntity>> liveData;
     public SingleLiveEvent<NetWorkItemViewModel> deleteItemLiveData = new SingleLiveEvent<>();
     public NetWorkViewModel(@NonNull Application application, DemoRepository repository) {
         super(application, repository);
         liveData = new MutableLiveData<>();
-        liveData.setValue(new ArrayList<DemoBean.Student>());
+        liveData.setValue(new ArrayList<DemoBean.ItemsEntity>());
     }
-    public MutableLiveData<List<DemoBean.Student>> getLiveData() {
+    public MutableLiveData<List<DemoBean.ItemsEntity>> getLiveData() {
         return liveData;
     }
 
@@ -76,10 +76,10 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
                     .subscribe(new Consumer<DemoBean>() {
                         @Override
                         public void accept(DemoBean demoBean) throws Exception {
-                            for (DemoBean.Student student : demoBean.getItems()) {
+                            for (DemoBean.ItemsEntity itemsEntity : demoBean.getItems()) {
 //                                NetWorkItemViewModel itemViewModel = new NetWorkItemViewModel(NetWorkViewModel.this, student);
                                 //双向绑定动态添加Item
-                                liveData.getValue().add(student);
+                                liveData.getValue().add(itemsEntity);
                             }
                             //刷新完成收回
                             uc.finishLoadmore.call();
@@ -107,13 +107,15 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
                 .subscribe(new Consumer<BaseResponse<DemoBean>>() {
                     @Override
                     public void accept(BaseResponse<DemoBean> response) throws Exception {
+                        ToastUtils.showShort("请求成功");
                         //清除列表
                         liveData.getValue().clear();
                         //请求成功
                         if (response.getCode() == 1) {
-                            List<DemoBean.Student> students = response.getResult().getItems();
-                            KLog.e("请求到数据students.size"+students.size());
-                            liveData.getValue().addAll(students);
+                            ToastUtils.showShort("服务器返回数据");
+                            List<DemoBean.ItemsEntity> itemsEntities = response.getResult().getItems();
+                            KLog.e("请求到数据students.size"+itemsEntities.size());
+                            liveData.setValue(itemsEntities);
                         } else {
                             //code错误时也可以定义Observable回调到View层去处理
                             ToastUtils.showShort("数据错误");
@@ -133,6 +135,7 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
                 }, new Action() {
                     @Override
                     public void run() throws Exception {
+                        ToastUtils.showShort("throws Exception ");
                         //关闭对话框
                         dismissDialog();
                         //请求刷新完成收回
@@ -143,7 +146,6 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
 
     /**
      * 删除条目
-     *
      * @param netWorkItemViewModel
      */
     public void deleteItem(NetWorkItemViewModel netWorkItemViewModel) {

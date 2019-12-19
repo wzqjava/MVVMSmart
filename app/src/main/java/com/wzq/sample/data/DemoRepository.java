@@ -17,7 +17,6 @@ import io.reactivex.Observable;
 public class DemoRepository extends BaseModel implements HttpDataSource, LocalDataSource {
     private volatile static DemoRepository INSTANCE = null;
     private final HttpDataSource mHttpDataSource;
-
     private final LocalDataSource mLocalDataSource;
 
     private DemoRepository(@NonNull HttpDataSource httpDataSource,
