@@ -6,7 +6,7 @@ import androidx.annotation.VisibleForTesting;
 import com.wzq.mvvmsmart.base.BaseModel;
 import com.wzq.sample.data.source.HttpDataSource;
 import com.wzq.sample.data.source.LocalDataSource;
-import com.wzq.sample.entity.DemoEntity;
+import com.wzq.sample.entity.DemoBean;
 import com.wzq.mvvmsmart.http.BaseResponse;
 
 import io.reactivex.Observable;
@@ -17,7 +17,6 @@ import io.reactivex.Observable;
 public class DemoRepository extends BaseModel implements HttpDataSource, LocalDataSource {
     private volatile static DemoRepository INSTANCE = null;
     private final HttpDataSource mHttpDataSource;
-
     private final LocalDataSource mLocalDataSource;
 
     private DemoRepository(@NonNull HttpDataSource httpDataSource,
@@ -51,17 +50,17 @@ public class DemoRepository extends BaseModel implements HttpDataSource, LocalDa
     }
 
     @Override
-    public Observable<DemoEntity> loadMore() {
+    public Observable<DemoBean> loadMore() {
         return mHttpDataSource.loadMore();
     }
 
     @Override
-    public Observable<BaseResponse<DemoEntity>> demoGet() {
+    public Observable<BaseResponse<DemoBean>> demoGet() {
         return mHttpDataSource.demoGet();
     }
 
     @Override
-    public Observable<BaseResponse<DemoEntity>> demoPost(String catalog) {
+    public Observable<BaseResponse<DemoBean>> demoPost(String catalog) {
         return mHttpDataSource.demoPost(catalog);
     }
 

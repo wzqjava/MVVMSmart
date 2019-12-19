@@ -2,10 +2,9 @@ package com.wzq.sample.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import java.util.List;
 
-public class DemoEntity {
+public class DemoBean{
     private String nextPageToken;
     private String prevPageToken;
     private int requestCount;
@@ -61,7 +60,7 @@ public class DemoEntity {
         this.items = items;
     }
 
-    public static class ItemsEntity implements Parcelable {
+    public static class ItemsEntity implements Parcelable{
         private String detail;
         private String href;
         private int id;

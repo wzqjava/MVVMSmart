@@ -33,21 +33,19 @@ ext {
             "rxjava"                  : "io.reactivex.rxjava2:rxjava:2.2.3",
             "rxandroid"               : "io.reactivex.rxjava2:rxandroid:2.1.0",
             //glide图片加载
-            "glide"                        : "com.github.bumptech.glide:glide:4.9.0",
-            "glide-compiler"               : "com.github.bumptech.glide:compiler:4.9.0",
-            "glide-transformations"        : "jp.wasabeef:glide-transformations:4.1.0",
+            "glide"                   : "com.github.bumptech.glide:glide:4.9.0",
+            "glide-compiler"          : "com.github.bumptech.glide:compiler:4.9.0",
             //json解析
             "gson"                    : "com.google.code.gson:gson:2.8.5",
 
             //Google AAC
             "lifecycle-extensions"    : "android.arch.lifecycle:extensions:1.1.1",
             "lifecycle-compiler"      : "android.arch.lifecycle:compiler:1.1.1",
-            "smartRefreshLayout"           : 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0',
-            "liveEventBus"                 : 'com.jeremyliao:live-event-bus-x:1.5.7',
-            "MMKV"                         : "com.tencent:mmkv:1.0.17",
+            "smartRefreshLayout"      : 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0',
+            "liveEventBus"            : 'com.jeremyliao:live-event-bus-x:1.5.7',
             //material-dialogs
-            "material-dialogs-core"                : "com.afollestad.material-dialogs:core:0.9.4.5",
-            "material-dialogs-commons"             : "com.afollestad.material-dialogs:commons:0.9.4.5",
+            "material-dialogs-core"   : "com.afollestad.material-dialogs:core:0.9.4.5",
+            "material-dialogs-commons": "com.afollestad.material-dialogs:commons:0.9.4.5",
             //MVVMSmart
             "MVVMSmart"               : "com.github.wzqjava:MVVMSmart:1.0.0",
 

@@ -6,16 +6,16 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 
 import com.wzq.mvvmsmart.base.BaseViewModel;
-import com.wzq.sample.entity.DemoEntity;
+import com.wzq.sample.entity.DemoBean;
 
 public class DetailViewModel extends BaseViewModel {
-    public ObservableField<DemoEntity.ItemsEntity> entity = new ObservableField<>();
+    public ObservableField<DemoBean.ItemsEntity> entity = new ObservableField<>();
 
     public DetailViewModel(@NonNull Application application) {
         super(application);
     }
 
-    public void setDemoEntity(DemoEntity.ItemsEntity entity) {
+    public void setDemoEntity(DemoBean.ItemsEntity entity) {
         this.entity.set(entity);
     }
 

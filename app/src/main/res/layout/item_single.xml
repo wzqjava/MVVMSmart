@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.wzq.sample.entity.Bean1" />
+            type="com.wzq.sample.entity.DemoBean.ItemsEntity" />
         <variable
             name="presenter"
             type="com.wzq.sample.ui.network.NetWorkFragment.DemoAdapterPresenter" />
@@ -22,22 +22,21 @@
         android:weightSum="2">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:gravity="center"
             tools:text="wzq"
             android:textSize="28sp"
             android:text="@{item.name}" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textSize="28sp"
-            android:text="@{String.valueOf(item.age)}"
-            tools:text="100" />
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:gravity="center"-->
+<!--            android:textSize="28sp"-->
+<!--            android:text="@{String.valueOf(item.id)}"-->
+<!--            tools:text="99" />-->
 
     </LinearLayout>
 </layout>
