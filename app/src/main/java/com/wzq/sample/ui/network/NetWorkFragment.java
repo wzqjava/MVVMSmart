@@ -33,6 +33,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 /**
  * 网络请求列表界面
  * https://www.oschina.net/action/apiv2/banner?catalog=1
+ * test
  */
 
 public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWorkViewModel> {
