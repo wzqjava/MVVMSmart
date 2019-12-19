@@ -5,13 +5,13 @@ import android.os.Parcelable;
 
 import java.util.List;
 
-public class DemoEntity {
+public class DemoBean {
     private String nextPageToken;
     private String prevPageToken;
     private int requestCount;
     private int responseCount;
     private int totalResults;
-    private List<ItemsEntity> items;
+    private List<Student> items;
 
     public String getNextPageToken() {
         return nextPageToken;
@@ -53,15 +53,15 @@ public class DemoEntity {
         this.totalResults = totalResults;
     }
 
-    public List<ItemsEntity> getItems() {
+    public List<Student> getItems() {
         return items;
     }
 
-    public void setItems(List<ItemsEntity> items) {
+    public void setItems(List<Student> items) {
         this.items = items;
     }
 
-    public static class ItemsEntity implements Parcelable {
+    public static class Student implements Parcelable {
         private String detail;
         private String href;
         private int id;
@@ -142,10 +142,10 @@ public class DemoEntity {
             dest.writeInt(this.type);
         }
 
-        public ItemsEntity() {
+        public Student() {
         }
 
-        protected ItemsEntity(Parcel in) {
+        protected Student(Parcel in) {
             this.detail = in.readString();
             this.href = in.readString();
             this.id = in.readInt();
@@ -155,15 +155,15 @@ public class DemoEntity {
             this.type = in.readInt();
         }
 
-        public static final Creator<ItemsEntity> CREATOR = new Creator<ItemsEntity>() {
+        public static final Creator<Student> CREATOR = new Creator<Student>() {
             @Override
-            public ItemsEntity createFromParcel(Parcel source) {
-                return new ItemsEntity(source);
+            public Student createFromParcel(Parcel source) {
+                return new Student(source);
             }
 
             @Override
-            public ItemsEntity[] newArray(int size) {
-                return new ItemsEntity[size];
+            public Student[] newArray(int size) {
+                return new Student[size];
             }
         };
     }

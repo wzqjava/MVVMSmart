@@ -6,9 +6,9 @@ import android.os.Bundle;
 import com.wzq.mvvmsmart.base.BaseActivity;
 import com.wzq.mvvmsmart.base.BaseViewModel;
 import com.wzq.sample.R;
-import com.wzq.sample.databinding.ActivityDemoTempBinding;
+import com.wzq.sample.databinding.ActivityDemoBinding;
 
-public class DemoActivity extends BaseActivity<ActivityDemoTempBinding, BaseViewModel> {
+public class DemoActivity extends BaseActivity<ActivityDemoBinding, BaseViewModel> {
     @Override
     public void initParam() {
         super.initParam();
@@ -17,7 +17,7 @@ public class DemoActivity extends BaseActivity<ActivityDemoTempBinding, BaseView
 
     @Override
     public int initContentView(Bundle savedInstanceState) {
-        return R.layout.activity_demo_temp;
+        return R.layout.activity_demo;
     }
 
     @Override

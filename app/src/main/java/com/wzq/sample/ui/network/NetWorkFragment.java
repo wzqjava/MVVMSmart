@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,15 +19,16 @@ import com.wzq.mvvmsmart.base.BaseFragment;
 import com.wzq.mvvmsmart.rv_adapter.BaseViewAdapter;
 import com.wzq.mvvmsmart.rv_adapter.BindingViewHolder;
 import com.wzq.mvvmsmart.rv_adapter.SingleTypeAdapter;
+import com.wzq.mvvmsmart.utils.KLog;
 import com.wzq.mvvmsmart.utils.MaterialDialogUtils;
 import com.wzq.mvvmsmart.utils.ToastUtils;
 import com.wzq.sample.R;
 import com.wzq.sample.app.AppViewModelFactory;
 import com.wzq.sample.databinding.FragmentNetworkBinding;
-import com.wzq.sample.entity.Bean1;
 import com.wzq.sample.entity.Bean2;
+import com.wzq.sample.entity.DemoBean;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -34,7 +36,6 @@ import java.util.ArrayList;
  */
 
 public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWorkViewModel> {
-    private static final ArrayList<Bean1> list1 = new ArrayList<>();
     @Override
     public void initParam() {
         super.initParam();
@@ -60,16 +61,24 @@ public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWor
 
     @Override
     public void initData() {
-        initMData();
-        SingleTypeAdapter singleTypeAdapter = new SingleTypeAdapter(getActivity(), R.layout.item1);
+        viewModel.requestNetWork();        //请求网络数据
+        initRecyclerView();
+    }
+
+    private void initRecyclerView() {
+        SingleTypeAdapter singleTypeAdapter = new SingleTypeAdapter(getActivity(), R.layout.item_single);
         binding.setAdapter(singleTypeAdapter);
         singleTypeAdapter.setDecorator(new DemoAdapterDecorator());
         singleTypeAdapter.setPresenter(new DemoAdapterPresenter());
         binding.setLayoutManager(new LinearLayoutManager(getActivity()));
-        singleTypeAdapter.addAll(list1);
         binding.setAdapter(singleTypeAdapter);
-        //请求网络数据
-//        viewModel.requestNetWork();
+
+        MutableLiveData<List<DemoBean.Student>> liveData = viewModel.getLiveData();
+        liveData.observe(this, listBeans -> {
+            ToastUtils.showShort("livedata数据改变监听,"+listBeans.size());
+            KLog.e("livedata数据改变,listBeans.size()::"+listBeans.size());
+            singleTypeAdapter.addAll(listBeans);
+        });
     }
 
     @Override
@@ -80,7 +89,9 @@ public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWor
             @Override
             public void onChanged(@Nullable Object o) {
                 //结束刷新
-//                binding.refreshLayout.finishRefreshing();
+
+                binding.refreshLayout.finishRefresh();
+
             }
         });
         //监听上拉加载完成
@@ -88,7 +99,7 @@ public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWor
             @Override
             public void onChanged(@Nullable Object o) {
                 //结束刷新
-//                binding.refreshLayout.finishLoadmore();
+                binding.refreshLayout.finishLoadMore();
             }
         });
         //监听删除条目
@@ -115,12 +126,12 @@ public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWor
 
 
     public class DemoAdapterPresenter implements BaseViewAdapter.Presenter {
-        public void onItemClick(Bean1 model) {
-            ToastUtils.showShort( model.name);
+        public void onItemClick(DemoBean.Student student) {
+            ToastUtils.showShort(student.getName());
         }
 
         public void onItemClick(Bean2 model) {
-            Toast.makeText(getActivity(),  model.name, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), model.name, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -130,19 +141,5 @@ public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWor
         public void decorator(BindingViewHolder holder, int position, int viewType) {
             // you may do something according to position or view type
         }
-    }
-
-
-    public void initMData() {
-        Bean1 model0 = new Bean1("wzq0", 100);
-        Bean1 model1 = new Bean1("wzq1", 100);
-        Bean1 model2 = new Bean1("wzq2", 100);
-        Bean1 model3 = new Bean1("wzq3", 100);
-        Bean1 model4 = new Bean1("wzq4", 100);
-        list1.add(model0);
-        list1.add(model1);
-        list1.add(model2);
-        list1.add(model3);
-        list1.add(model4);
     }
 }

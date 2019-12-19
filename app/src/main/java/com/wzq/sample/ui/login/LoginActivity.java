@@ -12,18 +12,18 @@ import androidx.lifecycle.ViewModelProviders;
 import com.wzq.mvvmsmart.base.BaseActivity;
 import com.wzq.sample.R;
 import com.wzq.sample.app.AppViewModelFactory;
-import com.wzq.sample.databinding.ActivityLoginTempBinding;
+import com.wzq.sample.databinding.ActivityLoginBinding;
 
 
 /**
  * 一个MVVM模式的登陆界面
  * 登录按钮的点击事件在viewmode中,
  */
-public class LoginActivity extends BaseActivity<ActivityLoginTempBinding, LoginViewModel> {
+public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewModel> {
     //ActivityLoginBinding类是databinding框架自动生成的,对应activity_login.xml
     @Override
     public int initContentView(Bundle savedInstanceState) {
-        return R.layout.activity_login_temp;
+        return R.layout.activity_login;
     }
 
     // 给当前LoginActivity设置viewmodel,布局文件中的variable的name为viewModel;

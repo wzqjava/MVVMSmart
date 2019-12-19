@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.wzq.sample.entity.Bean1" />
+            type="com.wzq.sample.entity.DemoBean.Student" />
         <variable
             name="presenter"
             type="com.wzq.sample.ui.network.NetWorkFragment.DemoAdapterPresenter" />
@@ -36,8 +36,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textSize="28sp"
-            android:text="@{String.valueOf(item.age)}"
-            tools:text="100" />
+            android:text="@{String.valueOf(item.id)}"
+            tools:text="99" />
 
     </LinearLayout>
 </layout>
