@@ -2,17 +2,9 @@ package com.wzq.sample.ui.network;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -20,6 +12,7 @@ import com.wzq.mvvmsmart.base.BaseFragment;
 import com.wzq.mvvmsmart.rv_adapter.BaseViewAdapter;
 import com.wzq.mvvmsmart.rv_adapter.BindingViewHolder;
 import com.wzq.mvvmsmart.rv_adapter.SingleTypeAdapter;
+import com.wzq.mvvmsmart.utils.KLog;
 import com.wzq.mvvmsmart.utils.MaterialDialogUtils;
 import com.wzq.mvvmsmart.utils.ToastUtils;
 import com.wzq.sample.R;
@@ -29,6 +22,13 @@ import com.wzq.sample.entity.Bean2;
 import com.wzq.sample.entity.DemoBean;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 /**
  * 网络请求列表界面
@@ -75,8 +75,8 @@ public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWor
 
         MutableLiveData<List<DemoBean.ItemsEntity>> liveData = viewModel.getLiveData();
         liveData.observe(this, itemsEntities -> {
-            Log.e("","livedata数据改变,listBeans.size()::"+itemsEntities.size());
-            singleTypeAdapter.addAll(itemsEntities);
+            KLog.i("NetWorkFragment","livedata数据改变,listBeans.size()::"+itemsEntities.size());
+            singleTypeAdapter.set(itemsEntities);
         });
 
     }
