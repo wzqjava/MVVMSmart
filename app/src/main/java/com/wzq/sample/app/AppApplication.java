@@ -11,9 +11,10 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.squareup.leakcanary.LeakCanary;
 import com.wzq.mvvmsmart.base.BaseApplication;
 import com.wzq.mvvmsmart.crash.CaocConfig;
+import com.wzq.mvvmsmart.utils.KLog;
+import com.wzq.sample.BuildConfig;
 import com.wzq.sample.R;
 import com.wzq.sample.ui.login.LoginActivity;
 
@@ -23,13 +24,14 @@ public class AppApplication extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         //是否开启打印日志
-//        KLog.init(BuildConfig.DEBUG);
+        KLog.init(BuildConfig.DEBUG);
         //初始化全局异常崩溃
         initCrash();
         //内存泄漏检测
-        if (!LeakCanary.isInAnalyzerProcess(this)) {
+        // TODO: wzq 2019/12/20 navigation的泄露需要查看
+       /* if (!LeakCanary.isInAnalyzerProcess(this)) {
             LeakCanary.install(this);
-        }
+        }*/
     }
 
     private void initCrash() {

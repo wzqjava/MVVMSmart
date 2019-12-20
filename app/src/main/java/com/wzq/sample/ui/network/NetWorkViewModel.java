@@ -2,6 +2,9 @@ package com.wzq.sample.ui.network;
 
 import android.app.Application;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
+
 import com.wzq.mvvmsmart.base.BaseViewModel;
 import com.wzq.mvvmsmart.binding.command.BindingAction;
 import com.wzq.mvvmsmart.binding.command.BindingCommand;
@@ -17,8 +20,6 @@ import com.wzq.sample.entity.DemoBean;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.MutableLiveData;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
@@ -43,9 +44,9 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
 
     public class UIChangeObservable {
         //下拉刷新完成
-        public SingleLiveEvent<Object> finishRefreshing = new SingleLiveEvent<>();
+        public SingleLiveEvent<Object> finishRefreshing = new SingleLiveEvent<Object>();
         //上拉加载完成
-        public SingleLiveEvent finishLoadmore = new SingleLiveEvent<>();
+        public SingleLiveEvent<Object> finishLoadMore = new SingleLiveEvent<Object>();
     }
 
 
@@ -63,7 +64,7 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
         public void call() {
             if (liveData.getValue().size() > 50) {
                 ToastUtils.showLong("兄dei，崩是不可能的~");
-                uc.finishLoadmore.call();
+                uc.finishLoadMore.call();
                 return;
             }
             //模拟网络上拉加载更多
@@ -83,7 +84,7 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
                             liveData.setValue(arrayList);
                             ToastUtils.showShort(""+liveData.getValue().size());
                             //刷新完成收回
-                            uc.finishLoadmore.call();
+                            uc.finishLoadMore.call();
                         }
                     });
         }

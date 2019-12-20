@@ -6,6 +6,13 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.wzq.mvvmsmart.base.BaseFragment;
@@ -23,19 +30,15 @@ import com.wzq.sample.entity.DemoBean;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 /**
+ * 王志强 2019/12/20
  * 网络请求列表界面
  * https://www.oschina.net/action/apiv2/banner?catalog=1
- * test
+ *
+ * 分页
+ * 网络返回状态封装,livedata事件儿包装器
+ * GithubBrowserSample  (NetworkBoundResource), Google AAC 架构中的加载网络or DB的策略
  */
-
 public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWorkViewModel> {
     @Override
     public void initParam() {
@@ -76,7 +79,7 @@ public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWor
 
         MutableLiveData<List<DemoBean.ItemsEntity>> liveData = viewModel.getLiveData();
         liveData.observe(this, itemsEntities -> {
-            KLog.i("NetWorkFragment","livedata数据改变,listBeans.size()::"+itemsEntities.size());
+            KLog.i("NetWorkFragment", "livedata数据改变,listBeans.size()::" + itemsEntities.size());
             singleTypeAdapter.set(itemsEntities);
         });
 
@@ -86,21 +89,17 @@ public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWor
     public void initViewObservable() {
 
         //监听下拉刷新完成
-        viewModel.uc.finishRefreshing.observe(this, new Observer() {
+        viewModel.uc.finishRefreshing.observe(NetWorkFragment.this, new Observer<Object>() {
             @Override
             public void onChanged(@Nullable Object o) {
-                //结束刷新
-
-                binding.refreshLayout.finishRefresh();
-
+                binding.refreshLayout.finishRefresh();    //结束刷新
             }
         });
         //监听上拉加载完成
-        viewModel.uc.finishLoadmore.observe(this, new Observer() {
+        viewModel.uc.finishLoadMore.observe(NetWorkFragment.this, new Observer<Object>() {
             @Override
             public void onChanged(@Nullable Object o) {
-                //结束刷新
-                binding.refreshLayout.finishLoadMore();
+                binding.refreshLayout.finishLoadMore();   //结束刷新
             }
         });
         //监听删除条目
