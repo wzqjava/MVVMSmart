@@ -22,7 +22,6 @@ public class BaseViewModel<M extends BaseModel> extends AndroidViewModel impleme
     private UIChangeLiveData uc;
     //管理RxJava，主要针对RxJava异步操作造成的内存泄漏
     private CompositeDisposable mCompositeDisposable;
-
     public BaseViewModel(@NonNull Application application) {
         this(application, null);
     }
@@ -49,17 +48,7 @@ public class BaseViewModel<M extends BaseModel> extends AndroidViewModel impleme
         return uc;
     }
 
-    public void showDialog() {
-        showDialog("请稍后...");
-    }
 
-    public void showDialog(String title) {
-        uc.showDialogEvent.postValue(title);
-    }
-
-    public void dismissDialog() {
-        uc.dismissDialogEvent.call();
-    }
 
     /**
      * 跳转页面
@@ -156,19 +145,9 @@ public class BaseViewModel<M extends BaseModel> extends AndroidViewModel impleme
     }
 
     public final class UIChangeLiveData extends SingleLiveEvent {
-        private SingleLiveEvent<String> showDialogEvent;
-        private SingleLiveEvent<Void> dismissDialogEvent;
         private SingleLiveEvent<Map<String, Object>> startActivityEvent;
         private SingleLiveEvent<Void> finishEvent;
         private SingleLiveEvent<Void> onBackPressedEvent;
-
-        public SingleLiveEvent<String> getShowDialogEvent() {
-            return showDialogEvent = createLiveData(showDialogEvent);
-        }
-
-        public SingleLiveEvent<Void> getDismissDialogEvent() {
-            return dismissDialogEvent = createLiveData(dismissDialogEvent);
-        }
 
         public SingleLiveEvent<Map<String, Object>> getStartActivityEvent() {
             return startActivityEvent = createLiveData(startActivityEvent);

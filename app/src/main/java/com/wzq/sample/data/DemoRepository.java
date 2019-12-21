@@ -55,8 +55,8 @@ public class DemoRepository extends BaseModel implements HttpDataSource, LocalDa
     }
 
     @Override
-    public Observable<BaseResponse<DemoBean>> demoGet() {
-        return mHttpDataSource.demoGet();
+    public Observable<BaseResponse<DemoBean>> demoGet(int pageNum) {
+        return mHttpDataSource.demoGet(pageNum);
     }
 
     @Override

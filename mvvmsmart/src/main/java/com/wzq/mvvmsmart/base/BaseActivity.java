@@ -100,20 +100,6 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
      **/
     //注册ViewModel与View的契约UI回调事件
     protected void registorUIChangeLiveDataCallBack() {
-        //加载对话框显示
-        viewModel.getUC().getShowDialogEvent().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String title) {
-                showDialog(title);
-            }
-        });
-        //加载对话框消失
-        viewModel.getUC().getDismissDialogEvent().observe(this, new Observer<Void>() {
-            @Override
-            public void onChanged(@Nullable Void v) {
-                dismissDialog();
-            }
-        });
         //跳入新页面
         viewModel.getUC().getStartActivityEvent().observe(this, new Observer<Map<String, Object>>() {
             @Override
@@ -140,7 +126,7 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
         });
     }
 
-    public void showDialog(String title) {
+    public void showLoading(String title) {
         if (dialog != null) {
             dialog = dialog.getBuilder().title(title).build();
             dialog.show();
@@ -150,7 +136,7 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
         }
     }
 
-    public void dismissDialog() {
+    public void dismissLoading() {
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
