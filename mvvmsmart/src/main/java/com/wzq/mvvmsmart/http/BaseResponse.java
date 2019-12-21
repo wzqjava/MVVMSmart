@@ -8,6 +8,10 @@ public class BaseResponse<T> {
     private String message;
     private T result;
 
+    public boolean isOk() {
+        return code == 0;
+    }
+
     public int getCode() {
         return code;
     }
@@ -22,10 +26,6 @@ public class BaseResponse<T> {
 
     public void setResult(T result) {
         this.result = result;
-    }
-
-    public boolean isOk() {
-        return code == 0;
     }
 
     public String getMessage() {

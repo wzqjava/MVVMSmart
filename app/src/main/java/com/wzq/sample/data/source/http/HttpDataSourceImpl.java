@@ -64,8 +64,8 @@ public class HttpDataSourceImpl implements HttpDataSource {
     }
 
     @Override
-    public Observable<BaseResponse<DemoBean>> demoGet() {
-        return apiService.demoGet();
+    public Observable<BaseResponse<DemoBean>> demoGet(int pageNum) {
+        return apiService.demoGet(pageNum);
     }
 
     @Override

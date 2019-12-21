@@ -14,7 +14,7 @@ public interface HttpDataSource {
     //模拟上拉加载
     Observable<DemoBean> loadMore();
 
-    Observable<BaseResponse<DemoBean>> demoGet();
+    Observable<BaseResponse<DemoBean>> demoGet(int pageNum);
 
     Observable<BaseResponse<DemoBean>> demoPost(String catalog);
 

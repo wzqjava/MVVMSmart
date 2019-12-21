@@ -10,6 +10,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.wzq.mvvmsmart.base.BaseActivity;
+import com.wzq.mvvmsmart.event.StateLiveData;
+import com.wzq.mvvmsmart.utils.KLog;
 import com.wzq.sample.R;
 import com.wzq.sample.app.AppViewModelFactory;
 import com.wzq.sample.databinding.ActivityLoginBinding;
@@ -56,6 +58,28 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
 
     @Override
     public void initViewObservable() {
+        /**
+         * 每个界面默认页效果不同
+         * 在这里可以动态替换 无网络页,数据错误页, 无数据默认页;
+         */
+        viewModel.stateLiveData.state
+                .observe(this, new Observer<StateLiveData.State>() {
+                    @Override
+                    public void onChanged(StateLiveData.State state) {
+                        if (state.equals(StateLiveData.State.Loading)) {
+                            KLog.e("请求数据中--显示loading");
+                            showLoading("请求数据中...");
+                        }
+                        if (state.equals(StateLiveData.State.Success)) {
+                            KLog.e("数据获取成功--关闭loading");
+                            dismissLoading();
+                        }
+                        if (state.equals(StateLiveData.State.Idle)) {
+                            KLog.e("空闲状态--关闭loading");
+                            dismissLoading();
+                        }
+                    }
+                });
         //监听ViewModel中pSwitchObservable的变化, 当ViewModel中执行【uc.pSwitchObservable.set(!uc.pSwitchObservable.get());】时会回调该方法
         viewModel.uc.pSwitchEvent.observe(this, new Observer<Boolean>() {
             @Override

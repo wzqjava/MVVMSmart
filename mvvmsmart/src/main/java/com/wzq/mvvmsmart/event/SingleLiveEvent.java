@@ -36,6 +36,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * explicit call to setValue() or call().
  * <p>
  * Note that only one observer is going to be notified of changes.
+ * SingleLiveEvent 的问题在于它仅限于一个观察者
+ * SingleLiveEvent 类是为了适用于特定场景的解决方法。这是一个只会发送一次更新的 LiveData。
  */
 public class SingleLiveEvent<T> extends MutableLiveData<T> {
 

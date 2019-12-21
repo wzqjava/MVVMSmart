@@ -2,14 +2,12 @@ package com.wzq.sample.ui.network;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,9 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.wzq.mvvmsmart.base.BaseFragment;
+import com.wzq.mvvmsmart.event.StateLiveData;
 import com.wzq.mvvmsmart.rv_adapter.BaseViewAdapter;
 import com.wzq.mvvmsmart.rv_adapter.BindingViewHolder;
 import com.wzq.mvvmsmart.rv_adapter.SingleTypeAdapter;
+import com.wzq.mvvmsmart.utils.KLog;
 import com.wzq.mvvmsmart.utils.MaterialDialogUtils;
 import com.wzq.mvvmsmart.utils.ToastUtils;
 import com.wzq.sample.R;
@@ -28,14 +28,17 @@ import com.wzq.sample.databinding.FragmentNetworkBinding;
 import com.wzq.sample.entity.Bean2;
 import com.wzq.sample.entity.DemoBean;
 
-import java.util.List;
-
 /**
- * 网络请求列表界面
- * https://www.oschina.net/action/apiv2/banner?catalog=1
+ * 王志强 2019/12/20
+ * 截止2019年12月21日累计投入时间:45小时
+ * 本项目接口地址:  https://www.oschina.net/action/apiv2/banner?catalog=1
+ * 去除黄色警告
+ * GithubBrowserSample  (NetworkBoundResource), Google AAC 架构中的加载网络or DB的策略
  */
-
 public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWorkViewModel> {
+
+    private SingleTypeAdapter singleTypeAdapter;
+
     @Override
     public void initParam() {
         super.initParam();
@@ -66,40 +69,56 @@ public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWor
     }
 
     private void initRecyclerView() {
-        SingleTypeAdapter singleTypeAdapter = new SingleTypeAdapter(getActivity(), R.layout.item_single);
+        singleTypeAdapter = new SingleTypeAdapter(getActivity(), R.layout.item_single);
         binding.setAdapter(singleTypeAdapter);
         singleTypeAdapter.setDecorator(new DemoAdapterDecorator());
         singleTypeAdapter.setPresenter(new DemoAdapterPresenter());
         binding.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.setAdapter(singleTypeAdapter);
-
-        MutableLiveData<List<DemoBean.ItemsEntity>> liveData = viewModel.getLiveData();
-        liveData.observe(this, itemsEntities -> {
-            Log.e("","livedata数据改变,listBeans.size()::"+itemsEntities.size());
-            singleTypeAdapter.addAll(itemsEntities);
-        });
-
     }
 
     @Override
     public void initViewObservable() {
+        viewModel.stateLiveData.observe(this, itemsEntities -> {
+            KLog.e("mLiveData的listBeans.size():" + itemsEntities.size());
+            singleTypeAdapter.set(itemsEntities);
+        });
+
+        /**
+         * 每个界面默认页效果不同
+         * 在这里可以动态替换 无网络页,数据错误页, 无数据默认页;
+         */
+        viewModel.stateLiveData.state
+                .observe(this, new Observer<StateLiveData.State>() {
+                    @Override
+                    public void onChanged(StateLiveData.State state) {
+                        if (state.equals(StateLiveData.State.Loading)) {
+                            KLog.e("请求数据中--显示loading");
+                            showLoading("请求数据中...");
+                        }
+                        if (state.equals(StateLiveData.State.Success)) {
+                            KLog.e("数据获取成功--关闭loading");
+                            dismissLoading();
+                        }
+                        if (state.equals(StateLiveData.State.Idle)) {
+                            KLog.e("空闲状态--关闭loading");
+                            dismissLoading();
+                        }
+                    }
+                });
 
         //监听下拉刷新完成
-        viewModel.uc.finishRefreshing.observe(this, new Observer() {
+        viewModel.uc.finishRefreshing.observe(NetWorkFragment.this, new Observer<Object>() {
             @Override
             public void onChanged(@Nullable Object o) {
-                //结束刷新
-
-                binding.refreshLayout.finishRefresh();
-
+                binding.refreshLayout.finishRefresh();    //结束刷新
             }
         });
         //监听上拉加载完成
-        viewModel.uc.finishLoadmore.observe(this, new Observer() {
+        viewModel.uc.finishLoadMore.observe(NetWorkFragment.this, new Observer<Object>() {
             @Override
             public void onChanged(@Nullable Object o) {
-                //结束刷新
-                binding.refreshLayout.finishLoadMore();
+                binding.refreshLayout.finishLoadMore();   //结束刷新
             }
         });
         //监听删除条目
