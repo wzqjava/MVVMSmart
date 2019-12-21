@@ -5,19 +5,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
-import androidx.navigation.fragment.NavHostFragment;
-
 import com.wzq.mvvmsmart.base.BaseFragment;
 import com.wzq.mvvmsmart.http.DownLoadManager;
 import com.wzq.mvvmsmart.http.download.ProgressCallBack;
+import com.wzq.mvvmsmart.utils.KLog;
 import com.wzq.mvvmsmart.utils.ToastUtils;
 import com.wzq.sample.R;
 import com.wzq.sample.databinding.FragmentHomeBinding;
 import com.wzq.sample.entity.FormEntity;
 import com.wzq.sample.ui.tab_bar.activity.TabBarActivity;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
+import androidx.navigation.fragment.NavHostFragment;
 import okhttp3.ResponseBody;
 
 
@@ -41,7 +41,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     @Override
     public void initViewObservable() {
-
         //注册监听相机权限的请求
         viewModel.requestCameraPermissions.observe(this, new Observer<Boolean>() {
             @Override
@@ -49,6 +48,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                 requestCameraPermissions();
             }
         });
+
         //注册文件下载的监听
         viewModel.loadUrlEvent.observe(this, new Observer<String>() {
             @Override
@@ -160,31 +160,32 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     private void downFile(String url) {
         String destFileDir = getActivity().getApplication().getCacheDir().getPath();
+        KLog.e("destFileDir--" + destFileDir);
         String destFileName = System.currentTimeMillis() + ".apk";
-        //todo 目前是app上下文,
-        final ProgressDialog progressDialog = new ProgressDialog(getActivity().getApplication());
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setTitle("正在下载...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        DownLoadManager.getInstance().load(url, new ProgressCallBack<ResponseBody>(destFileDir, destFileName) {
+        /**
+         * ProgressCallBack构造方法中，LiveEventBus监听进度改变，调用ProgressCallBack的progress方法设置进度
+         */
+        DownLoadManager.getInstance().load(url, new ProgressCallBack<ResponseBody>(HomeFragment.this, destFileDir, destFileName) {
             @Override
             public void onStart() {
                 super.onStart();
-            }
-
-            @Override
-            public void onCompleted() {
-                progressDialog.dismiss();
+                KLog.e("下载--onStart");
             }
 
             @Override
             public void onSuccess(ResponseBody responseBody) {
+                KLog.e("下载--onSuccess");
                 ToastUtils.showShort("文件下载完成！");
             }
 
             @Override
             public void progress(final long progress, final long total) {
+                KLog.e("下载--progress");
                 progressDialog.setMax((int) total);
                 progressDialog.setProgress((int) progress);
             }
@@ -194,6 +195,12 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                 e.printStackTrace();
                 ToastUtils.showShort("文件下载失败！");
                 progressDialog.dismiss();
+            }
+
+            @Override
+            public void onCompleted() {
+                progressDialog.dismiss();
+                KLog.e("下载--onCompleted");
             }
         });
     }

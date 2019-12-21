@@ -62,6 +62,7 @@ public class DownLoadManager {
 
     private void buildNetWork() {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                //  添加下载拦截器，里面用ProgressResponseBody拦截下载进度信息，在里面的source方法中发送进度改变事件儿
                 .addInterceptor(new ProgressInterceptor())
                 .connectTimeout(20, TimeUnit.SECONDS)
                 .build();
