@@ -2,13 +2,17 @@ package com.wzq.mvvmsmart.http.download;
 
 import android.util.Log;
 
+import com.jeremyliao.liveeventbus.LiveEventBus;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import io.reactivex.disposables.Disposable;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import okhttp3.ResponseBody;
 
 
@@ -16,12 +20,11 @@ public abstract class ProgressCallBack<T> {
 
     private String destFileDir; // 本地文件存放路径
     private String destFileName; // 文件名
-    private Disposable mSubscription;
 
-    public ProgressCallBack(String destFileDir, String destFileName) {
+    public ProgressCallBack(LifecycleOwner lifecycleOwner, String destFileDir, String destFileName) {
         this.destFileDir = destFileDir;
         this.destFileName = destFileName;
-        subscribeLoadProgress();
+        subscribeLoadProgress(lifecycleOwner);
     }
 
     public abstract void onSuccess(T t);
@@ -53,8 +56,6 @@ public abstract class ProgressCallBack<T> {
                 fos.write(buf, 0, len);
             }
             fos.flush();
-//            unsubscribe();    todo 文件下载的调整;
-            //onCompleted();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -71,18 +72,18 @@ public abstract class ProgressCallBack<T> {
 
     /**
      * 订阅加载的进度条
+     *
+     * @param lifecycleOwner
      */
-    public void subscribeLoadProgress() {
-//        mSubscription = RxBus.getDefault().toObservable(DownLoadStateBean.class)
-//                .observeOn(AndroidSchedulers.mainThread()) //回调到主线程更新UI
-//                .subscribe(new Consumer<DownLoadStateBean>() {
-//                    @Override
-//                    public void accept(final DownLoadStateBean progressLoadBean) throws Exception {
-//                        progress(progressLoadBean.getBytesLoaded(), progressLoadBean.getTotal());
-//                    }
-//                });
-//        //将订阅者加入管理站
-//        RxSubscriptions.add(mSubscription);
+    public void subscribeLoadProgress(LifecycleOwner lifecycleOwner) {
+        LiveEventBus
+                .get("key_name", DownLoadStateBean.class)
+                .observe(lifecycleOwner, new Observer<DownLoadStateBean>() {
+                    @Override
+                    public void onChanged(@Nullable DownLoadStateBean progressLoadBean) {
+                        progress(progressLoadBean.getBytesLoaded(), progressLoadBean.getTotal());
+                    }
+                });
     }
 
 

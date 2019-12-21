@@ -5,12 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.wzq.mvvmsmart.base.BaseFragment;
@@ -26,12 +20,15 @@ import com.wzq.sample.app.AppViewModelFactory;
 import com.wzq.sample.databinding.FragmentNetworkBinding;
 import com.wzq.sample.entity.DemoBean;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 /**
  * 王志强 2019/12/20
- * 截止2019年12月21日累计投入时间:45小时
- * 本项目接口地址:  https://www.oschina.net/action/apiv2/banner?catalog=1
- * 去除黄色警告
- * GithubBrowserSample  (NetworkBoundResource), Google AAC 架构中的加载网络or DB的策略
+ * RecyclerView + 请求网络数据 +分页 + StateLiveData控制加载状态（开始加载，加载失败，加载成功，数据解析错误）
  */
 public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWorkViewModel> {
 
