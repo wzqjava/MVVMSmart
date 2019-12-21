@@ -1,10 +1,13 @@
 package com.wzq.sample.ui.main;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wzq.mvvmsmart.base.BaseFragment;
 import com.wzq.mvvmsmart.http.DownLoadManager;
 import com.wzq.mvvmsmart.http.download.ProgressCallBack;
@@ -18,6 +21,7 @@ import com.wzq.sample.ui.tab_bar.activity.TabBarActivity;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.navigation.fragment.NavHostFragment;
+import io.reactivex.functions.Consumer;
 import okhttp3.ResponseBody;
 
 /**
@@ -150,11 +154,11 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     /**
      * 请求相机权限
      */
+    @SuppressLint("CheckResult")
     private void requestCameraPermissions() {
-        // TODO: wzq 2019/12/17  依赖冲突,暂时注释
         ToastUtils.showShort("请求相机权限");
         //请求打开相机权限
-       /* RxPermissions rxPermissions = new RxPermissions(DemoActivity.this);
+        RxPermissions rxPermissions = new RxPermissions(getActivity());
         rxPermissions.request(Manifest.permission.CAMERA)
                 .subscribe(new Consumer<Boolean>() {
                     @Override
@@ -165,7 +169,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                             ToastUtils.showShort("权限被拒绝");
                         }
                     }
-                });*/
+                });
     }
 
     private void downFile(String url) {
