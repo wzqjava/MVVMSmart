@@ -20,7 +20,15 @@ import androidx.lifecycle.Observer;
 import androidx.navigation.fragment.NavHostFragment;
 import okhttp3.ResponseBody;
 
-
+/**
+ * 截止2019年12月21日累计投入时间:45小时
+ * 本项目接口地址:  https://www.oschina.net/action/apiv2/banner?catalog=1
+ * 权限申请
+ * 多布局
+ * 去除黄色警告
+ * http拦截器
+ * GithubBrowserSample  (NetworkBoundResource), Google AAC 架构中的加载网络or DB的策略
+ */
 public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewModel> {
 
     @Override
@@ -85,7 +93,9 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         //ViewPager绑定
         public void viewPagerBindingClick() {
             ToastUtils.showShort("点击跳转viewpager");
-//            startActivity(ViewPagerActivity.class);
+            NavHostFragment
+                    .findNavController(HomeFragment.this)
+                    .navigate(R.id.action_homeFragment_to_viewPagerGroupFragment);
         }
 
         //ViewPager+Fragment
