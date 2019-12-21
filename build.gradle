@@ -2,6 +2,7 @@
 apply from: "config.gradle"
 buildscript {
     repositories {
+        maven { url 'https://jitpack.io' }
         //  google仓库的maven地址,要放在google()的上边,不要更改顺序,让无法翻墙的程序员快速下载依赖
         maven { url "https://dl.google.com/dl/android/maven2/" }
         google()
@@ -18,6 +19,7 @@ buildscript {
 
 allprojects {
     repositories {
+        maven { url 'https://jitpack.io' }
         maven { url "https://dl.google.com/dl/android/maven2/" }
         google()
         jcenter()

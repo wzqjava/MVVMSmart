@@ -62,7 +62,7 @@ dependencies {
     api rootProject.ext.dependencies["material-dialogs-commons"]
 
     //rx 6.0权限请求
-//    api rootProject.ext.dependencies["rxpermissions"]
+    api rootProject.ext.dependencies["rxpermissions"]
     //rxjava
     api rootProject.ext.dependencies.rxjava
     api rootProject.ext.dependencies.rxandroid
