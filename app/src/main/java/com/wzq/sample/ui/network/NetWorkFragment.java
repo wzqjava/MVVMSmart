@@ -4,7 +4,6 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,7 +24,6 @@ import com.wzq.mvvmsmart.utils.ToastUtils;
 import com.wzq.sample.R;
 import com.wzq.sample.app.AppViewModelFactory;
 import com.wzq.sample.databinding.FragmentNetworkBinding;
-import com.wzq.sample.entity.Bean2;
 import com.wzq.sample.entity.DemoBean;
 
 /**
@@ -145,12 +143,12 @@ public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWor
 
 
     public class DemoAdapterPresenter implements BaseViewAdapter.Presenter {
-        public void onItemClick(DemoBean.ItemsEntity student) {
-            ToastUtils.showShort(student.getName());
+        public void onItemClick(DemoBean.ItemsEntity itemsEntity) {
+            ToastUtils.showShort(itemsEntity.getName());
         }
 
-        public void onItemClick(Bean2 model) {
-            Toast.makeText(getActivity(), model.name, Toast.LENGTH_SHORT).show();
+        public void onItemLongClick(DemoBean.ItemsEntity itemsEntity) {
+            ToastUtils.showShort(itemsEntity.getName());
         }
     }
 
