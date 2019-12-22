@@ -15,12 +15,15 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:background="#202020"
         android:orientation="vertical">
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:onClick="@{()->presenter.netWorkClick()}"
             android:text="网络访问" />
 

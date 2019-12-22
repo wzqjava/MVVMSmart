@@ -3,7 +3,7 @@ package com.wzq.sample.data.source.http;
 
 import com.wzq.sample.data.source.HttpDataSource;
 import com.wzq.sample.data.source.http.service.DemoApiService;
-import com.wzq.sample.entity.DemoBean;
+import com.wzq.sample.bean.DemoBean;
 import com.wzq.mvvmsmart.http.BaseResponse;
 
 import java.util.ArrayList;

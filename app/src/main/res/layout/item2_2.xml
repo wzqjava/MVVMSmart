@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.wzq.sample.entity.Bean2" />
+            type="com.wzq.sample.bean.Bean2" />
 
         <variable
             name="presenter"
@@ -25,7 +25,7 @@
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:paddingRight="25dp"
-            app:url="@{item.avatarUrl}" />
+            app:imgUrl="@{item.avatarUrl}" />
 
         <TextView
             android:layout_width="wrap_content"

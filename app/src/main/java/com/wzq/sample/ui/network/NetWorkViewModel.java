@@ -2,8 +2,6 @@ package com.wzq.sample.ui.network;
 
 import android.app.Application;
 
-import androidx.annotation.NonNull;
-
 import com.wzq.mvvmsmart.base.BaseViewModel;
 import com.wzq.mvvmsmart.binding.command.BindingAction;
 import com.wzq.mvvmsmart.binding.command.BindingCommand;
@@ -14,12 +12,13 @@ import com.wzq.mvvmsmart.http.ResponseThrowable;
 import com.wzq.mvvmsmart.utils.KLog;
 import com.wzq.mvvmsmart.utils.RxUtils;
 import com.wzq.mvvmsmart.utils.ToastUtils;
+import com.wzq.sample.bean.DemoBean;
 import com.wzq.sample.data.DemoRepository;
-import com.wzq.sample.entity.DemoBean;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 

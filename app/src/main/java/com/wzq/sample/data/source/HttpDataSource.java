@@ -1,7 +1,7 @@
 package com.wzq.sample.data.source;
 
 
-import com.wzq.sample.entity.DemoBean;
+import com.wzq.sample.bean.DemoBean;
 import com.wzq.mvvmsmart.http.BaseResponse;
 
 import io.reactivex.Observable;

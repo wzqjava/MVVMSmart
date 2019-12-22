@@ -3,16 +3,16 @@ package com.wzq.sample.ui.network;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.databinding.ObservableField;
-
 import com.wzq.mvvmsmart.base.ItemViewModel;
 import com.wzq.mvvmsmart.binding.command.BindingAction;
 import com.wzq.mvvmsmart.binding.command.BindingCommand;
 import com.wzq.mvvmsmart.utils.ToastUtils;
 import com.wzq.sample.R;
-import com.wzq.sample.entity.DemoBean;
+import com.wzq.sample.bean.DemoBean;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.databinding.ObservableField;
 
 public class NetWorkItemViewModel extends ItemViewModel<NetWorkViewModel> {
     public ObservableField<DemoBean.ItemsEntity> entity = new ObservableField<>();

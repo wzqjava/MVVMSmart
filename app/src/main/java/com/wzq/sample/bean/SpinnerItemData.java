@@ -1,4 +1,4 @@
-package com.wzq.sample.entity;
+package com.wzq.sample.bean;
 
 import com.wzq.mvvmsmart.binding.viewadapter.spinner.IKeyAndValue;
 

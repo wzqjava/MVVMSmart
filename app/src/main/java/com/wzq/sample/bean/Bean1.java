@@ -13,15 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wzq.sample.entity;
+package com.wzq.sample.bean;
 
-public class Bean2 extends Bean1 {
-    public String avatarUrl;
-    public String position;
+import androidx.databinding.BaseObservable;
 
-    public Bean2(String name, int age, String avatarUrl, String position) {
-        super(name, age);
-        this.avatarUrl = avatarUrl;
-        this.position = position;
+public class Bean1 extends BaseObservable {
+
+    public String name;
+    public int age;
+
+    public Bean1(String name, int age) {
+        this.name = name;
+        this.age = age;
     }
 }

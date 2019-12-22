@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import com.wzq.mvvmsmart.base.BaseFragment;
 import com.wzq.sample.R;
 import com.wzq.sample.databinding.FragmentDetailBinding;
-import com.wzq.sample.entity.DemoBean;
+import com.wzq.sample.bean.DemoBean;
 
 
 /**
