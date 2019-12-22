@@ -2,7 +2,7 @@ package com.wzq.sample.data.source.http.service;
 
 
 import com.wzq.mvvmsmart.http.BaseResponse;
-import com.wzq.sample.entity.DemoBean;
+import com.wzq.sample.bean.DemoBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;

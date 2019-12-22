@@ -14,8 +14,8 @@ import com.wzq.mvvmsmart.rv_adapter.BindingViewHolder;
 import com.wzq.mvvmsmart.rv_adapter.MultiTypeAdapter;
 import com.wzq.sample.R;
 import com.wzq.sample.databinding.FragmentMultiRvBinding;
-import com.wzq.sample.entity.Bean1;
-import com.wzq.sample.entity.Bean2;
+import com.wzq.sample.bean.Bean1;
+import com.wzq.sample.bean.Bean2;
 
 import java.util.ArrayList;
 import java.util.Collections;

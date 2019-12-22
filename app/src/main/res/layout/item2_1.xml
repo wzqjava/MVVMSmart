@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.wzq.sample.entity.Bean1" />
+            type="com.wzq.sample.bean.Bean1" />
         <variable
             name="presenter"
             type="com.wzq.sample.ui.rv_multi.MultiRecycleViewFragment.DemoAdapterPresenter" />

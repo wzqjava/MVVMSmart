@@ -15,7 +15,7 @@ import com.wzq.mvvmsmart.base.BaseFragment;
 import com.wzq.mvvmsmart.utils.MaterialDialogUtils;
 import com.wzq.sample.R;
 import com.wzq.sample.databinding.FragmentFormTempBinding;
-import com.wzq.sample.entity.FormEntity;
+import com.wzq.sample.bean.FormEntity;
 
 import java.util.Calendar;
 

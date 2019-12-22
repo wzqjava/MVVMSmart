@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 
 import com.wzq.mvvmsmart.base.BaseViewModel;
-import com.wzq.sample.entity.DemoBean;
+import com.wzq.sample.bean.DemoBean;
 
 public class DetailViewModel extends BaseViewModel {
     public ObservableField<DemoBean.ItemsEntity> entity = new ObservableField<>();

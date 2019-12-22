@@ -1,14 +1,13 @@
 package com.wzq.sample.data;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.VisibleForTesting;
-
 import com.wzq.mvvmsmart.base.BaseModel;
+import com.wzq.mvvmsmart.http.BaseResponse;
+import com.wzq.sample.bean.DemoBean;
 import com.wzq.sample.data.source.HttpDataSource;
 import com.wzq.sample.data.source.LocalDataSource;
-import com.wzq.sample.entity.DemoBean;
-import com.wzq.mvvmsmart.http.BaseResponse;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import io.reactivex.Observable;
 
 /**
