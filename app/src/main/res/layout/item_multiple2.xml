@@ -12,7 +12,7 @@
 
         <variable
             name="presenter"
-            type="com.wzq.sample.ui.network.NetWorkFragment.DemoAdapterPresenter" />
+            type="com.wzq.sample.ui.rv_multi.MultiRecycleViewFragment.DemoAdapterPresenter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +21,6 @@
         android:layout_height="wrap_content"
         android:foreground="?selectableItemBackground"
         android:onClick="@{() -> presenter.onItemClick(item)}">
-
 
 
         <ImageView
@@ -40,22 +39,22 @@
             app:round="@{20}"
             tools:srcCompat="@tools:sample/avatars" />
 
-        <TextView
+        <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="@{item.name}"
-            android:textSize="24sp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/contentDescription"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="眼睛多才能看的更清楚,形式胜于蛮力" />
+            tools:srcCompat="@tools:sample/avatars"
+            app:imgUrl="@{item.img}"
+            app:placeholderRes="@mipmap/ic_launcher"
+            app:round="@{20}"/>
 
         <Button
             android:id="@+id/button"
@@ -63,8 +62,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:text="Button"
             android:onClick="@{() -> presenter.onViewClick(item)}"
+            android:text="Button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

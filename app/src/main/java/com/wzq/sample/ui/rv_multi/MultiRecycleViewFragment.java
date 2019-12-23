@@ -5,18 +5,20 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.wzq.mvvmsmart.base.BaseFragment;
 import com.wzq.mvvmsmart.rv_adapter.BaseViewAdapter;
 import com.wzq.mvvmsmart.rv_adapter.BindingViewHolder;
 import com.wzq.mvvmsmart.rv_adapter.MultiTypeAdapter;
+import com.wzq.mvvmsmart.utils.ToastUtils;
 import com.wzq.sample.R;
 import com.wzq.sample.bean.DemoBean;
 import com.wzq.sample.databinding.FragmentMultiRvBinding;
+import com.wzq.sample.utils.TestUtils;
 
 import java.util.ArrayList;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 
 /**
@@ -46,8 +48,8 @@ public class MultiRecycleViewFragment extends BaseFragment<FragmentMultiRvBindin
         getData();
         mMultiTypeAdapter = new MultiTypeAdapter(getActivity());
         mMultiTypeAdapter.setPresenter(new DemoAdapterPresenter());
-        mMultiTypeAdapter.addViewTypeToLayoutMap(VIEW_TYPE_ONE, R.layout.item_single);
-        mMultiTypeAdapter.addViewTypeToLayoutMap(VIEW_TYPE_TWO, R.layout.item_multiple);
+        mMultiTypeAdapter.addViewTypeToLayoutMap(VIEW_TYPE_ONE, R.layout.item_multiple1);
+        mMultiTypeAdapter.addViewTypeToLayoutMap(VIEW_TYPE_TWO, R.layout.item_multiple2);
         binding.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         mMultiTypeAdapter.addAll(list, new MultiTypeAdapter.MultiViewTyper() {
@@ -69,7 +71,7 @@ public class MultiRecycleViewFragment extends BaseFragment<FragmentMultiRvBindin
 
     private void getData() {
         for (int i = 0; i < 50; i++) {
-            list.add(new DemoBean.ItemsEntity(i, "MVVMSmart", ""));
+            list.add(new DemoBean.ItemsEntity(i, "MVVMSmart", TestUtils.GetGirlImgUrl()));
         }
     }
 
@@ -82,6 +84,11 @@ public class MultiRecycleViewFragment extends BaseFragment<FragmentMultiRvBindin
         public void onItemLongClick(DemoBean.ItemsEntity itemsEntity) {
             Toast.makeText(getActivity(), "itemsEntity " + itemsEntity.getName(), Toast.LENGTH_SHORT).show();
         }
+
+        public void onViewClick(DemoBean.ItemsEntity itemsEntity) {
+            ToastUtils.showShort("点击了button按钮");
+        }
+
     }
 
     public class DemoAdapterDecorator implements BaseViewAdapter.Decorator {

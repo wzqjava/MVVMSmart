@@ -5,12 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.wzq.mvvmsmart.base.BaseFragment;
@@ -28,6 +22,12 @@ import com.wzq.sample.databinding.FragmentNetworkBinding;
 import com.wzq.sample.utils.TestUtils;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 /**
  * 王志强 2019/12/20
@@ -79,7 +79,7 @@ public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWor
     public void initViewObservable() {
         viewModel.stateLiveData.observe(this, itemsEntities -> {
             KLog.e("mLiveData的listBeans.size():" + itemsEntities.size());
-            setButifualGirlImg(itemsEntities);
+            setBeautifulGirlImg(itemsEntities);
             singleTypeAdapter.set(itemsEntities);
         });
 
@@ -142,7 +142,7 @@ public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWor
         });
     }
 
-    private void setButifualGirlImg(List<DemoBean.ItemsEntity> itemsEntities) {
+    private void setBeautifulGirlImg(List<DemoBean.ItemsEntity> itemsEntities) {
         for (DemoBean.ItemsEntity itemsEntity : itemsEntities) {
             itemsEntity.setImg(TestUtils.GetGirlImgUrl());
         }
