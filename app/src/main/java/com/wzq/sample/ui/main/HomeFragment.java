@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
+import androidx.navigation.fragment.NavHostFragment;
+
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wzq.mvvmsmart.base.BaseFragment;
 import com.wzq.mvvmsmart.http.DownLoadManager;
@@ -14,25 +18,16 @@ import com.wzq.mvvmsmart.http.download.ProgressCallBack;
 import com.wzq.mvvmsmart.utils.KLog;
 import com.wzq.mvvmsmart.utils.ToastUtils;
 import com.wzq.sample.R;
-import com.wzq.sample.databinding.FragmentHomeBinding;
 import com.wzq.sample.bean.FormEntity;
+import com.wzq.sample.databinding.FragmentHomeBinding;
 import com.wzq.sample.ui.tab_bar.activity.TabBarActivity;
 
-import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
-import androidx.navigation.fragment.NavHostFragment;
 import io.reactivex.functions.Consumer;
 import okhttp3.ResponseBody;
 
 /**
  * 截止2019年12月21日累计投入时间:45小时
  * 本项目接口地址:  https://www.oschina.net/action/apiv2/banner?catalog=1
- * 条目美观+sunflower
- * 多布局
- * 华为手机下载失败
- * 去除黄色警告
- * http拦截器
- * GithubBrowserSample  (NetworkBoundResource), Google AAC 架构中的加载网络or DB的策略
  */
 public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewModel> {
 
