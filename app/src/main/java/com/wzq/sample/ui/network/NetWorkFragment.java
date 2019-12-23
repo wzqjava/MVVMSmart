@@ -5,6 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.wzq.mvvmsmart.base.BaseFragment;
@@ -17,17 +23,10 @@ import com.wzq.mvvmsmart.utils.MaterialDialogUtils;
 import com.wzq.mvvmsmart.utils.ToastUtils;
 import com.wzq.sample.R;
 import com.wzq.sample.app.AppViewModelFactory;
-import com.wzq.sample.databinding.FragmentNetworkBinding;
 import com.wzq.sample.bean.DemoBean;
+import com.wzq.sample.databinding.FragmentNetworkBinding;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 /**
  * 王志强 2019/12/20
@@ -171,6 +170,9 @@ public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWor
 
         public void onItemLongClick(DemoBean.ItemsEntity itemsEntity) {
             ToastUtils.showShort(itemsEntity.getName());
+        }
+        public void onViewClick(DemoBean.ItemsEntity itemsEntity) {
+            ToastUtils.showShort("点击了button按钮");
         }
     }
 
