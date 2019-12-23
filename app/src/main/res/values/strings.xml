@@ -1,8 +1,16 @@
 <resources>
     <string name="app_name">MVVMSmart-sample</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="contentDescription">这是图片</string>
-    <string name="text_tip">眼睛多才能看的更清楚</string>
+    <string name="contentDescription">contentDescription</string>
+    <string name="text_tip">Situations trump brute force</string>
+    <string name="net_single_cell">net_single_cell</string>
+    <string name="net_multiple_cell">net_multiple_cell</string>
+    <string name="bottom_tab">bottom_tab</string>
+    <string name="viewpager_command">ViewPager_command</string>
+    <string name="form_submit">form_submit</string>
+    <string name="form_edit">form_edit</string>
+    <string name="get_permission">get_permission</string>
+    <string name="catch_all_crush">catch_all_crush</string>
+    <string name="download_file">download_file</string>
+    <string name="viewpager_fragment">viewpager_fragment</string>
 </resources>

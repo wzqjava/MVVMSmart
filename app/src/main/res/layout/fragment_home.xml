@@ -25,60 +25,60 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:onClick="@{()->presenter.netWorkClick()}"
-            android:text="网络访问" />
+            android:text="@string/net_single_cell" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{() -> presenter.rvMultiClick()}"
-            android:text="RecycleView多布局" />
+            android:text="@string/net_multiple_cell" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{() -> presenter.startTabBarClick()}"
-            android:text="底部Tab按钮" />
+            android:text="@string/bottom_tab" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{() -> presenter.viewPagerBindingClick()}"
-            android:text="ViewPager绑定" />
+            android:text="@string/viewpager_command" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{() -> presenter.viewPagerGroupBindingClick()}"
-            android:text="ViewPager+Fragment" />
+            android:text="@string/viewpager_fragment" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="表单提交"
+            android:text="@string/form_submit"
             android:onClick="@{() -> presenter.formSbmClick()}" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="表单编辑"
+            android:text="@string/form_edit"
             android:onClick="@{() -> presenter.formModifyClick()}" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="权限申请"
+            android:text="@string/get_permission"
             android:onClick="@{() -> presenter.permissionsClick()}" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="全局异常捕获"
+            android:text="@string/catch_all_crush"
             android:onClick="@{() -> presenter.exceptionClick()}" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="文件下载"
+            android:text="@string/download_file"
             android:onClick="@{() -> presenter.fileDownLoadClick()}" />
     </LinearLayout>
 </layout>
