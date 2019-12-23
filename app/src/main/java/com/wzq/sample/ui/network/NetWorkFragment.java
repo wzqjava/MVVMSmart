@@ -25,6 +25,7 @@ import com.wzq.sample.R;
 import com.wzq.sample.app.AppViewModelFactory;
 import com.wzq.sample.bean.DemoBean;
 import com.wzq.sample.databinding.FragmentNetworkBinding;
+import com.wzq.sample.utils.TestUtils;
 
 import java.util.List;
 
@@ -142,26 +143,10 @@ public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWor
     }
 
     private void setButifualGirlImg(List<DemoBean.ItemsEntity> itemsEntities) {
-
-        String[] girlImgs = new String[]{
-                "http://ww1.sinaimg.cn/large/0065oQSqly1g2pquqlp0nj30n00yiq8u.jpg",
-                "https://ww1.sinaimg.cn/large/0065oQSqly1g2hekfwnd7j30sg0x4djy.jpg",
-                "https://ws1.sinaimg.cn/large/0065oQSqly1g0ajj4h6ndj30sg11xdmj.jpg",
-                "https://ws1.sinaimg.cn/large/0065oQSqly1fytdr77urlj30sg10najf.jpg",
-                "https://ws1.sinaimg.cn/large/0065oQSqly1fymj13tnjmj30r60zf79k.jpg",
-                "https://ws1.sinaimg.cn/large/0065oQSqgy1fy58bi1wlgj30sg10hguu.jpg",
-                "https://ws1.sinaimg.cn/large/0065oQSqgy1fxno2dvxusj30sf10nqcm.jpg",
-                "https://ws1.sinaimg.cn/large/0065oQSqgy1fxd7vcz86nj30qo0ybqc1.jpg",
-                "https://ws1.sinaimg.cn/large/0065oQSqgy1fwyf0wr8hhj30ie0nhq6p.jpg",
-                "https://ws1.sinaimg.cn/large/0065oQSqgy1fwgzx8n1syj30sg15h7ew.jpg"
-        };
-
         for (DemoBean.ItemsEntity itemsEntity : itemsEntities) {
-            int index = (int) (Math.random() * girlImgs.length);
-            itemsEntity.setImg(girlImgs[index]);
+            itemsEntity.setImg(TestUtils.GetGirlImgUrl());
         }
     }
-
 
     public class DemoAdapterPresenter implements BaseViewAdapter.Presenter {
         public void onItemClick(DemoBean.ItemsEntity itemsEntity) {

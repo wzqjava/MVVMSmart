@@ -69,6 +69,12 @@ public class DemoBean{
         private String pubDate;
         private int type;
 
+        public ItemsEntity(int id, String name, String img) {
+            this.id = id;
+            this.img = img;
+            this.name = name;
+        }
+
         public String getDetail() {
             return detail;
         }
