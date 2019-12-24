@@ -5,6 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.wzq.mvvmsmart.base.BaseFragment;
@@ -22,12 +28,6 @@ import com.wzq.sample.databinding.FragmentNetworkBinding;
 import com.wzq.sample.utils.TestUtils;
 
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 /**
  * 王志强 2019/12/20
@@ -120,26 +120,7 @@ public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWor
                 binding.refreshLayout.finishLoadMore();   //结束刷新
             }
         });
-        //监听删除条目
-        viewModel.deleteItemLiveData.observe(this, new Observer<NetWorkItemViewModel>() {
-            @Override
-            public void onChanged(@Nullable final NetWorkItemViewModel netWorkItemViewModel) {
-                int index = viewModel.getItemPosition(netWorkItemViewModel);
-                //删除选择对话框
-                MaterialDialogUtils.showBasicDialog(getContext(), "提示", "是否删除【" + netWorkItemViewModel.entity.get().getName() + "】？ position：" + index)
-                        .onNegative(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                ToastUtils.showShort("取消");
-                            }
-                        }).onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        viewModel.deleteItem(netWorkItemViewModel);
-                    }
-                }).show();
-            }
-        });
+
     }
 
     private void setBeautifulGirlImg(List<DemoBean.ItemsEntity> itemsEntities) {
@@ -156,8 +137,22 @@ public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWor
         public void onItemLongClick(DemoBean.ItemsEntity itemsEntity) {
             ToastUtils.showShort(itemsEntity.getName());
         }
+
         public void onViewClick(DemoBean.ItemsEntity itemsEntity) {
-            ToastUtils.showShort("点击了button按钮");
+            int index = viewModel.getItemPosition(itemsEntity);
+            //删除选择对话框
+            MaterialDialogUtils.showBasicDialog(getContext(), "提示", "是否删除【" + itemsEntity.getName() + "】？ position：" + index)
+                    .onNegative(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            ToastUtils.showShort("取消");
+                        }
+                    }).onPositive(new MaterialDialog.SingleButtonCallback() {
+                @Override
+                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                    viewModel.deleteItem(itemsEntity);
+                }
+            }).show();
         }
     }
 
