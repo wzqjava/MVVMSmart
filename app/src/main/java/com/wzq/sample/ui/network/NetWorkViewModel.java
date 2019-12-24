@@ -177,7 +177,7 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
         KLog.e("调用了删除");
         KLog.e("size" + stateLiveData.getValue().size());
         stateLiveData.getValue().remove(itemsEntity);
-        stateLiveData.setValue(stateLiveData.getValue());
+//        stateLiveData.setValue(stateLiveData.getValue());
         KLog.e("size" + stateLiveData.getValue().size());
 
     }

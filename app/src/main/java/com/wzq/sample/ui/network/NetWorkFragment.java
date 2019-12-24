@@ -36,7 +36,6 @@ import java.util.List;
 public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWorkViewModel> {
 
     private SingleTypeAdapter singleTypeAdapter;
-
     @Override
     public void initParam() {
         super.initParam();
@@ -151,6 +150,8 @@ public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWor
                 @Override
                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                     viewModel.deleteItem(itemsEntity);
+                    singleTypeAdapter.remove(index);
+                    singleTypeAdapter.notifyItemRemoved(index);
                 }
             }).show();
         }
