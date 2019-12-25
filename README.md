@@ -3,14 +3,14 @@
 **v3.0.7：2019年1月25日**
 
 - init提交
-  sapmple,beta8版本,sample中的内存泄露处理中,不影响使用
-  重构封装recyclerview的实现方式,支持使用命令实现条目下拉刷新、上拉加载、条目内按钮点击事件
-  添加LiveEventBus
-  封装带状态的LiveData, 让recyclerviewview在加载中、加载错误、没有更多数据的时候,能够方便回调到UI层(这是Android开发使用MVVM的重中之重)
-  sample中添加smartRefreshLayout
-  添加navigation
-  本项目的sample中高级的进阶使用
-  mvvmSmart目前已经商用,有专门的测试组测试,公司项目组会持续跟进
+  1. sapmple,beta8版本,sample中的内存泄露处理中,不影响使用
+  2. 重构封装recyclerview的实现方式,支持使用命令实现条目下拉刷新、上拉加载、条目内按钮点击事件
+  3. 添加LiveEventBus
+  4. 封装带状态的LiveData, 让recyclerviewview在加载中、加载错误、没有更多数据的时候,能够方便回调到UI层(这是Android开发使用MVVM的重中之重)
+  5. sample中添加smartRefreshLayout
+  6. 添加navigation
+  7. 本项目的sample中高级的进阶使用
+  8. mvvmSmart目前已经商用,有专门的测试组测试,公司项目组会持续跟进
   
 ##
 目前，android流行的MVC、MVP模式的开发框架很多，然而一款基于MVVM模式开发框架却很少。**MVVMSmart是以谷歌DataBinding+LiveData+ViewModel框架为基础，整合Okhttp+RxJava+Retrofit+Glide等流行模块，加上各种原生控件自定义的BindingAdapter，让事件与数据源完美绑定的一款容易上瘾的实用性MVVM快速开发框架**。从此告别findViewById()，告别setText()，告别setOnClickListener()...
@@ -147,8 +147,8 @@ CaocConfig.Builder.create()
 <layout>
     <data>
         <variable
-            type="com.goldze.mvvmhabit.ui.login.LoginViewModel"
             name="viewModel"
+            type="com.wzq.sample.ui.login.LoginViewModel"
         />
     </data>
     .....
@@ -253,7 +253,7 @@ android:onClick="@{viewModel.loginOnClick}"
 
 这就是强大的databinding框架双向绑定的特性，不用再给控件定义id，setText()，setOnClickListener()。
 
-**但是，光有这些，完全满足不了我们复杂业务的需求啊！MVVMHabit闪亮登场：它有一套自定义的绑定规则，可以满足大部分的场景需求，请继续往下看。**
+**但是，光有这些，完全满足不了我们复杂业务的需求啊！MVVMSmart闪亮登场：它有一套自定义的绑定规则，可以满足大部分的场景需求，请继续往下看。**
 
 ##### 2.2.2、自定义绑定
 还拿点击事件说吧，不用传统的绑定方式，使用自定义的点击事件绑定。
@@ -282,41 +282,7 @@ binding:isThrottleFirst="@{Boolean.TRUE}"
 ```
 那这功能是在哪里做的呢？答案在下面的代码中。
 ```java
-//防重复点击间隔(秒)
-public static final int CLICK_INTERVAL = 1;
 
-/**
-* requireAll 是意思是是否需要绑定全部参数, false为否
-* View的onClick事件绑定
-* onClickCommand 绑定的命令,
-* isThrottleFirst 是否开启防止过快点击
-*/
-@BindingAdapter(value = {"onClickCommand", "isThrottleFirst"}, requireAll = false)
-public static void onClickCommand(View view, final BindingCommand clickCommand, final boolean isThrottleFirst) {
-    if (isThrottleFirst) {
-        RxView.clicks(view)
-        .subscribe(new Consumer<Object>() {
-            @Override
-            public void accept(Object object) throws Exception {
-                if (clickCommand != null) {
-                    clickCommand.execute();
-                }
-            }
-        });
-    } else {
-        RxView.clicks(view)
-        .throttleFirst(CLICK_INTERVAL, TimeUnit.SECONDS)//1秒钟内只允许点击1次
-        .subscribe(new Consumer<Object>() {
-            @Override
-            public void accept(Object object) throws Exception {
-                if (clickCommand != null) {
-                    clickCommand.execute();
-                }
-            }
-        });
-    }
-}
-```
 onClickCommand方法是自定义的，使用@BindingAdapter注解来标明这是一个绑定方法。在方法中使用了RxView来增强view的clicks事件，.throttleFirst()限制订阅者在指定的时间内重复执行，最后通过BindingCommand将事件回调出去，就好比有一种拦截器，在点击时先做一下判断，然后再把事件沿着他原有的方向传递。
 
 是不是觉得有点意思，好戏还在后头呢！
@@ -337,7 +303,7 @@ url是图片路径，这样绑定后，这个ImageView就会去显示这张图�
 ```xml
 binding:placeholderRes="@{R.mipmap.ic_launcher_round}"
 ```
-> R文件需要在data标签中导入使用，如：`<import type="com.goldze.mvvmhabit.R" />`
+> R文件需要在data标签中导入使用，如：`<import type=com.wzq.mvvmsmart.R" />`
 
 BindingAdapter中的实现
 ```java
@@ -369,13 +335,13 @@ ObservableList<>和ItemBinding<>的泛型是Item布局所对应的ItemViewModel
 
 在xml中绑定
 ```xml
-<android.support.v7.widget.RecyclerView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    binding:itemBinding="@{viewModel.itemBinding}"
-    binding:items="@{viewModel.observableList}"
-    binding:layoutManager="@{LayoutManagers.linear()}"
-    binding:lineManager="@{LineManagers.horizontal()}" />
+ <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:adapter="@{adapter}"
+                app:layoutManager="@{layoutManager}"
+                tools:listitem="@layout/item_single"
+                />
 ```
 layoutManager控制是线性(包含水平和垂直)排列还是网格排列，lineManager是设置分割线
 
@@ -384,9 +350,15 @@ layoutManager控制是线性(包含水平和垂直)排列还是网格排列，li
 
 使用到相关类，则需要导入该类才能使用，和导入Java类相似
 
-> `<import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />`</br>
-> `<import type="me.goldze.mvvmhabit.binding.viewadapter.recyclerview.LineManagers" />`</br>
-> `<import type="android.support.v7.widget.LinearLayoutManager" />`
+> ` <variable
+            name="layoutManager"
+            type="androidx.recyclerview.widget.RecyclerView.LayoutManager" />`</br>
+> `<variable
+            name="viewModel"
+            type="com.wzq.sample.ui.network.NetWorkViewModel" />`</br>
+> `<variable
+            name="adapter"
+            type="com.wzq.mvvmsmart.rv_adapter.SingleTypeAdapter" />`
 
 
 这样绑定后，在ViewModel中调用ObservableList的add()方法，添加一个ItemViewModel，界面上就会实时绘制出一个Item。在Item对应的ViewModel中，同样可以以绑定的形式完成逻辑
@@ -401,7 +373,7 @@ layoutManager控制是线性(包含水平和垂直)排列还是网格排列，li
 #### 2.3.1、Retrofit+Okhttp+RxJava
 > 现今，这三个组合基本是网络请求的标配，如果你对这三个框架不了解，建议先去查阅相关资料。
 
-square出品的框架，用起来确实非常方便。**MVVMHabit**中引入了
+square出品的框架，用起来确实非常方便。**MVVMSmart**中引入了
 ```gradle
 api "com.squareup.okhttp3:okhttp:3.10.0"
 api "com.squareup.retrofit2:retrofit:2.4.0"
@@ -453,7 +425,7 @@ OkHttpClient okHttpClient = new OkHttpClient.Builder()
     .build();
 ```
 #### 2.3.3、Cookie管理
-**MVVMHabit**提供两种CookieStore：**PersistentCookieStore** (SharedPreferences管理)和**MemoryCookieStore** (内存管理)，可以根据自己的业务需求，在构建okhttp时加入相应的cookieJar
+**MVVMSmart**提供两种CookieStore：**PersistentCookieStore** (SharedPreferences管理)和**MemoryCookieStore** (内存管理)，可以根据自己的业务需求，在构建okhttp时加入相应的cookieJar
 ```java
 OkHttpClient okHttpClient = new OkHttpClient.Builder()
     .cookieJar(new CookieJarImpl(new PersistentCookieStore(mContext)))
@@ -493,7 +465,7 @@ RetrofitClient.getInstance().create(DemoApiService.class)
 
 在使用Retrofit请求时，加入组合操作符`.compose(RxUtils.exceptionTransformer())`，当发生网络异常时，回调onError(ResponseThrowable)方法，可以拿到异常的code和message，做相应处理。<br>
 
-> mvvmhabit中自定义了一个[ExceptionHandle](./mvvmhabit/src/main/java/me/goldze/mvvmhabit/http/ExceptionHandle.java)，已为你完成了大部分网络异常的判断，也可自行根据项目的具体需求调整逻辑。<br>
+> mvvmsmart中自定义了一个[ExceptionHandle](./mvvmhabit/src/main/java/me/goldze/mvvmhabit/http/ExceptionHandle.java)，已为你完成了大部分网络异常的判断，也可自行根据项目的具体需求调整逻辑。<br>
 
 **注意：** 这里的网络异常code，并非是与服务端协议约定的code。网络异常可以分为两部分，一部分是协议异常，即出现code = 404、500等，属于HttpException，另一部分为请求异常，即出现：连接超时、解析错误、证书验证失等。而与服务端约定的code规则，它不属于网络异常，它是属于一种业务异常。在请求中可以使用RxJava的filter(过滤器)，也可以自定义BaseSubscriber统一处理网络请求的业务逻辑异常。由于每个公司的业务协议不一样，所以具体需要你自己来处理该类异常。
 ## 3、辅助功能
@@ -536,59 +508,15 @@ public void removeRxBus() {
 ```java
 RxBus.getDefault().post(object);
 ```
-#### 3.3.2、Messenger
-Messenger是一个轻量级全局的消息通信工具，在我们的复杂业务中，难免会出现一些交叉的业务，比如ViewModel与ViewModel之间需要有数据交换，这时候可以轻松地使用Messenger发送一个实体或一个空消息，将事件从一个ViewModel回调到另一个ViewModel中。
+#### 3.3.2、LiveEventBus
+LiveEventBus是一个轻量级全局的消息通信工具，在我们的复杂业务中，难免会出现一些交叉的业务，比如ViewModel与ViewModel之间需要有数据交换，这时候可以轻松地使用LiveEventBusr发送一个实体或一个空消息，将事件从一个ViewModel回调到另一个ViewModel中。
 
 使用方法：
 
-定义一个静态String类型的字符串token
-```java
-public static final String TOKEN_LOGINVIEWMODEL_REFRESH = "token_loginviewmodel_refresh";
-```
-在ViewModel中注册消息监听
-```java
-//注册一个空消息监听 
-//参数1：接受人（上下文）
-//参数2：定义的token
-//参数3：执行的回调监听
-Messenger.getDefault().register(this, LoginViewModel.TOKEN_LOGINVIEWMODEL_REFRESH, new BindingAction() {
-    @Override
-    public void call() {
-	
-    }
-});
+已经介入,文档待续
 
-//注册一个带数据回调的消息监听 
-//参数1：接受人（上下文）
-//参数2：定义的token
-//参数3：实体的泛型约束
-//参数4：执行的回调监听
-Messenger.getDefault().register(this, LoginViewModel.TOKEN_LOGINVIEWMODEL_REFRESH, String.class, new BindingConsumer<String>() {
-    @Override
-    public void call(String s) {
-         
-    }
-});
-```
-在需要回调的地方使用token发送消息
-```java
-//发送一个空消息
-//参数1：定义的token
-Messenger.getDefault().sendNoMsg(LoginViewModel.TOKEN_LOGINVIEWMODEL_REFRESH);
-
-//发送一个带数据回调消息
-//参数1：回调的实体
-//参数2：定义的token
-Messenger.getDefault().send("refresh",LoginViewModel.TOKEN_LOGINVIEWMODEL_REFRESH);
-```
-> token最好不要重名，不然可能就会出现逻辑上的bug，为了更好的维护和清晰逻辑，建议以`aa_bb_cc`的格式来定义token。aa：TOKEN，bb：ViewModel的类名，cc：动作名（功能名）。
-
-> 为了避免大量使用Messenger，建议只在ViewModel与ViewModel之间使用，View与ViewModel之间采用ObservableField去监听UI上的逻辑，可在继承了Base的Activity或Fragment中重写initViewObservable()方法来初始化UI的监听
-
-
-注册了监听，当然也要解除它。在BaseActivity、BaseFragment的onDestroy()方法里已经调用`Messenger.getDefault().unregister(viewModel);`解除注册，所以不用担心忘记解除导致的逻辑错误和内存泄漏。
 ### 3.2、文件下载
-文件下载几乎是每个app必备的功能，图文的下载，软件的升级等都要用到，mvvmhabit使用Retrofit+Okhttp+RxJava+RxBus实现一行代码监听带进度的文件下载。
+文件下载几乎是每个app必备的功能，图文的下载，软件的升级等都要用到，mvvmsmart使用Retrofit+Okhttp+RxJava+RxBus实现一行代码监听带进度的文件下载。
 
 下载文件
 ```java
