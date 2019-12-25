@@ -322,7 +322,13 @@ public static void setImageUri(ImageView imageView, String url, int placeholderR
 > 如果你对这些感兴趣，可以下载源码，在binding包中可以看到各类控件的绑定实现方式
 
 ##### 2.2.4、RecyclerView绑定
-> RecyclerView也是很常用的一种控件，传统的方式需要针对各种业务要写各种Adapter，如果你使用了mvvmhabit，则可大大简化这种工作量，从此告别setAdapter()。
+> RecyclerView也是很常用的一种控件，传统的方式需要针对各种业务要写各种Adapter，如果你使用了mvvmsmart，则可大大简化这种工作量，从此告别setAdapter()。
+mvvmsmart中的recyclerview进行了很大改动,目前封装的比较完善,详细文档待续
+ 2. 重构封装recyclerview的实现方式,支持使用命令实现条目下拉刷新、上拉加载、条目内按钮点击事件
+ 3. NetWorkFragment中调用NetWorkViewModel请求真实网络数据,并用带状态的livedata通信到ui层;
+ 4. 封装带状态的LiveData, 让recyclerviewview在加载中、加载错误、没有更多数据的时候,能够方便回调到UI层(这是Android开发使用MVVM的重中之重)
+ 5. 带条目中点击事件儿,进行条目删除
+
 
 在ViewModel中定义：
 ```java
