@@ -478,42 +478,7 @@ RetrofitClient.getInstance().create(DemoApiService.class)
 > 一个完整的快速开发框架，当然也少不了常用的辅助类。下面来介绍一下**MVVMabit**中有哪些辅助功能。
 ### 3.1、事件总线
 > 事件总线存在的优点想必大家都很清楚了，android自带的广播机制对于组件间的通信而言，使用非常繁琐，通信组件彼此之间的订阅和发布的耦合也比较严重，特别是对于事件的定义，广播机制局限于序列化的类（通过Intent传递），不够灵活。
-#### 3.3.1、RxBus
-RxBus并不是一个库，而是一种模式。相信大多数开发者都使用过EventBus，对RxBus也是很熟悉。由于**MVVMabit**中已经加入RxJava，所以采用了RxBus代替EventBus作为事件总线通信，以减少库的依赖。
 
-使用方法：
-
-在ViewModel中重写registerRxBus()方法来注册RxBus，重写removeRxBus()方法来移除RxBus
-```java
-//订阅者
-private Disposable mSubscription;
-//注册RxBus
-@Override
-public void registerRxBus() {
-    super.registerRxBus();
-    mSubscription = RxBus.getDefault().toObservable(String.class)
-        .subscribe(new Consumer<String>() {
-            @Override
-            public void accept(String s) throws Exception {
-
-            }
-        });
-    //将订阅者加入管理站
-    RxSubscriptions.add(mSubscription);
-}
-
-//移除RxBus
-@Override
-public void removeRxBus() {
-    super.removeRxBus();
-    //将订阅者从管理站中移除
-    RxSubscriptions.remove(mSubscription);
-}
-```
-在需要执行回调的地方发送
-```java
-RxBus.getDefault().post(object);
-```
 #### 3.3.2、LiveEventBus
 LiveEventBus是一个轻量级全局的消息通信工具，在我们的复杂业务中，难免会出现一些交叉的业务，比如ViewModel与ViewModel之间需要有数据交换，这时候可以轻松地使用LiveEventBusr发送一个实体或一个空消息，将事件从一个ViewModel回调到另一个ViewModel中。
 
