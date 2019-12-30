@@ -2,6 +2,8 @@ package com.wzq.sample.ui.network;
 
 import android.app.Application;
 
+import androidx.annotation.NonNull;
+
 import com.wzq.mvvmsmart.base.BaseViewModel;
 import com.wzq.mvvmsmart.binding.command.BindingAction;
 import com.wzq.mvvmsmart.binding.command.BindingCommand;
@@ -18,14 +20,13 @@ import com.wzq.sample.data.DemoRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
     private int pageNum = 1;
     public StateLiveData<List<DemoBean.ItemsEntity>> stateLiveData;
-    public SingleLiveEvent<NetWorkItemViewModel> deleteItemLiveData = new SingleLiveEvent<>();
+//    public SingleLiveEvent<NetWorkItemViewModel> deleteItemLiveData = new SingleLiveEvent<>();
 
     public NetWorkViewModel(@NonNull Application application, DemoRepository repository) {
         super(application, repository);
@@ -58,6 +59,7 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
                     public void onSubscribe(Disposable d) {
                         stateLiveData.postLoading();
                     }
+
                     @Override
                     public void onNext(BaseResponse<DemoBean> response) {
                         KLog.e("进入onNext");
@@ -90,7 +92,7 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
                     public void onError(Throwable throwable) {
                         KLog.e("进入onError" + throwable.getMessage());
                         //关闭对话框
-                        stateLiveData.clearState();
+                        stateLiveData.postIdle();
                         if (throwable instanceof ResponseThrowable) {
                             ToastUtils.showShort(((ResponseThrowable) throwable).message);
                         }
@@ -100,7 +102,7 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
                     public void onComplete() {
                         KLog.e("进入onComplete");
                         //关闭对话框
-                        stateLiveData.clearState();
+                        stateLiveData.postIdle();
                         //请求刷新完成收回
                         uc.finishRefreshing.call();
                         uc.finishLoadMore.call();
@@ -169,22 +171,23 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
 
     /**
      * 删除条目
-     *
-     * @param netWorkItemViewModel
      */
-    public void deleteItem(NetWorkItemViewModel netWorkItemViewModel) {
+    public void deleteItem(DemoBean.ItemsEntity itemsEntity) {
         //点击确定，在 observableList 绑定中删除，界面立即刷新
-        stateLiveData.getValue().remove(netWorkItemViewModel);
+        KLog.e("调用了删除");
+        KLog.e("size" + stateLiveData.getValue().size());
+        stateLiveData.getValue().remove(itemsEntity);
+//        stateLiveData.setValue(stateLiveData.getValue());
+        KLog.e("size" + stateLiveData.getValue().size());
+
     }
 
     /**
      * 获取条目下标
-     *
-     * @param netWorkItemViewModel
      * @return
      */
-    public int getItemPosition(NetWorkItemViewModel netWorkItemViewModel) {
-        return stateLiveData.getValue().indexOf(netWorkItemViewModel);
+    public int getItemPosition(DemoBean.ItemsEntity itemsEntity) {
+        return stateLiveData.getValue().indexOf(itemsEntity);
     }
 
     @Override

@@ -51,7 +51,9 @@ dependencies {
     api rootProject.ext.dependencies.okhttp
     api rootProject.ext.dependencies.retrofit
     api rootProject.ext.dependencies["converter-gson"]
-    api rootProject.ext.dependencies["adapter-rxjava"]
+    api rootProject.ext.dependencies["adapter-rxjava2"]
+//    api rootProject.ext.dependencies["okio"]
+//    api rootProject.ext.dependencies["converter-scalars"]
     //-------------- network finish-----------------------------
     api rootProject.ext.dependencies["liveEventBus"]  //    基于livedata的事件通信,完爆EventBus
     api rootProject.ext.dependencies["gson"] //     Gson

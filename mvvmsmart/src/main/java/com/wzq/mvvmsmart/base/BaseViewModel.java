@@ -119,13 +119,6 @@ public class BaseViewModel<M extends BaseModel> extends AndroidViewModel impleme
     public void onPause() {
     }
 
-    @Override
-    public void registerRxBus() {
-    }
-
-    @Override
-    public void removeRxBus() {
-    }
 
     @Override
     protected void onCleared() {

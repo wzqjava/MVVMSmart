@@ -7,39 +7,45 @@ package com.wzq.mvvmsmart.event;
  */
 
 import androidx.lifecycle.MutableLiveData;
+
 public class StateLiveData<T> extends MutableLiveData<T> {
-    public static enum State {
+    public enum StateEnum {
         Idle,
         Loading,
         Success,
-        Error
+        Error,
+        NoData
     }
 
-    public  MutableLiveData<State> state = new MutableLiveData<State>();
+    public MutableLiveData<StateEnum> stateEnumMutableLiveData = new MutableLiveData<StateEnum>();
 
     public final void postValueAndSuccess(T t) {
         super.postValue(t);
         this.postSuccess();
     }
 
-    public void clearState() {
-        state.postValue(StateLiveData.State.Idle);
+    public void postIdle() {
+        stateEnumMutableLiveData.postValue(StateEnum.Idle);
     }
 
     public void postLoading() {
-        state.postValue(StateLiveData.State.Loading);
+        stateEnumMutableLiveData.postValue(StateEnum.Loading);
     }
 
     public void postSuccess() {
-        state.postValue(StateLiveData.State.Success);
+        stateEnumMutableLiveData.postValue(StateEnum.Success);
+    }
+
+    public void postNoData() {
+        stateEnumMutableLiveData.postValue(StateEnum.NoData);
     }
 
     public void postError() {
-        state.postValue(StateLiveData.State.Error);
+        stateEnumMutableLiveData.postValue(StateEnum.Error);
     }
 
-    public void changeState( StateLiveData.State s) {
-        state.postValue(s);
+    public void changeState(StateEnum stateEnum) {
+        stateEnumMutableLiveData.postValue(stateEnum);
     }
 
 

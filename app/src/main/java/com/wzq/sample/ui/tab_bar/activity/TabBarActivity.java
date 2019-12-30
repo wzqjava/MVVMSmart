@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.wzq.mvvmsmart.base.BaseActivity;
 import com.wzq.mvvmsmart.base.BaseViewModel;
 import com.wzq.sample.R;
-import com.wzq.sample.databinding.ActivityTabBarTempBinding;
+import com.wzq.sample.databinding.ActivityTabBarBinding;
 import com.wzq.sample.ui.tab_bar.fragment.TabBar1Fragment;
 import com.wzq.sample.ui.tab_bar.fragment.TabBar2Fragment;
 import com.wzq.sample.ui.tab_bar.fragment.TabBar3Fragment;
@@ -27,12 +27,12 @@ import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectedListener;
  * 所有例子仅做参考,理解如何使用才最重要。
  */
 
-public class TabBarActivity extends BaseActivity<ActivityTabBarTempBinding, BaseViewModel> {
+public class TabBarActivity extends BaseActivity<ActivityTabBarBinding, BaseViewModel> {
     private List<Fragment> mFragments;
 
     @Override
     public int initContentView(Bundle savedInstanceState) {
-        return R.layout.activity_tab_bar_temp;
+        return R.layout.activity_tab_bar;
     }
 
     @Override

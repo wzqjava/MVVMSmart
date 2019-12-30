@@ -12,7 +12,6 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.squareup.leakcanary.LeakCanary;
 import com.wzq.mvvmsmart.base.BaseApplication;
 import com.wzq.mvvmsmart.crash.CaocConfig;
 import com.wzq.mvvmsmart.utils.KLog;
@@ -33,11 +32,6 @@ public class AppApplication extends BaseApplication {
                 .config()
                 .supportBroadcast(this) // 配置支持跨进程、跨APP通信，传入Context，需要在application onCreate中配置
                 .lifecycleObserverAlwaysActive(true); //    整个生命周期（从onCreate到onDestroy）都可以实时收到消息
-        //内存泄漏检测
-        // TODO: wzq 2019/12/20 navigation的泄露需要查看
-        if (!LeakCanary.isInAnalyzerProcess(this)) {
-            LeakCanary.install(this);
-        }
     }
 
     private void initCrash() {
