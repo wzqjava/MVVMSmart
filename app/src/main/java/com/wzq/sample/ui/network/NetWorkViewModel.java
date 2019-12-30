@@ -92,7 +92,7 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
                     public void onError(Throwable throwable) {
                         KLog.e("进入onError" + throwable.getMessage());
                         //关闭对话框
-                        stateLiveData.clearState();
+                        stateLiveData.postIdle();
                         if (throwable instanceof ResponseThrowable) {
                             ToastUtils.showShort(((ResponseThrowable) throwable).message);
                         }
@@ -102,7 +102,7 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
                     public void onComplete() {
                         KLog.e("进入onComplete");
                         //关闭对话框
-                        stateLiveData.clearState();
+                        stateLiveData.postIdle();
                         //请求刷新完成收回
                         uc.finishRefreshing.call();
                         uc.finishLoadMore.call();

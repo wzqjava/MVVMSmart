@@ -62,19 +62,19 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
          * 每个界面默认页效果不同
          * 在这里可以动态替换 无网络页,数据错误页, 无数据默认页;
          */
-        viewModel.stateLiveData.state
-                .observe(this, new Observer<StateLiveData.State>() {
+        viewModel.stateLiveData.stateEnumMutableLiveData
+                .observe(this, new Observer<StateLiveData.StateEnum>() {
                     @Override
-                    public void onChanged(StateLiveData.State state) {
-                        if (state.equals(StateLiveData.State.Loading)) {
+                    public void onChanged(StateLiveData.StateEnum stateEnum) {
+                        if (stateEnum.equals(StateLiveData.StateEnum.Loading)) {
                             KLog.e("请求数据中--显示loading");
                             showLoading("请求数据中...");
                         }
-                        if (state.equals(StateLiveData.State.Success)) {
+                        if (stateEnum.equals(StateLiveData.StateEnum.Success)) {
                             KLog.e("数据获取成功--关闭loading");
                             dismissLoading();
                         }
-                        if (state.equals(StateLiveData.State.Idle)) {
+                        if (stateEnum.equals(StateLiveData.StateEnum.Idle)) {
                             KLog.e("空闲状态--关闭loading");
                             dismissLoading();
                         }
