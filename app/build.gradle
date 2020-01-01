@@ -39,6 +39,8 @@ dependencies {
     //底部tabBar
     implementation 'me.majiajie:pager-bottom-tab-strip:2.2.5'
     api rootProject.ext.dependencies["smartRefreshLayout"] // 刷新框架
+    implementation "androidx.room:room-runtime:2.2.3"
+    annotationProcessor "androidx.room:room-compiler:2.2.3" // For Kotlin use kapt instead of annotationProcessor
     //    api rootProject.ext.dependencies.MVVMSmart
     //内存泄漏测试
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'

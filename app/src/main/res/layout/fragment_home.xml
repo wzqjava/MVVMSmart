@@ -80,5 +80,11 @@
             android:layout_height="wrap_content"
             android:text="@string/download_file"
             android:onClick="@{() -> presenter.fileDownLoadClick()}" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/room_sample"
+            android:onClick="@{() -> presenter.roomSampleClick()}" />
     </LinearLayout>
 </layout>

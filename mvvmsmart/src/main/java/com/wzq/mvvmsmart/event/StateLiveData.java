@@ -48,5 +48,4 @@ public class StateLiveData<T> extends MutableLiveData<T> {
         stateEnumMutableLiveData.postValue(stateEnum);
     }
 
-
 }

@@ -7,10 +7,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
-import androidx.navigation.fragment.NavHostFragment;
-
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wzq.mvvmsmart.base.BaseFragment;
 import com.wzq.mvvmsmart.http.DownLoadManager;
@@ -22,6 +18,9 @@ import com.wzq.sample.bean.FormEntity;
 import com.wzq.sample.databinding.FragmentHomeBinding;
 import com.wzq.sample.ui.tab_bar.activity.TabBarActivity;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
+import androidx.navigation.fragment.NavHostFragment;
 import io.reactivex.functions.Consumer;
 import okhttp3.ResponseBody;
 
@@ -145,6 +144,14 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
             viewModel.loadUrlEvent.setValue("http://gdown.baidu.com/data/wisegame/a2cd8828b227b9f9/neihanduanzi_692.apk");
 
         }
+
+        //文件下载
+        public void roomSampleClick() {
+            NavHostFragment
+                    .findNavController(HomeFragment.this)
+                    .navigate(R.id.action_homeFragment_to_roomSampleFragment);
+        }
+
     }
 
     /**
