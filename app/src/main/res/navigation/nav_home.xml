@@ -22,14 +22,14 @@
         <action
             android:id="@+id/action_homeFragment_to_formFragment"
             app:destination="@id/formFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_roomSampleFragment"
+            app:destination="@id/roomSampleFragment" />
     </fragment>
     <fragment
         android:id="@+id/netWorkFragment"
         android:name="com.wzq.sample.ui.network.NetWorkFragment"
         android:label="NetWorkFragment" >
-        <action
-            android:id="@+id/action_netWorkFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
         <action
             android:id="@+id/action_netWorkFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
@@ -37,33 +37,21 @@
     <fragment
         android:id="@+id/multiRecycleViewFragment"
         android:name="com.wzq.sample.ui.rv_multi.MultiRecycleViewFragment"
-        android:label="MultiRecycleViewFragment" >
-        <action
-            android:id="@+id/action_multiRecycleViewFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </fragment>
+        android:label="MultiRecycleViewFragment" />
     <fragment
         android:id="@+id/viewPagerGroupFragment"
         android:name="com.wzq.sample.ui.vp_frg.ViewPagerGroupFragment"
-        android:label="ViewPagerGroupFragment" >
-        <action
-            android:id="@+id/action_viewPagerGroupFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </fragment>
+        android:label="ViewPagerGroupFragment" />
     <fragment
         android:id="@+id/formFragment"
         android:name="com.wzq.sample.ui.form.FormFragment"
-        android:label="FormFragment" >
-        <action
-            android:id="@+id/action_formFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </fragment>
+        android:label="FormFragment" />
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.wzq.sample.ui.network.detail.DetailFragment"
-        android:label="DetailFragment" >
-        <action
-            android:id="@+id/action_detailFragment_to_netWorkFragment"
-            app:destination="@id/netWorkFragment" />
-    </fragment>
+        android:label="DetailFragment" />
+    <fragment
+        android:id="@+id/roomSampleFragment"
+        android:name="com.wzq.sample.ui.room_sample.RoomSampleFragment"
+        android:label="RoomSampleFragment" />
 </navigation>

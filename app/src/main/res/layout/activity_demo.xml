@@ -15,6 +15,7 @@
         使用 android:name 指定 Fragment 的类型为 NavHostFragment，使用 app:navGraph 指定 Navigation 文件。
         app:defaultNavHost="true" 的作用是，让 Navigation 处理返回事件，点返回按钮时并不是返回上一个 Activity，
         而是返回上一个「页面」，上一个「页面」有可能是 Activity，也可能是 Fragment。
+        HomeFragment:是当前navigation的启动fragment
         -->
         <fragment
             android:id="@+id/fragment"

@@ -11,6 +11,7 @@
     <string name="form_edit">form_edit</string>
     <string name="get_permission">get_permission</string>
     <string name="catch_all_crush">catch_all_crush</string>
-    <string name="download_file">download_file</string>
     <string name="viewpager_fragment">viewpager_fragment</string>
+    <string name="download_file">download_file</string>
+    <string name="room_sample">room_sample</string>
 </resources>

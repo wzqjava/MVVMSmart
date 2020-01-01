@@ -14,4 +14,5 @@
     <string name="text_tip">眼睛多才能看的更清楚</string>
     <string name="viewpager_command">ViewPager绑定命令</string>
     <string name="viewpager_fragment">ViewPager+Fragment</string>
+    <string name="room_sample">room数据库示例</string>
 </resources>
