@@ -4,7 +4,8 @@ QQ群：531944409
 ## 最新日志
 **v1.0：2019年1月25日**
 
-> https://juejin.im/user/574e36b179bc440062693484/posts
+> MVVMSmart系列解读文章
+ https://juejin.im/user/574e36b179bc440062693484/posts
 
 - init提交
   1. sapmple,beta8版本,sample中的内存泄露处理中,不影响使用
