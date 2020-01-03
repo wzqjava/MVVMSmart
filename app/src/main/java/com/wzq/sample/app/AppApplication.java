@@ -17,7 +17,7 @@ import com.wzq.mvvmsmart.crash.CaocConfig;
 import com.wzq.mvvmsmart.utils.KLog;
 import com.wzq.sample.BuildConfig;
 import com.wzq.sample.R;
-import com.wzq.sample.ui.login.LoginActivity;
+import com.wzq.sample.ui.main.DemoActivity;
 
 
 public class AppApplication extends BaseApplication {
@@ -43,7 +43,7 @@ public class AppApplication extends BaseApplication {
                 .trackActivities(true) //是否跟踪Activity
                 .minTimeBetweenCrashesMs(2000) //崩溃的间隔时间(毫秒)
                 .errorDrawable(R.mipmap.ic_launcher) //错误图标
-                .restartActivity(LoginActivity.class) //重新启动后的activity
+                .restartActivity(DemoActivity.class) //重新启动后的activity
 //                .errorActivity(YourCustomErrorActivity.class) //崩溃后的错误activity
 //                .eventListener(new YourCustomEventListener()) //崩溃后的错误监听
                 .apply();

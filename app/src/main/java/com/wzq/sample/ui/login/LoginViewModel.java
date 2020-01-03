@@ -17,7 +17,6 @@ import com.wzq.mvvmsmart.event.StateLiveData;
 import com.wzq.mvvmsmart.utils.RxUtils;
 import com.wzq.mvvmsmart.utils.ToastUtils;
 import com.wzq.sample.data.DemoRepository;
-import com.wzq.sample.ui.main.DemoActivity;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -111,10 +110,9 @@ public class LoginViewModel extends BaseViewModel<DemoRepository> {
                         //保存账号密码
                         model.saveUserName(userName.get());
                         model.savePassword(password.get());
-                        //进入DemoActivity页面
-                        startActivity(DemoActivity.class);
+                        ToastUtils.showLong("模拟Login成功,进入程序");
                         //关闭页面
-                        finish();
+                        sendBackPressEvent();
                     }
                 }));
 

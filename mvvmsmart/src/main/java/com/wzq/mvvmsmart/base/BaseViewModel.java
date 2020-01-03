@@ -79,15 +79,17 @@ public class BaseViewModel<M extends BaseModel> extends AndroidViewModel impleme
 
     /**
      * 关闭界面
+     * 事件儿触发在ToolbarViewModel中,最终把事件传递到了UI层(Activity,Fragment)
      */
-    public void finish() {
+    public void sendFinishEvent() {
         uc.finishEvent.call();
     }
 
     /**
      * 返回上一层
+     * 事件儿触发在ToolbarViewModel中,最终把事件传递到了UI层(Activity,Fragment)
      */
-    public void onBackPressed() {
+    public void sendBackPressEvent() {
         uc.onBackPressedEvent.call();
     }
 

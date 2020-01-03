@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MVVMSmart-sample</string>
+    <string name="simulate_login">模拟登录</string>
+    <string name="net_single_cell">网络单条目</string>
     <string name="bottom_tab">底部Tab按钮</string>
     <string name="catch_all_crush">全局异常捕获</string>
     <string name="contentDescription">这是图片</string>
@@ -10,7 +12,6 @@
     <string name="get_permission">申请权限</string>
     <string name="hello_blank_fragment">空白Fragment</string>
     <string name="net_multiple_cell">网络多布局</string>
-    <string name="net_single_cell">网络单条目</string>
     <string name="text_tip">眼睛多才能看的更清楚</string>
     <string name="viewpager_command">ViewPager绑定命令</string>
     <string name="viewpager_fragment">ViewPager+Fragment</string>

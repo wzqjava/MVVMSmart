@@ -3,29 +3,29 @@ package com.wzq.sample.ui.login;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.view.View;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.wzq.mvvmsmart.base.BaseActivity;
+import com.wzq.mvvmsmart.base.BaseFragment;
 import com.wzq.mvvmsmart.event.StateLiveData;
 import com.wzq.mvvmsmart.utils.KLog;
 import com.wzq.sample.R;
 import com.wzq.sample.app.AppViewModelFactory;
-import com.wzq.sample.databinding.ActivityLoginBinding;
-
+import com.wzq.sample.databinding.FragmentLoginBinding;
 
 /**
  * 一个MVVM模式的登陆界面
  * 登录按钮的点击事件在viewmode中,
  */
-public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewModel> {
+public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewModel> {
     //ActivityLoginBinding类是databinding框架自动生成的,对应activity_login.xml
     @Override
-    public int initContentView(Bundle savedInstanceState) {
-        return R.layout.activity_login;
+    public int initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return R.layout.fragment_login;
     }
 
     // 给当前LoginActivity设置viewmodel,布局文件中的variable的name为viewModel;
@@ -51,13 +51,16 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
      */
     @Override
     public LoginViewModel initViewModel() {
-        AppViewModelFactory factory = AppViewModelFactory.getInstance(getApplication());
+        AppViewModelFactory factory = AppViewModelFactory.getInstance(getActivity().getApplication());
         //  使用了factory ,factory向LoginView里注入了数据仓库
         return ViewModelProviders.of(this, factory).get(LoginViewModel.class);
     }
 
     @Override
     public void initViewObservable() {
+        binding.btnLogin.setOnClickListener(view ->{
+            viewModel.login();
+        });
         /**
          * 每个界面默认页效果不同
          * 在这里可以动态替换 无网络页,数据错误页, 无数据默认页;
@@ -99,8 +102,5 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
         });
     }
 
-    //  点击登陆按钮
-    public void login(View view) {
-        viewModel.login();
-    }
+
 }

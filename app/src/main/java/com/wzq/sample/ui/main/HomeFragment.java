@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
+import androidx.navigation.fragment.NavHostFragment;
+
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wzq.mvvmsmart.base.BaseFragment;
 import com.wzq.mvvmsmart.http.DownLoadManager;
@@ -18,9 +22,6 @@ import com.wzq.sample.bean.FormEntity;
 import com.wzq.sample.databinding.FragmentHomeBinding;
 import com.wzq.sample.ui.tab_bar.activity.TabBarActivity;
 
-import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
-import androidx.navigation.fragment.NavHostFragment;
 import io.reactivex.functions.Consumer;
 import okhttp3.ResponseBody;
 
@@ -69,6 +70,13 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
      * 封装布局中的点击事件儿;
      */
     public class Presenter {
+
+        //网络访问点击事件
+        public void loginClick() {
+            NavHostFragment
+                    .findNavController(HomeFragment.this)
+                    .navigate(R.id.action_homeFragment_to_loginFragment);
+        }
 
         //网络访问点击事件
         public void netWorkClick() {

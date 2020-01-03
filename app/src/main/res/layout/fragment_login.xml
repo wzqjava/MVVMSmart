@@ -3,13 +3,16 @@
     xmlns:binding="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View.OnClickListener"/>
+
+        <import type="android.view.View.OnClickListener" />
+
         <variable
             name="viewModel"
             type="com.wzq.sample.ui.login.LoginViewModel" />
+
         <variable
             name="activity"
-            type="com.wzq.sample.ui.login.LoginActivity" />
+            type="com.wzq.sample.ui.login.LoginFragment" />
     </data>
 
     <RelativeLayout
@@ -17,12 +20,6 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@mipmap/login_back"
-            android:scaleType="fitXY" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -146,22 +143,28 @@
 
 
                 <Button
+                    android:id="@+id/btn_login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?selectableItemBackground"
                     android:text="登录"
                     android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:onClick="login"
-                    />
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <TextView
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="模拟一个登陆操作,随便输入账号密码点击登录即可进入"
                 android:textColor="#EE1010" />
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@mipmap/login_back"
+            android:scaleType="fitXY" />
     </RelativeLayout>
 </layout>

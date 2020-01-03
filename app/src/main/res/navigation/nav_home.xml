@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_homeFragment_to_roomSampleFragment"
             app:destination="@id/roomSampleFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/netWorkFragment"
@@ -54,4 +57,8 @@
         android:id="@+id/roomSampleFragment"
         android:name="com.wzq.sample.ui.room_sample.RoomSampleFragment"
         android:label="RoomSampleFragment" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.wzq.sample.ui.login.LoginFragment"
+        android:label="LoginFragment" />
 </navigation>
