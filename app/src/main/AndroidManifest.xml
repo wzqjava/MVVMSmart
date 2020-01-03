@@ -26,7 +26,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.wzq.sample.ui.login.LoginActivity" />
         <activity android:name="com.wzq.sample.ui.tab_bar.activity.TabBarActivity" />
     </application>
 

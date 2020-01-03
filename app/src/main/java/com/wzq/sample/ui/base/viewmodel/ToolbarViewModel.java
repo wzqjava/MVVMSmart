@@ -79,20 +79,29 @@ public class ToolbarViewModel<M extends BaseModel> extends BaseViewModel<M> {
 
     /**
      * 返回按钮的点击事件
+     * 命令可以在UI层进行重写,重写后直接走重写逻辑,任意处理返回逻辑,重写后相当于废弃了当前命令.
      */
     public final BindingCommand backOnClick = new BindingCommand(new BindingAction() {
+        // 使用navigation,需要特殊处理返回键
         @Override
         public void call() {
-            finish();
+//            sendFinishEvent();
+            sendBackPressEvent();
         }
     });
 
+    /**
+     * 命令可以在UI层进行重写
+     */
     public BindingCommand rightTextOnClick = new BindingCommand(new BindingAction() {
         @Override
         public void call() {
             rightTextOnClick();
         }
     });
+    /**
+     * 命令可以在UI层进行重写
+     */
     public BindingCommand rightIconOnClick = new BindingCommand(new BindingAction() {
         @Override
         public void call() {

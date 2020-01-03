@@ -111,16 +111,25 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
         viewModel.getUC().getFinishEvent().observe(this, new Observer<Void>() {
             @Override
             public void onChanged(@Nullable Void v) {
-                getActivity().finish();
+                backClickFinish();
             }
         });
+
         //关闭上一层
         viewModel.getUC().getOnBackPressedEvent().observe(this, new Observer<Void>() {
             @Override
             public void onChanged(@Nullable Void v) {
-                getActivity().onBackPressed();
+                backClick2Up();
             }
         });
+    }
+
+    public void backClickFinish() {
+        getActivity().finish();
+    }
+
+    public void backClick2Up() {
+        getActivity().onBackPressed();
     }
 
     public void showLoading(String title) {
@@ -161,9 +170,6 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
         }
         startActivity(intent);
     }
-
-
-
 
 
     /**
