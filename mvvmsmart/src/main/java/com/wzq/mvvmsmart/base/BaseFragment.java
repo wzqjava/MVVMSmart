@@ -87,7 +87,14 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
             viewModel = (VM) createViewModel(this, modelClass);
         }
         binding.setVariable(viewModelId, viewModel);
-        //让ViewModel拥有View的生命周期感应
+        /*
+         * 让ViewModel拥有View的生命周期感应
+         * viewModel implements IBaseViewModel接口
+         * IBaseViewModel extends LifecycleObserver
+         * 所以ViewModel是lifecycle生命周期的观察者,viewmode可以在不同的生命周期中处理不同的事情
+         * viewModel可以感受到ui的生命周期状态;
+         * BaseViewModel中实现了IBaseViewModel中的类似生命周期的观察
+         */
         getLifecycle().addObserver(viewModel);
 
     }
