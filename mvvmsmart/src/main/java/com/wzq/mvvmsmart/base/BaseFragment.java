@@ -28,6 +28,8 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
     protected VM viewModel;
     private int viewModelId;
     private MaterialDialog dialog;
+    private boolean isNavigationViewInit = false; // 记录是否已经初始化过一次视图
+    private View lastView = null; // 记录上次创建的view
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,37 +37,34 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
         initParam();
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, initContentView(inflater, container, savedInstanceState), container, false);
-        return binding.getRoot();
+        //如果fragment的view已经创建则不再重新创建
+        if (lastView == null) {
+            binding = DataBindingUtil.inflate(inflater, initContentView(inflater, container, savedInstanceState), container, false);
+            binding.setLifecycleOwner(this);
+            lastView = binding.getRoot();
+        }
+        return lastView;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (binding != null) {
-            binding.unbind();
-        }
-    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        //私有的初始化Databinding和ViewModel方法
-        initViewDataBinding();
-        //私有的ViewModel与View的契约事件回调逻辑
-        registorUIChangeLiveDataCallBack();
-        //页面数据初始化方法
-        initData();
-        //页面事件监听的方法，一般用于ViewModel层转到View层的事件注册
-        initViewObservable();
+        if (!isNavigationViewInit) {//初始化过视图则不再进行view和data初始化
+            super.onViewCreated(view, savedInstanceState);
+            //私有的初始化Databinding和ViewModel方法
+            initViewDataBinding();
+            //私有的ViewModel与View的契约事件回调逻辑
+            registorUIChangeLiveDataCallBack();
+            //页面数据初始化方法
+            initData();
+            //页面事件监听的方法，一般用于ViewModel层转到View层的事件注册
+            initViewObservable();
+        }
+        isNavigationViewInit = true;
     }
 
     /**
@@ -74,7 +73,6 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
     private void initViewDataBinding() {
         viewModelId = initVariableId();
         viewModel = initViewModel();
-        binding.setLifecycleOwner(this);
         if (viewModel == null) {
             Class modelClass;
             Type type = getClass().getGenericSuperclass();
@@ -87,10 +85,26 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
             viewModel = (VM) createViewModel(this, modelClass);
         }
         binding.setVariable(viewModelId, viewModel);
-        //让ViewModel拥有View的生命周期感应
+        /*
+         * 让ViewModel拥有View的生命周期感应
+         * viewModel implements IBaseViewModel接口
+         * IBaseViewModel extends LifecycleObserver
+         * 所以ViewModel是lifecycle生命周期的观察者,viewmode可以在不同的生命周期中处理不同的事情
+         * viewModel可以感受到ui的生命周期状态;
+         * BaseViewModel中实现了IBaseViewModel中的类似生命周期的观察
+         */
         getLifecycle().addObserver(viewModel);
-
     }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (binding != null) {
+            binding.unbind();
+        }
+    }
+
 
     /**
      * =====================================================================
@@ -235,4 +249,6 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
     public <T extends ViewModel> T createViewModel(Fragment fragment, Class<T> cls) {
         return ViewModelProviders.of(fragment).get(cls);
     }
+
+
 }
