@@ -12,43 +12,42 @@ ext {
 
     //依赖第三方配置
     dependencies = [
-            "appcompat"               : "androidx.appcompat:appcompat:1.0.0",
-            "appdesign"               : "com.google.android.material:material:1.0.0",
-            "support-annotations"     : "androidx.annotation:annotation:1.0.0",
-            "recyclerview"            : "androidx.recyclerview:recyclerview:1.0.0",
-            "design"                  : "com.google.android.material:material:1.0.0",
-            "constraint-layout"       : "androidx.constraintlayout:constraintlayout:1.1.2",
-            'animated-vector-drawable': " androidx.vectordrawable:vectordrawable-animated:1.0.0",
-            "navigation-fragment"     : "androidx.navigation:navigation-fragment:2.1.0",
-            "navigation-ui"           : "androidx.navigation:navigation-ui:2.1.0",
+            "appcompat"                    : "androidx.appcompat:appcompat:1.0.0",
+            "appdesign"                    : "com.google.android.material:material:1.0.0",
+            "support-annotations"          : "androidx.annotation:annotation:1.0.0",
+            "recyclerview"                 : "androidx.recyclerview:recyclerview:1.0.0",
+            "design"                       : "com.google.android.material:material:1.0.0",
+            "constraint-layout"            : "androidx.constraintlayout:constraintlayout:1.1.2",
+            'animated-vector-drawable'     : " androidx.vectordrawable:vectordrawable-animated:1.0.0",
+            "navigation-fragment"          : "androidx.navigation:navigation-fragment:2.1.0",
+            "navigation-ui"                : "androidx.navigation:navigation-ui:2.1.0",
             //rx 6.0权限请求
-            "rxpermissions"           : "com.github.tbruyelle:rxpermissions:0.10.2",
+            "rxpermissions"                : "com.github.tbruyelle:rxpermissions:0.10.2",
             //network
-            "okhttp"                  : "com.squareup.okhttp3:okhttp:3.10.0",
-            "retrofit"                : "com.squareup.retrofit2:retrofit:2.4.0",
+            "okhttp"                       : "com.squareup.okhttp3:okhttp:3.10.0",
+            "retrofit"                     : "com.squareup.retrofit2:retrofit:2.4.0",
 //            "okio"                    : "com.squareup.okio:okio:2.2.2",
 //            "converter-scalars"       : "com.squareup.retrofit2:converter-scalars:2.4.0",
-            "converter-gson"          : "com.squareup.retrofit2:converter-gson:2.4.0",
-            "adapter-rxjava2"         : "com.squareup.retrofit2:adapter-rxjava2:2.4.0",
+            "converter-gson"               : "com.squareup.retrofit2:converter-gson:2.4.0",
+            "adapter-rxjava2"              : "com.squareup.retrofit2:adapter-rxjava2:2.4.0",
             //rxjava
-            "rxjava"                  : "io.reactivex.rxjava2:rxjava:2.2.3",
-            "rxandroid"               : "io.reactivex.rxjava2:rxandroid:2.1.0",
+            "rxjava"                       : "io.reactivex.rxjava2:rxjava:2.2.3",
+            "rxandroid"                    : "io.reactivex.rxjava2:rxandroid:2.1.0",
             //glide图片加载
-            "glide"                   : "com.github.bumptech.glide:glide:4.9.0",
-            "glide-compiler"          : "com.github.bumptech.glide:compiler:4.9.0",
+            "glide"                        : "com.github.bumptech.glide:glide:4.9.0",
+            "glide-compiler"               : "com.github.bumptech.glide:compiler:4.9.0",
             //json解析
-            "gson"                    : "com.google.code.gson:gson:2.8.5",
+            "gson"                         : "com.google.code.gson:gson:2.8.5",
 
             //Google AAC
-            "lifecycle-extensions"    : "android.arch.lifecycle:extensions:1.1.1",
-            "lifecycle-compiler"      : "android.arch.lifecycle:compiler:1.1.1",
-            "smartRefreshLayout"      : 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0',
-            "liveEventBus"            : 'com.jeremyliao:live-event-bus-x:1.5.7',
+            "lifecycle-extensions"         : "android.arch.lifecycle:extensions:1.1.1",
+            "lifecycle-compiler"           : "android.arch.lifecycle:compiler:1.1.1",
+            "smartRefreshLayout"           : 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0',
+            "liveEventBus"                 : 'com.jeremyliao:live-event-bus-x:1.5.7',
             //material-dialogs
-            "material-dialogs-core"   : "com.afollestad.material-dialogs:core:0.9.4.5",
-            "material-dialogs-commons": "com.afollestad.material-dialogs:commons:0.9.4.5",
-            //MVVMSmart
-            "MVVMSmart"               : "com.github.wzqjava:MVVMSmart:1.0.0",
+            "material-dialogs-core"        : "com.afollestad.material-dialogs:core:0.9.4.5",
+            "material-dialogs-commons"     : "com.afollestad.material-dialogs:commons:0.9.4.5",
+            "BaseRecyclerViewAdapterHelper": 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47',
 
     ]
 }

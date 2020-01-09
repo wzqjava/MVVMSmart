@@ -31,13 +31,13 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/logo" />
+                android:src="@drawable/logo" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="34dp"
-                android:background="@mipmap/user_edit"
+                android:background="@drawable/user_edit"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="16sp">
@@ -45,7 +45,7 @@
                 <ImageView
                     android:layout_width="22dp"
                     android:layout_height="22dp"
-                    android:src="@mipmap/user_icon" />
+                    android:src="@drawable/user_icon" />
 
                 <View
                     android:layout_width="1dp"
@@ -70,7 +70,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:padding="6dp"
-                    android:src="@mipmap/clean_edit"
+                    android:src="@drawable/clean_edit"
                     android:visibility="@{viewModel.clearBtnVisibility}"
                     binding:onClickCommand="@{viewModel.clearUserNameOnClickCommand}" />
             </LinearLayout>
@@ -79,7 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@mipmap/user_edit"
+                android:background="@drawable/user_edit"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="16sp">
@@ -87,7 +87,7 @@
                 <ImageView
                     android:layout_width="22dp"
                     android:layout_height="22dp"
-                    android:src="@mipmap/password_icon" />
+                    android:src="@drawable/password_icon" />
 
                 <View
                     android:layout_width="1dp"
@@ -114,7 +114,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:padding="6dp"
-                    android:src="@mipmap/show_psw_press"
+                    android:src="@drawable/show_psw_press"
                     binding:onClickCommand="@{viewModel.passwordShowSwitchOnClickCommand}" />
             </LinearLayout>
 
@@ -137,7 +137,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@mipmap/btn_login"
+                android:background="@drawable/btn_login"
                 android:orientation="vertical"
                 android:padding="6dp">
 
@@ -164,7 +164,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@mipmap/login_back"
+            android:background="@drawable/login_back"
             android:scaleType="fitXY" />
     </RelativeLayout>
 </layout>

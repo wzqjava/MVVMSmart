@@ -1,30 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:binding="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
 
-        <variable
-            name="item"
-            type="com.wzq.sample.bean.DemoBean.ItemsEntity" />
-
-        <variable
-            name="presenter"
-            type="com.wzq.sample.ui.rv_multi.MultiRecycleViewFragment.DemoAdapterPresenter" />
-    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:foreground="?selectableItemBackground"
-        android:onClick="@{() -> presenter.onItemClick(item)}">
+        android:foreground="?selectableItemBackground">
 
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/iv1"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="8dp"
@@ -32,7 +21,6 @@
             android:layout_marginTop="8dp"
             android:contentDescription="@string/contentDescription"
             android:scaleType="centerCrop"
-            app:imgUrl="@{item.img}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:placeholderRes="@mipmap/ic_launcher"
@@ -40,7 +28,7 @@
             tools:srcCompat="@tools:sample/avatars" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/iv2"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="8dp"
@@ -49,21 +37,19 @@
             android:contentDescription="@string/contentDescription"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/iv1"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/avatars"
-            app:imgUrl="@{item.img}"
             app:placeholderRes="@mipmap/ic_launcher"
             app:round="@{20}"/>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btn2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:onClick="@{() -> presenter.onViewClick(item)}"
-            android:text="Button"
+            android:text="Button2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

@@ -25,7 +25,7 @@
 
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/iv1"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="8dp"
@@ -41,7 +41,7 @@
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/imageView2"
+            android:id="@+id/iv2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -52,13 +52,13 @@
             android:text="@{item.name}"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintEnd_toStartOf="@+id/btn2"
+            app:layout_constraintStart_toEndOf="@+id/iv1"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="眼睛多才能看的更清楚,形式胜于蛮力" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btn2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
