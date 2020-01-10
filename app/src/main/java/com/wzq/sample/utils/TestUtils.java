@@ -13,16 +13,29 @@ public class TestUtils {
     }
 
     public  static String[] girlImgs = new String[]{
+            // --------------------sex girl------------------------
             "http://ww1.sinaimg.cn/large/0065oQSqly1g2pquqlp0nj30n00yiq8u.jpg",
             "https://ww1.sinaimg.cn/large/0065oQSqly1g2hekfwnd7j30sg0x4djy.jpg",
-            "https://ws1.sinaimg.cn/large/0065oQSqly1g0ajj4h6ndj30sg11xdmj.jpg",
-            "https://ws1.sinaimg.cn/large/0065oQSqly1fytdr77urlj30sg10najf.jpg",
-            "https://ws1.sinaimg.cn/large/0065oQSqly1fymj13tnjmj30r60zf79k.jpg",
-            "https://ws1.sinaimg.cn/large/0065oQSqgy1fy58bi1wlgj30sg10hguu.jpg",
-            "https://ws1.sinaimg.cn/large/0065oQSqgy1fxno2dvxusj30sf10nqcm.jpg",
-            "https://ws1.sinaimg.cn/large/0065oQSqgy1fxd7vcz86nj30qo0ybqc1.jpg",
-            "https://ws1.sinaimg.cn/large/0065oQSqgy1fwyf0wr8hhj30ie0nhq6p.jpg",
-            "https://ws1.sinaimg.cn/large/0065oQSqgy1fwgzx8n1syj30sg15h7ew.jpg"
+            "https://pixabay.com/get/55e0d0404a57ad14f6da8c7dda79367a1d39d8e65b526c48702873d2954ecc5ebf_640.jpg",
+            "https://pixabay.com/get/54e6d2444d55ab14f6da8c7dda79367a1d39d8e65b526c48702873d2954ecc5ebf_640.jpg",
+            "https://pixabay.com/get/52e9dc444f54b108f5d08460962933761339dded504c704c72277dd69444c35f_640.jpg",
+            "https://pixabay.com/get/54e2d5454856a414f6da8c7dda79367a1d39d8e65b526c48702873d2954ecc5ebf_640.jpg",
+            "https://pixabay.com/get/52e6dd454955aa14f6da8c7dda79367a1d39d8e65b526c48702873d2954ecc5ebf_640.jpg",
+            "https://pixabay.com/get/54e8d54b4a55af14f6da8c7dda79367a1d39d8e65b526c48702873d2954ecc5ebf_640.jpg",
+            "https://pixabay.com/get/52e6dc4b4e55ac14f6da8c7dda79367a1d39d8e65b526c48702873d2954ecc5ebf_640.jpg",
+            "https://pixabay.com/get/52e6dc4b4e54ab14f6da8c7dda79367a1d39d8e65b526c48702873d2954ecc5ebf_640.jpg",
+            "https://pixabay.com/get/54e7d5474854ae14f6da8c7dda79367a1d39d8e65b526c48702873d2954ecc5ebf_640.jpg",
+             //----------------------not sex girl----------
+            "http://f.expoon.com/sub/news/2016/01/21/887844_230x162_0.jpg",
+            "http://f.expoon.com/sub/news/2016/01/21/580828_230x162_0.jpg",
+            "http://f.expoon.com/sub/news/2016/01/21/745921_230x162_0.jpg",
+            "http://f.expoon.com/sub/news/2016/01/21/158040_230x162_0.jpg",
+            "http://f.expoon.com/sub/news/2016/01/21/158040_230x162_0.jpg",
+            "http://f.expoon.com/sub/news/2016/01/21/865222_230x162_0.jpg",
+            "http://f.expoon.com/sub/news/2016/01/20/370858_230x162_0.jpg",
+            "http://f.expoon.com/sub/news/2016/01/20/868385_230x162_0.jpg",
+            "http://f.expoon.com/sub/news/2016/01/20/768695_230x162_0.jpg"
+
     };
 
 

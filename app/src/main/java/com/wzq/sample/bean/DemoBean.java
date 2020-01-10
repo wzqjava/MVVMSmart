@@ -2,9 +2,12 @@ package com.wzq.sample.bean;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 import java.util.List;
 
-public class DemoBean{
+public class DemoBean {
     private String nextPageToken;
     private String prevPageToken;
     private int requestCount;
@@ -60,7 +63,8 @@ public class DemoBean{
         this.items = items;
     }
 
-    public static class ItemsEntity implements Parcelable{
+    public static class ItemsEntity implements MultiItemEntity, Parcelable {
+        public int itemType;    // 添加的多条目类型
         private String detail;
         private String href;
         private int id;
@@ -69,10 +73,14 @@ public class DemoBean{
         private String pubDate;
         private int type;
 
+        @Override
+        public int getItemType() {
+            return itemType;
+        }
         public ItemsEntity(int id, String name, String img) {
             this.id = id;
-            this.img = img;
             this.name = name;
+            this.img = img;
         }
 
         public String getDetail() {

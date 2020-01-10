@@ -60,10 +60,10 @@ public class TabBarActivity extends BaseActivity<ActivityTabBarBinding, BaseView
 
     private void initBottomTab() {
         NavigationController navigationController = binding.pagerBottomTab.material()
-                .addItem(R.mipmap.yingyong, "应用")
-                .addItem(R.mipmap.huanzhe, "工作")
-                .addItem(R.mipmap.xiaoxi_select, "消息")
-                .addItem(R.mipmap.wode_select, "我的")
+                .addItem(R.drawable.yingyong, "应用")
+                .addItem(R.drawable.huanzhe, "工作")
+                .addItem(R.drawable.xiaoxi_select, "消息")
+                .addItem(R.drawable.wode_select, "我的")
                 .setDefaultColor(ContextCompat.getColor(this, R.color.textColorVice))
                 .build();
         //底部按钮的点击事件监听
