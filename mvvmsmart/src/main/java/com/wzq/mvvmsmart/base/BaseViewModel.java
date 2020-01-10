@@ -19,7 +19,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 public class BaseViewModel<M extends BaseModel> extends AndroidViewModel implements IBaseViewModel, Consumer<Disposable> {
     protected M model;
-    private UIChangeLiveData uc;
+    private UIChangeLiveData uiChangeLiveData;
     //管理RxJava，主要针对RxJava异步操作造成的内存泄漏
     private CompositeDisposable mCompositeDisposable;
     public BaseViewModel(@NonNull Application application) {
@@ -42,10 +42,10 @@ public class BaseViewModel<M extends BaseModel> extends AndroidViewModel impleme
 
 
     public UIChangeLiveData getUC() {
-        if (uc == null) {
-            uc = new UIChangeLiveData();
+        if (uiChangeLiveData == null) {
+            uiChangeLiveData = new UIChangeLiveData();
         }
-        return uc;
+        return uiChangeLiveData;
     }
 
 
@@ -71,7 +71,7 @@ public class BaseViewModel<M extends BaseModel> extends AndroidViewModel impleme
         if (bundle != null) {
             params.put(ParameterField.BUNDLE, bundle);
         }
-        uc.startActivityEvent.postValue(params);
+        uiChangeLiveData.startActivityLiveData.postValue(params);
     }
 
 
@@ -82,7 +82,7 @@ public class BaseViewModel<M extends BaseModel> extends AndroidViewModel impleme
      * 事件儿触发在ToolbarViewModel中,最终把事件传递到了UI层(Activity,Fragment)
      */
     public void sendFinishEvent() {
-        uc.finishEvent.call();
+        uiChangeLiveData.finishLiveData.call();
     }
 
     /**
@@ -90,7 +90,7 @@ public class BaseViewModel<M extends BaseModel> extends AndroidViewModel impleme
      * 事件儿触发在ToolbarViewModel中,最终把事件传递到了UI层(Activity,Fragment)
      */
     public void sendBackPressEvent() {
-        uc.onBackPressedEvent.call();
+        uiChangeLiveData.onBackPressedLiveData.call();
     }
 
     @Override
@@ -140,20 +140,20 @@ public class BaseViewModel<M extends BaseModel> extends AndroidViewModel impleme
     }
 
     public final class UIChangeLiveData extends SingleLiveEvent {
-        private SingleLiveEvent<Map<String, Object>> startActivityEvent;
-        private SingleLiveEvent<Void> finishEvent;
-        private SingleLiveEvent<Void> onBackPressedEvent;
+        private SingleLiveEvent<Map<String, Object>> startActivityLiveData;
+        private SingleLiveEvent<Void> finishLiveData;
+        private SingleLiveEvent<Void> onBackPressedLiveData;
 
-        public SingleLiveEvent<Map<String, Object>> getStartActivityEvent() {
-            return startActivityEvent = createLiveData(startActivityEvent);
+        public SingleLiveEvent<Map<String, Object>> getStartActivityLiveData() {
+            return startActivityLiveData = createLiveData(startActivityLiveData);
         }
 
-        public SingleLiveEvent<Void> getFinishEvent() {
-            return finishEvent = createLiveData(finishEvent);
+        public SingleLiveEvent<Void> getFinishLiveData() {
+            return finishLiveData = createLiveData(finishLiveData);
         }
 
-        public SingleLiveEvent<Void> getOnBackPressedEvent() {
-            return onBackPressedEvent = createLiveData(onBackPressedEvent);
+        public SingleLiveEvent<Void> getOnBackPressedLiveData() {
+            return onBackPressedLiveData = createLiveData(onBackPressedLiveData);
         }
 
         private <T> SingleLiveEvent<T> createLiveData(SingleLiveEvent<T> liveData) {

@@ -97,7 +97,7 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
     //注册ViewModel与View的契约UI回调事件
     protected void registorUIChangeLiveDataCallBack() {
         //跳入新页面
-        viewModel.getUC().getStartActivityEvent().observe(this, new Observer<Map<String, Object>>() {
+        viewModel.getUC().getStartActivityLiveData().observe(this, new Observer<Map<String, Object>>() {
             @Override
             public void onChanged(@Nullable Map<String, Object> params) {
                 Class<?> clz = (Class<?>) params.get(ParameterField.CLASS);
@@ -107,14 +107,14 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
         });
 
         //关闭界面
-        viewModel.getUC().getFinishEvent().observe(this, new Observer<Void>() {
+        viewModel.getUC().getFinishLiveData().observe(this, new Observer<Void>() {
             @Override
             public void onChanged(@Nullable Void v) {
                 finish();
             }
         });
         //关闭上一层
-        viewModel.getUC().getOnBackPressedEvent().observe(this, new Observer<Void>() {
+        viewModel.getUC().getOnBackPressedLiveData().observe(this, new Observer<Void>() {
             @Override
             public void onChanged(@Nullable Void v) {
                 onBackPressed();

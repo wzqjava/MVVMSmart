@@ -85,7 +85,7 @@ public class ToolbarViewModel<M extends BaseModel> extends BaseViewModel<M> {
         // 使用navigation,需要特殊处理返回键
         @Override
         public void call() {
-//            sendFinishEvent();
+            // 发送livedata事件儿,Fragment中监听;
             sendBackPressEvent();
         }
     });
@@ -96,7 +96,7 @@ public class ToolbarViewModel<M extends BaseModel> extends BaseViewModel<M> {
     public BindingCommand rightTextOnClick = new BindingCommand(new BindingAction() {
         @Override
         public void call() {
-            rightTextOnClick();
+
         }
     });
     /**
@@ -105,19 +105,8 @@ public class ToolbarViewModel<M extends BaseModel> extends BaseViewModel<M> {
     public BindingCommand rightIconOnClick = new BindingCommand(new BindingAction() {
         @Override
         public void call() {
-            rightIconOnClick();
         }
     });
 
-    /**
-     * 右边文字的点击事件，子类可重写
-     */
-    protected void rightTextOnClick() {
-    }
 
-    /**
-     * 右边图标的点击事件，子类可重写
-     */
-    protected void rightIconOnClick() {
-    }
 }
