@@ -9,7 +9,6 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.wzq.mvvmsmart.base.BaseFragment;
 import com.wzq.mvvmsmart.utils.ToastUtils;
 import com.wzq.sample.R;
@@ -53,24 +52,23 @@ public class MultiRecycleViewFragment extends BaseFragment<FragmentMultiRvBindin
         mAdapter = new MyMultiAdapter(datas);
         binding.setAdapter(mAdapter);
         binding.setLayoutManager(new LinearLayoutManager(getActivity()));
-        binding.rv.addOnItemTouchListener(new OnItemChildClickListener() {
-
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                DemoBean.ItemsEntity item = (DemoBean.ItemsEntity) adapter.getItem(position);
+                ToastUtils.showShort(item.getName() + "---" + position);
             }
         });
         mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                DemoBean.ItemsEntity item = (DemoBean.ItemsEntity)adapter.getItem(position);
+                DemoBean.ItemsEntity item = (DemoBean.ItemsEntity) adapter.getItem(position);
                 switch (view.getId()) {
                     case R.id.btn1:
-                        ToastUtils.showShort("btn1" + item.getName());
+                        ToastUtils.showShort("btn1---" + position);
                         break;
                     case R.id.btn2:
-                        ToastUtils.showShort("btn2" + item.getName());
-
+                        ToastUtils.showShort("btn2---" + position);
                         break;
                 }
 

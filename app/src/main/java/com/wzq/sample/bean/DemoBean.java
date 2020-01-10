@@ -79,8 +79,8 @@ public class DemoBean {
         }
         public ItemsEntity(int id, String name, String img) {
             this.id = id;
-            this.img = img;
             this.name = name;
+            this.img = img;
         }
 
         public String getDetail() {

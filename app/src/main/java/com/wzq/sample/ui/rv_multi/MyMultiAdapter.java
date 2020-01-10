@@ -35,14 +35,17 @@ public class MyMultiAdapter extends BaseMultiItemQuickAdapter<DemoBean.ItemsEnti
     protected void convert(@NonNull BaseViewHolder helper, DemoBean.ItemsEntity item) {
         switch (helper.getItemViewType()) {
             case 0:
-                helper.setText(R.id.iv2, item.getName())
-                        .addOnClickListener(R.id.btn2);
+                GlideLoadUtils.loadRoundCornerImg((ImageView) helper.getView(R.id.iv1), item.getImg(),
+                        R.mipmap.ic_launcher, 3);
+                helper.setText(R.id.tv_name, item.getName());
+                helper.addOnClickListener(R.id.btn1);
                 break;
             case 1:
                 GlideLoadUtils.loadRoundCornerImg((ImageView) helper.getView(R.id.iv1), item.getImg(),
-                        R.mipmap.ic_launcher, 20);
+                        R.mipmap.ic_launcher, 3);
                 GlideLoadUtils.loadRoundCornerImg((ImageView) helper.getView(R.id.iv2), item.getImg(),
-                        R.mipmap.ic_launcher, 20);
+                        R.mipmap.ic_launcher, 3);
+                helper.setText(R.id.tv_name, item.getName());
                 helper.addOnClickListener(R.id.btn2);
                 break;
         }
@@ -50,7 +53,7 @@ public class MyMultiAdapter extends BaseMultiItemQuickAdapter<DemoBean.ItemsEnti
 
 
     @Override
-    public void setNewData(@Nullable List<ReadInspireListBean.ListBean> data) {
-        super.setNewData(data);
+    public void setNewData(@Nullable List<DemoBean.ItemsEntity> datas) {
+        super.setNewData(datas);
     }
 }

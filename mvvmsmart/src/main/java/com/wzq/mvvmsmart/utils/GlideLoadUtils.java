@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.wzq.mvvmsmart.R;
@@ -26,19 +25,30 @@ import java.security.MessageDigest;
 public class GlideLoadUtils {
 
     /***
-     *  加载圆角矩形
+     *  加载圆角图片
+     *  解决imageView在布局文件设置android:scaleType="centerCrop"属性后，圆角无效的问题
      * @param placeHolderID 占位图
      * @param target 目标控件
      * @param url  资源路径
      */
     public static void loadRoundCornerImg(ImageView target, String url, int placeHolderID, int round) {
+
         try {
-            Glide.with((target.getContext()))
+            RequestOptions options = new RequestOptions().transform(new CenterCrop());
+            Glide.with(target.getContext())
+                    .asBitmap()
                     .load(url)
-                    .centerCrop()
                     .placeholder(placeHolderID)
-                    .apply(RequestOptions.bitmapTransform(new RoundedCorners(round)))
-                    .into(target);
+                    .apply(options)
+                    .into(new BitmapImageViewTarget(target) {
+                        @Override
+                        protected void setResource(Bitmap resource) {
+                            super.setResource(resource);
+                            RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(target.getContext().getResources(), resource);
+                            roundedBitmapDrawable.setCornerRadius(round);
+                            target.setImageDrawable(roundedBitmapDrawable);
+                        }
+                    });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -83,34 +93,7 @@ public class GlideLoadUtils {
         }
     }
 
-    /***
-     * 解决imageView在布局文件设置android:scaleType="centerCrop"属性后，圆角无效的问题
-     * @param context
-     * @param placeHolderID
-     * @param target
-     * @param url
-     */
-    public static void articleLoadRoundImg(final Context context, int placeHolderID, final ImageView target, String url) {
-        try {
-            RequestOptions options = new RequestOptions().transform(new CenterCrop());
-            Glide.with(context)
-                    .asBitmap()
-                    .load(url)
-                    .placeholder(placeHolderID)
-                    .apply(options)
-                    .into(new BitmapImageViewTarget(target) {
-                        @Override
-                        protected void setResource(Bitmap resource) {
-                            super.setResource(resource);
-                            RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(context.getResources(), resource);
-                            roundedBitmapDrawable.setCornerRadius(5);
-                            target.setImageDrawable(roundedBitmapDrawable);
-                        }
-                    });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
 
     static class GlideCircleTransformWithBorder extends BitmapTransformation {
         private Paint mBorderPaint;
@@ -168,7 +151,6 @@ public class GlideLoadUtils {
 
     /**
      * 设置圆角bitmap
-     *
      * @param context
      * @param placeHolderID
      * @param target
@@ -179,7 +161,6 @@ public class GlideLoadUtils {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
             byte[] bytes = baos.toByteArray();
-
             Glide.with(context)
                     .load(bytes)
                     .placeholder(placeHolderID)
