@@ -43,7 +43,6 @@ public class ToolbarViewModel<M extends BaseModel> extends BaseViewModel<M> {
 
     /**
      * 设置标题
-     *
      * @param text 标题文字
      */
     public void setTitleText(String text) {

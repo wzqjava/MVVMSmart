@@ -1,8 +1,6 @@
 package com.wzq.sample.ui.form;
 
 import android.app.Application;
-import android.text.TextUtils;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,11 +11,10 @@ import com.wzq.mvvmsmart.binding.command.BindingAction;
 import com.wzq.mvvmsmart.binding.command.BindingCommand;
 import com.wzq.mvvmsmart.binding.command.BindingConsumer;
 import com.wzq.mvvmsmart.binding.viewadapter.spinner.IKeyAndValue;
+import com.wzq.mvvmsmart.event.SingleLiveEvent;
 import com.wzq.sample.bean.FormEntity;
 import com.wzq.sample.bean.SpinnerItemData;
-import com.wzq.mvvmsmart.event.SingleLiveEvent;
 import com.wzq.sample.ui.base.viewmodel.ToolbarViewModel;
-import com.wzq.mvvmsmart.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,26 +49,6 @@ public class FormViewModel extends ToolbarViewModel {
         sexItemDatas = new ArrayList<>();
         sexItemDatas.add(new SpinnerItemData("男", "1"));
         sexItemDatas.add(new SpinnerItemData("女", "2"));
-    }
-
-    /**
-     * 初始化Toolbar
-     */
-    public void initToolbar() {
-        //初始化标题栏
-        setRightTextVisible(View.VISIBLE);
-        if (TextUtils.isEmpty(entity.getId())) {
-            //ID为空是新增
-            setTitleText("表单提交");
-        } else {
-            //ID不为空是修改
-            setTitleText("表单编辑");
-        }
-    }
-
-    @Override
-    public void rightTextOnClick() {
-        ToastUtils.showShort("更多");
     }
 
     public void setFormEntity(FormEntity entity) {

@@ -57,8 +57,7 @@
                 android:text="@{toolbarViewModel.rightText}"
                 android:textColor="@color/textColor"
                 android:textSize="18sp"
-                android:visibility="@{toolbarViewModel.rightTextVisibleObservable}"
-                binding:onClickCommand="@{toolbarViewModel.rightTextOnClick}" />
+                android:visibility="@{toolbarViewModel.rightTextVisibleObservable}" />
 
             <ImageView
                 android:id="@+id/iv_right_icon"
@@ -70,8 +69,7 @@
                 android:gravity="center"
                 android:padding="12dp"
                 android:src="@drawable/toolbar_more"
-                android:visibility="@{toolbarViewModel.rightIconVisibleObservable}"
-                binding:onClickCommand="@{toolbarViewModel.rightIconOnClick}" />
+                android:visibility="@{toolbarViewModel.rightIconVisibleObservable}" />
 
             <View
                 style="@style/ViewLineStyle"

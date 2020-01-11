@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <include
-            android:id="@+id/include"
+            android:id="@+id/title"
             layout="@layout/layout_toolbar"
             binding:toolbarViewModel="@{viewModel.toolbarViewModel}" />
 
