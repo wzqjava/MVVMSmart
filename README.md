@@ -1,22 +1,12 @@
 # MVVMSmart
-## 技术讨论群,
-QQ群：531944409
+## 技术讨论群, QQ群：531944409
 ## 最新日志
+		
 **v1.0：2019年1月25日**
 
 > MVVMSmart系列解读文章
  https://juejin.im/user/574e36b179bc440062693484/posts
-
-- init提交
-  1. sapmple,beta8版本,sample中的内存泄露处理中,不影响使用
-  2. 重构封装recyclerview的实现方式,支持使用命令实现条目下拉刷新、上拉加载、条目内按钮点击事件
-  3. 添加LiveEventBus
-  4. 封装带状态的LiveData, 让recyclerviewview在加载中、加载错误、没有更多数据的时候,能够方便回调到UI层(这是Android开发使用MVVM的重中之重)
-  5. sample中添加smartRefreshLayout
-  6. 添加navigation
-  7. 本项目的sample中高级的进阶使用
-  8. mvvmSmart目前已经商用,有专门的测试组测试,公司项目组会持续跟进
-  
+ 
 ##
 目前，android流行的MVC、MVP模式的开发框架很多，然而一款基于MVVM模式开发框架却很少。**MVVMSmart是以谷歌DataBinding+LiveData+ViewModel框架为基础，整合Okhttp+RxJava+Retrofit+Glide等流行模块，加上各种原生控件自定义的BindingAdapter，让事件与数据源完美绑定的一款容易上瘾的实用性MVVM快速开发框架**。从此告别findViewById()，告别setText()，告别setOnClickListener()...
 
