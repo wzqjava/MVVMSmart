@@ -143,14 +143,16 @@ CaocConfig.Builder.create()
 > 以大家都熟悉的Recyclerview加载多条目操作为例：三个文件**MultiRecycleViewFragment.java**、**MultiRecycleViewModel.java**、**fragment_multi_rv.xml.xml**
 
 ##### 2.1.1、关联ViewModel
-在activity_login.xml中关联LoginViewModel。
+fragment_multi_rv.xml中关联LinearLayoutManager和MyMultiAdapter。
 ```xml
 <layout>
     <data>
         <variable
-            name="viewModel"
-            type="com.wzq.sample.ui.login.LoginViewModel"
-        />
+            name="layoutManager"
+            type="androidx.recyclerview.widget.LinearLayoutManager" />
+        <variable
+            name="adapter"
+            type="com.wzq.sample.ui.recycler_multi.MyMultiAdapter" />
     </data>
     .....
 
@@ -161,38 +163,50 @@ CaocConfig.Builder.create()
 
 ##### 2.1.2、继承BaseActivity
 
-LoginActivity继承BaseActivity
+MultiRecycleViewFragment继承BaseFragment
 ```java
 
-public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewModel> {
-    //ActivityLoginBinding类是databinding框架自定生成的,对activity_login.xml
+public class MultiRecycleViewFragment extends BaseFragment<FragmentMultiRvBinding, MultiRecycleViewModel> {
+
+
+    private MyMultiAdapter mAdapter;
+
     @Override
-    public int initContentView(Bundle savedInstanceState) {
-        return R.layout.activity_login;
+    public int initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return R.layout.fragment_multi_rv;
     }
 
     @Override
     public int initVariableId() {
-        return BR.viewModel;
+        return com.wzq.sample.BR.viewModel;
     }
 
     @Override
-    public LoginViewModel initViewModel() {
-        //View持有ViewModel的引用，如果没有特殊业务处理，这个方法可以不重写
-        return ViewModelProviders.of(this).get(LoginViewModel.class);
+    public void initData() {
+        super.initData();
+        viewModel.getData();
+        initRecyclerView();
     }
-}
+
+    @Override
+    public void initViewObservable() {
+        super.initViewObservable();
+        viewModel.itemsEntityLiveData.observe(this, itemsEntities -> {
+            mAdapter.setNewData(itemsEntities);
+        });
+    }
+    ....
 ```
-> 保存activity_login.xml后databinding会生成一个ActivityLoginBinding类。（如果没有生成，试着点击Build->Clean Project）
+> fragment_multi_rv.xml后databinding会生成一个FragmentMultiRvBinding类。（如果没有生成，试着点击Build->Clean Project）
 
-BaseActivity是一个抽象类，有两个泛型参数，一个是ViewDataBinding，另一个是BaseViewModel，上面的ActivityLoginBinding则是继承的ViewDataBinding作为第一个泛型约束，LoginViewModel继承BaseViewModel作为第二个泛型约束。
+BaseFragment是一个抽象类(专门在Sample中独立与框架处理,方便大家使用自己项目中的Base,不用修改自己项目中的base名称,框架中的Base都有MVVM后缀), base中有两个泛型参数，一个是ViewDataBinding，另一个是BaseViewModel，上面的ActivityLoginBinding则是继承的ViewDataBinding作为第一个泛型约束，MultiRecycleViewModel继承BaseViewModel作为第二个泛型约束。
 
-重写BaseActivity的二个抽象方法
+重写BaseFragment的两个抽象方法
 
 initContentView() 返回界面layout的id<br>
-initVariableId() 返回变量的id，对应activity_login中name="viewModel"，就像一个控件的id，可以使用R.id.xxx，这里的BR跟R文件一样，由系统生成，使用BR.xxx找到这个ViewModel的id。<br>
+initVariableId() 返回viewModel变量的id，就像一个控件的id，可以使用R.id.xxx，这里的BR跟R文件一样，由系统生成，使用BR.xxx找到这个ViewModel的id。<br>
 
-选择性重写initViewModel()方法，返回ViewModel对象
+大家可以选择性重写initViewModel()方法，返回自己用Factory创建的ViewModel对象
 ```java
 @Override
 public LoginViewModel initViewModel() {
@@ -205,17 +219,22 @@ public LoginViewModel initViewModel() {
 
 ##### 2.1.3、继承BaseViewModel
 
-LoginViewModel继承BaseViewModel
+MultiRecycleViewModel继承BaseViewModel
 ```java
-public class LoginViewModel extends BaseViewModel {
-    public LoginViewModel(@NonNull Application application) {
+public class MultiRecycleViewModel extends BaseViewModel {
+
+    //给RecyclerView添加ObservableList
+    public MutableLiveData<ArrayList<DemoBean.ItemsEntity>> itemsEntityLiveData;
+
+    public MultiRecycleViewModel(@NonNull Application application) {
         super(application);
+        itemsEntityLiveData = new MutableLiveData<>();
     }
-    ....
+    .....
 }
 ```
-BaseViewModel与BaseActivity通过LiveData来处理常用UI逻辑，即可在ViewModel中使用父类的showDialog()、startActivity()等方法。在这个LoginViewModel中就可以尽情的写你的逻辑了！
-> BaseFragment的使用和BaseActivity一样，详情参考Demo。
+BaseViewModel与BaseFragment通过StateLiveData来处理常用UI逻辑，即可在ViewModel中使用父类的showDialog()、startActivity()等方法。在这个MultiRecycleViewModel中就可以尽情的写你的逻辑了！
+> BaseActivity的使用和BaseFragment几乎一样(BaseFragment中单独处理的配合navigation)，详情参考Sample。
 
 ### 2.2、数据绑定
 > 拥有databinding框架自带的双向绑定，也有扩展
@@ -256,35 +275,17 @@ android:onClick="@{viewModel.loginOnClick}"
 
 **但是，光有这些，完全满足不了我们复杂业务的需求啊！MVVMSmart闪亮登场：它有一套自定义的绑定规则，可以满足大部分的场景需求，请继续往下看。**
 
-##### 2.2.2、自定义绑定
-还拿点击事件说吧，不用传统的绑定方式，使用自定义的点击事件绑定。
+##### 2.2.2、UI控件点击事件儿的绑定
+还拿点击事件说吧，建议不用使用太多网上的自定义指令,因为一般都是团队开发,不好维护,所有UI事件儿的触发都要放在UI层触发, 高级命令在后边讲解
 
-在LoginViewModel中定义
+在LoginFragment.java中定义
 ```java
 //登录按钮的点击事件
-public BindingCommand loginOnClickCommand = new BindingCommand(new BindingAction() {
-    @Override
-    public void call() {
-            
-    }
-});
+ binding.btnLogin.setOnClickListener(view ->{
+            viewModel.login();
+        });
 ```
-在activity_login中定义命名空间
-```xml
-xmlns:binding="http://schemas.android.com/apk/res-auto"
-```
-在登录按钮标签中绑定
-```xml
-binding:onClickCommand="@{viewModel.loginOnClickCommand}"
-```
-这和原本传统的绑定不是一样吗？不，这其实是有差别的。使用这种形式的绑定，在原本事件绑定的基础之上，带有防重复点击的功能，1秒内多次点击也只会执行一次操作。如果不需要防重复点击，可以加入这条属性
-```xml
-binding:isThrottleFirst="@{Boolean.TRUE}"
-```
-那这功能是在哪里做的呢？答案在下面的代码中。
-```java
-
-onClickCommand方法是自定义的，使用@BindingAdapter注解来标明这是一个绑定方法。在方法中使用了RxView来增强view的clicks事件，.throttleFirst()限制订阅者在指定的时间内重复执行，最后通过BindingCommand将事件回调出去，就好比有一种拦截器，在点击时先做一下判断，然后再把事件沿着他原有的方向传递。
+简单粗暴,一眼明了,好维护.如果有多个点击事件怎么封装请参考HomeFragment.java中,用一个Presenter来封装;
 
 是不是觉得有点意思，好戏还在后头呢！
 ##### 2.2.3、自定义ImageView图片加载
@@ -323,32 +324,21 @@ public static void setImageUri(ImageView imageView, String url, int placeholderR
 > 如果你对这些感兴趣，可以下载源码，在binding包中可以看到各类控件的绑定实现方式
 
 ##### 2.2.4、RecyclerView绑定
-> RecyclerView也是很常用的一种控件，传统的方式需要针对各种业务要写各种Adapter，如果你使用了mvvmsmart，则可大大简化这种工作量，从此告别setAdapter()。
-mvvmsmart中的recyclerview进行了很大改动,目前封装的比较完善,详细文档待续
- 2. 重构封装recyclerview的实现方式,支持使用命令实现条目下拉刷新、上拉加载、条目内按钮点击事件
- 3. NetWorkFragment中调用NetWorkViewModel请求真实网络数据,并用带状态的livedata通信到ui层;
- 4. 封装带状态的LiveData, 让recyclerviewview在加载中、加载错误、没有更多数据的时候,能够方便回调到UI层(这是Android开发使用MVVM的重中之重)
- 5. 带条目中点击事件儿,进行条目删除
+> RecyclerView是很常用的控件，传统的方式需要针对各种业务要写各种Adapter，如果你使用了mvvmsmart，则可大大简化这种工作量，从此告别setAdapter()。
+mvvmsmart中的recyclerview进行了三次大改动,后期又改为了BaseRecyclerViewAdapterHelper,主要考虑到方便使用和维护,之前用Databinding和ItemViewModel都太难维护,学习成本高,与高质快速开发思想相违背,这就类似于部队的技术更重视成功,稳定,而不是一味立马上新技术.
+[BaseRecyclerViewAdapterHelper](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)负责管理RecyclerView的适配器；
 
 
 在ViewModel中定义：
-```java
-//给RecyclerView添加items
-public final ObservableList<NetWorkItemViewModel> observableList = new ObservableArrayList<>();
-//给RecyclerView添加ItemBinding
-public final ItemBinding<NetWorkItemViewModel> itemBinding = ItemBinding.of(BR.viewModel, R.layout.item_network);
-```
-ObservableList<>和ItemBinding<>的泛型是Item布局所对应的ItemViewModel
 
 在xml中绑定
 ```xml
- <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:adapter="@{adapter}"
-                app:layoutManager="@{layoutManager}"
-                tools:listitem="@layout/item_single"
-                />
+<androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:adapter="@{adapter}"
+            app:layoutManager="@{layoutManager}"/>
 ```
 layoutManager控制是线性(包含水平和垂直)排列还是网格排列，lineManager是设置分割线
 
@@ -357,21 +347,13 @@ layoutManager控制是线性(包含水平和垂直)排列还是网格排列，li
 
 使用到相关类，则需要导入该类才能使用，和导入Java类相似
 
-> ` <variable
+> `  <variable
             name="layoutManager"
-            type="androidx.recyclerview.widget.RecyclerView.LayoutManager" />`</br>
-> `<variable
-            name="viewModel"
-            type="com.wzq.sample.ui.network.NetWorkViewModel" />`</br>
-> `<variable
+            type="androidx.recyclerview.widget.LinearLayoutManager" />`</br>
+> ` <variable
             name="adapter"
-            type="com.wzq.mvvmsmart.rv_adapter.SingleTypeAdapter" />`
-
-
-这样绑定后，在ViewModel中调用ObservableList的add()方法，添加一个ItemViewModel，界面上就会实时绘制出一个Item。在Item对应的ViewModel中，同样可以以绑定的形式完成逻辑
-> 可以在请求到数据后，循环添加`observableList.add(new NetWorkItemViewModel(NetWorkViewModel.this, entity));`详细可以参考例子程序中NetWorkViewModel类。
-
-**注意：** 在以前的版本中，ItemViewModel是继承BaseViewModel，传入Context，新版本3.x中可继承ItemViewModel，传入当前页面的ViewModel
+            type="com.wzq.sample.ui.recycler_multi.MyMultiAdapter" />`</br>
+绑定后,界面自动出现recyclerView;
 
 更多RecyclerView、ListView、ViewPager等绑定方式，请参考 [https://github.com/evant/binding-collection-adapter](https://github.com/evant/binding-collection-adapter)
 
