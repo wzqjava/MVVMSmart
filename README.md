@@ -22,8 +22,13 @@
 	MVVM开发模式，低耦合，逻辑分明。Model层负责将请求的数据交给ViewModel；ViewModel层负责将请求到的数据做业务逻辑处理，最后交给View层去展示，与View一一对应；View层只负责界面绘制刷新，不处理业务逻辑，非常适合分配独立模块开发。
 
 - **流行框架**
-
-[retrofit](https://github.com/square/retrofit)+[okhttp](https://github.com/square/okhttp)+[rxJava](https://github.com/ReactiveX/RxJava)负责网络请求；[gson](https://github.com/google/gson)负责解析json数据；[glide](https://github.com/bumptech/glide)负责加载图片；[BaseRecyclerViewAdapterHelper](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)负责管理view的生命周期；与网络请求共存亡；[rxbinding](https://github.com/JakeWharton/RxBinding)结合databinding扩展UI事件；[rxpermissions](https://github.com/tbruyelle/RxPermissions)负责Android 6.0权限申请；[material-dialogs](https://github.com/afollestad/material-dialogs)一个漂亮的、流畅的、可定制的material design风格的对话框。
+google AAC(Android Architecture Components:安卓架构组件):
+[ViewModel](https://developer.android.google.cn/jetpack):负责管理UI的逻辑好数据,
+[Lifecycles](https://developer.android.google.cn/jetpack):负责处理数据和UI生命周期的自动管理
+[Navigation](https://developer.android.google.cn/jetpack):google推荐的轻Activity方案,一个大的功能只用一个Activity,内部导航多个Fragment.
+[DataBinding](https://developer.android.google.cn/jetpack):负责ViewModel中数据和UI控件的自动绑定
+[LiveData]:(https://developer.android.google.cn/jetpack)负责ViewModel中数据的管理和与UI层的通信
+[retrofit](https://github.com/square/retrofit)+[okhttp](https://github.com/square/okhttp)+[rxJava](https://github.com/ReactiveX/RxJava)负责网络请求；[gson](https://github.com/google/gson)负责解析json数据；[glide](https://github.com/bumptech/glide)负责加载图片；[BaseRecyclerViewAdapterHelper](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)负责管理RecyclerView的适配器；[rxpermissions](https://github.com/tbruyelle/RxPermissions)负责Android 6.0权限申请；[material-dialogs](https://github.com/afollestad/material-dialogs)一个漂亮的、流畅的、可定制的material design风格的对话框。
 
 - **数据绑定**
 
