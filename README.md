@@ -3,15 +3,14 @@
 ## 最新日志 **v1.0：2020年1月10日**
 1. 添加BaseRecyclerViewAdapterHelper,是中高级开发者都能快速开发.	
 ## 建议大家用clone的方式关联开源框架,方便及时更新,下载github的压缩包更新不方便
-AndroidStudio 从github下载代码的正确姿势:	https://juejin.im/post/5e09dd306fb9a01648718430	
-MVVMSmart系列解读文章
- https://juejin.im/user/574e36b179bc440062693484/posts
+1. AndroidStudio 从github下载代码的正确姿势:	https://juejin.im/post/5e09dd306fb9a01648718430	
+2. MVVMSmart系列解读文章: https://juejin.im/user/574e36b179bc440062693484/posts
  
 ##
-目前，android流行的MVC、MVP模式的开发框架很多，然而一款基于MVVM模式开发框架却很少。**MVVMSmart是以谷歌DataBinding+LiveData+ViewModel框架为基础，整合Okhttp+RxJava+Retrofit+Glide等流行模块，加上各种原生控件自定义的BindingAdapter，让事件与数据源完美绑定的一款容易上瘾的实用性MVVM快速开发框架**。从此告别findViewById()，告别setText()，告别setOnClickListener()...
+目前，android基于MVVM模式开发框架比较很少。**MVVMSmart是以谷歌DataBinding+LiveData+ViewModel框架为基础，整合Okhttp+RxJava+Retrofit+Glide等流行模块，加上各种原生控件自定义的BindingAdapter，让事件与数据源完美绑定的一款容易上瘾的实用性MVVM快速开发框架**。从此告别findViewById()，告别setText()，告别setOnClickListener()...
 
 ## 框架流程
-![](./img/fc.png) 
+
 
 ## 框架特点
 - **快速开发**
@@ -24,7 +23,7 @@ MVVMSmart系列解读文章
 
 - **流行框架**
 
-	[retrofit](https://github.com/square/retrofit)+[okhttp](https://github.com/square/okhttp)+[rxJava](https://github.com/ReactiveX/RxJava)负责网络请求；[gson](https://github.com/google/gson)负责解析json数据；[glide](https://github.com/bumptech/glide)负责加载图片；[rxlifecycle](https://github.com/trello/RxLifecycle)负责管理view的生命周期；与网络请求共存亡；[rxbinding](https://github.com/JakeWharton/RxBinding)结合databinding扩展UI事件；[rxpermissions](https://github.com/tbruyelle/RxPermissions)负责Android 6.0权限申请；[material-dialogs](https://github.com/afollestad/material-dialogs)一个漂亮的、流畅的、可定制的material design风格的对话框。
+[retrofit](https://github.com/square/retrofit)+[okhttp](https://github.com/square/okhttp)+[rxJava](https://github.com/ReactiveX/RxJava)负责网络请求；[gson](https://github.com/google/gson)负责解析json数据；[glide](https://github.com/bumptech/glide)负责加载图片；[BaseRecyclerViewAdapterHelper](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)负责管理view的生命周期；与网络请求共存亡；[rxbinding](https://github.com/JakeWharton/RxBinding)结合databinding扩展UI事件；[rxpermissions](https://github.com/tbruyelle/RxPermissions)负责Android 6.0权限申请；[material-dialogs](https://github.com/afollestad/material-dialogs)一个漂亮的、流畅的、可定制的material design风格的对话框。
 
 - **数据绑定**
 
