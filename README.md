@@ -21,7 +21,7 @@
 
 	MVVM开发模式，低耦合，逻辑分明。Model层负责将请求的数据交给ViewModel；ViewModel层负责将请求到的数据做业务逻辑处理，最后交给View层去展示，与View一一对应；View层只负责界面绘制刷新，不处理业务逻辑，非常适合分配独立模块开发。
 
-- **流行框架**
+- **本项目使用流行框架**
 google AAC(Android Architecture Components:安卓架构组件):
 [ViewModel](https://developer.android.google.cn/jetpack):负责管理UI的逻辑好数据,
 [Lifecycles](https://developer.android.google.cn/jetpack):负责处理数据和UI生命周期的自动管理
