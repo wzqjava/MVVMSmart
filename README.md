@@ -32,11 +32,11 @@ google AAC(Android Architecture Components:安卓架构组件):
 
 - **数据绑定**
 
-	满足google目前控件支持的databinding双向绑定，并扩展原控件一些不支持的数据绑定。例如将图片的url路径绑定到ImageView控件中，在BindingAdapter方法里面则使用Glide加载图片；View的OnClick事件在BindingAdapter中方法使用RxView防重复点击，再把事件回调到ViewModel层，实现xml与ViewModel之间数据和事件的绑定(框架里面部分扩展控件和回调命令使用的是@kelin原创的)。
+	满足google目前控件支持的databinding双向绑定，并扩展原控件一些不支持的数据绑定。例如将图片的url路径绑定到ImageView控件中，在BindingAdapter方法里面则使用Glide加载图片；View的OnClick事件在BindingAdapter中方法使用RxView防重复点击，再把事件回调到ViewModel层，实现xml与ViewModel之间数据和事件的绑定(框架里面部分扩展控件和回调命令使用的是@kelin原创的)。UI的事件儿绑定请在UI中处理,否则不好维护,可以在UI中触发,UI中持有viewmodel,调用viewmodel中的业务即可.
 
 - **基类封装**
 
-	专门针对MVVM模式打造的BaseActivity、BaseFragment、BaseViewModel，在View层中不再需要定义ViewDataBinding和ViewModel，直接在BaseActivity、BaseFragment上限定泛型即可使用。普通界面只需要编写Fragment，然后使用ContainerActivity盛装(代理)，这样就不需要每个界面都在AndroidManifest中注册一遍。
+	专门针对MVVM模式打造的BaseActivity、BaseFragment、BaseViewModel，在View层中不再需要定义ViewDataBinding和ViewModel，直接在BaseActivity、BaseFragment上限定泛型即可使用.支持navigation导航Fragment的管理,导航返回时候回调用OnCreateView,BaseFragment已经封装。ToolbarViewModel封装了标题返回,标题和右侧文字不要在BaseActivit和BaseFragment中进行任何处理即可使用,普通界面只需要编写Fragment，然后使用ContainerActivity盛装(代理)，这样就不需要每个界面都在AndroidManifest中注册一遍。
 
 - **全局操作**
 	1. 全局的Activity堆栈式管理，在程序任何地方可以打开、结束指定的Activity，一键退出应用程序。
@@ -46,11 +46,13 @@ google AAC(Android Architecture Components:安卓架构组件):
 	5. 全局的异常捕获，程序发生异常时不会崩溃，可跳入异常界面重启应用。
 	6. 全局事件回调，提供RxBus、Messenger两种回调方式。
 	7. 全局任意位置一行代码实现文件下载进度监听（暂不支持多文件进度监听）。
-    8. 全局点击事件防抖动处理，防止点击过快。
-
+  
 
 ## 1、准备工作
-> 网上的很多有关MVVM的资料，在此就不再阐述什么是MVVM了，不清楚的朋友可以先去了解一下。[todo-mvvm-live](https://github.com/googlesamples/android-architecture/tree/todo-mvvm-live)
+> 网上的很多有关MVVM的资料，在此就不再阐述什么是MVVM了，不清楚的朋友可以先去了解一下。
+architecture-components-samples](https://github.com/android/architecture-components-samples)
+[todo-mvvm-live](https://github.com/googlesamples/android-architecture/tree/todo-mvvm-live)
+
 ### 1.1、启用databinding
 在主工程app的build.gradle的android {}中加入：
 ```gradle
@@ -78,7 +80,7 @@ allprojects {
 ```gradle
 dependencies {	
     ...
-    implementation project(':mvvmsmart')
+    api project(':mvvmsmart')
 }
 ```
 
@@ -93,9 +95,8 @@ apply from: "config.gradle"
 
 android = [] 是你的开发相关版本配置，可自行修改
 
-support = [] 是你的support相关配置，可自行修改
+dependencies = [] 是依赖第三方库的配置，可以加新库，用户也可以自己修改版本号,目前都是androidx依赖.
 
-dependencies = [] 是依赖第三方库的配置，可以加新库，但不要去修改原有第三方库的版本号，不然可能会编译不过
 ### 1.4、配置AndroidManifest
 添加权限：
 ```xml
@@ -137,8 +138,9 @@ CaocConfig.Builder.create()
 
 ## 2、快速上手
 
-### 2.1、第一个Activity
-> 以大家都熟悉的登录操作为例：三个文件**LoginActivty.java**、**LoginViewModel.java**、**activity_login.xml**
+### 2.1、第一个Fragment
+为啥是第一Fragment,因为目前google IO 大会和aac已经推荐Activity中用navigation导航Fargment来处理所以目前我在例子中用Activity导航了所有功能,一个功能是一个Fargment.同时你想继续用一个个Activity也是可以的,ActivityBase层都已经处理好了.
+> 以大家都熟悉的Recyclerview加载多条目操作为例：三个文件**MultiRecycleViewFragment.java**、**MultiRecycleViewModel.java**、**fragment_multi_rv.xml.xml**
 
 ##### 2.1.1、关联ViewModel
 在activity_login.xml中关联LoginViewModel。
