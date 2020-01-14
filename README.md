@@ -1,10 +1,10 @@
 # MVVMSmart
-## 技术讨论群, QQ群：531944409
-## 最新日志
-		
-**v1.0：2019年1月25日**
-
-> MVVMSmart系列解读文章
+## 技术讨QQ群：531944409
+## 最新日志 **v1.0：2020年1月10日**
+1. 添加BaseRecyclerViewAdapterHelper,是中高级开发者都能快速开发.	
+## 建议大家用clone的方式关联开源框架,方便及时更新,下载github的压缩包更新不方便
+AndroidStudio 从github下载代码的正确姿势:	https://juejin.im/post/5e09dd306fb9a01648718430	
+MVVMSmart系列解读文章
  https://juejin.im/user/574e36b179bc440062693484/posts
  
 ##
