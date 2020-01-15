@@ -13,12 +13,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.Observable;
 import androidx.lifecycle.Observer;
 
-import com.wzq.mvvmsmart.base.BaseFragment;
 import com.wzq.mvvmsmart.utils.MaterialDialogUtils;
 import com.wzq.mvvmsmart.utils.ToastUtils;
 import com.wzq.sample.R;
 import com.wzq.sample.bean.FormEntity;
 import com.wzq.sample.databinding.FragmentFormTempBinding;
+import com.wzq.sample.ui.base.BaseFragment;
 
 import java.util.Calendar;
 

@@ -12,7 +12,6 @@ import androidx.lifecycle.Observer;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.wzq.mvvmsmart.base.BaseFragment;
 import com.wzq.mvvmsmart.http.DownLoadManager;
 import com.wzq.mvvmsmart.http.download.ProgressCallBack;
 import com.wzq.mvvmsmart.utils.KLog;
@@ -20,6 +19,7 @@ import com.wzq.mvvmsmart.utils.ToastUtils;
 import com.wzq.sample.R;
 import com.wzq.sample.bean.FormEntity;
 import com.wzq.sample.databinding.FragmentHomeBinding;
+import com.wzq.sample.ui.base.BaseFragment;
 import com.wzq.sample.ui.tab_bar.activity.TabBarActivity;
 
 import io.reactivex.functions.Consumer;

@@ -14,7 +14,7 @@ import com.wzq.mvvmsmart.binding.viewadapter.spinner.IKeyAndValue;
 import com.wzq.mvvmsmart.event.SingleLiveEvent;
 import com.wzq.sample.bean.FormEntity;
 import com.wzq.sample.bean.SpinnerItemData;
-import com.wzq.sample.ui.base.viewmodel.ToolbarViewModel;
+import com.wzq.sample.ui.base.ToolbarViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

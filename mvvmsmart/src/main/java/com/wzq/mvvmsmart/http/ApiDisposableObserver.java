@@ -1,7 +1,7 @@
 package com.wzq.mvvmsmart.http;
 
 
-import com.wzq.mvvmsmart.base.AppManager;
+import com.wzq.mvvmsmart.base.AppManagerMVVM;
 import com.wzq.mvvmsmart.utils.KLog;
 import com.wzq.mvvmsmart.utils.ToastUtils;
 import com.wzq.mvvmsmart.utils.Utils;
@@ -81,7 +81,7 @@ public abstract class ApiDisposableObserver<T> extends DisposableObserver<T> {
                 //无效的Token，提示跳入登录页
                 ToastUtils.showShort("token已过期，请重新登录");
                 //关闭所有页面
-                AppManager.getAppManager().finishAllActivity();
+                AppManagerMVVM.getAppManager().finishAllActivity();
                 //跳入登录界面
                 //*****该类仅供参考，实际业务Code, 根据需求来定义，******//
                 break;

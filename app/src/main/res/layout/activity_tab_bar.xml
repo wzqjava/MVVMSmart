@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.wzq.mvvmsmart.base.BaseViewModel" />
+            type="com.wzq.mvvmsmart.base.BaseViewModelMVVM" />
     </data>
 
     <LinearLayout

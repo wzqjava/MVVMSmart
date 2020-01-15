@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 
-import com.wzq.mvvmsmart.base.BaseViewModel;
 import com.wzq.mvvmsmart.binding.command.BindingAction;
 import com.wzq.mvvmsmart.binding.command.BindingCommand;
 import com.wzq.mvvmsmart.binding.command.BindingConsumer;
@@ -17,6 +16,7 @@ import com.wzq.mvvmsmart.event.StateLiveData;
 import com.wzq.mvvmsmart.utils.RxUtils;
 import com.wzq.mvvmsmart.utils.ToastUtils;
 import com.wzq.sample.data.DemoRepository;
+import com.wzq.sample.ui.base.BaseViewModel;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;

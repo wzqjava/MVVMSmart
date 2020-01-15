@@ -7,7 +7,7 @@
             type="androidx.recyclerview.widget.LinearLayoutManager" />
         <variable
             name="adapter"
-            type="com.wzq.sample.ui.rv_multi.MyMultiAdapter" />
+            type="com.wzq.sample.ui.recycler_multi.MyMultiAdapter" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

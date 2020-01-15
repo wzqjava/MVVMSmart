@@ -3,11 +3,11 @@
 
     <data>
 
-        <import type="com.wzq.mvvmsmart.base.BaseViewModel" />
+        <import type="com.wzq.mvvmsmart.base.BaseViewModelMVVM" />
 
         <variable
             name="viewModel"
-            type="BaseViewModel" />
+            type="com.wzq.mvvmsmart.base.BaseViewModelMVVM" />
 
     </data>
 

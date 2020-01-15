@@ -6,8 +6,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 
-import com.wzq.mvvmsmart.base.BaseFragment;
 import com.wzq.sample.R;
+import com.wzq.sample.ui.base.BaseFragment;
 
 public class TabBar4Fragment extends BaseFragment {
     @Override

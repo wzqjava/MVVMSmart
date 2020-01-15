@@ -1,6 +1,6 @@
 package com.wzq.sample.data;
 
-import com.wzq.mvvmsmart.base.BaseModel;
+import com.wzq.mvvmsmart.base.BaseModelMVVM;
 import com.wzq.mvvmsmart.http.BaseResponse;
 import com.wzq.sample.bean.DemoBean;
 import com.wzq.sample.data.source.HttpDataSource;
@@ -13,7 +13,7 @@ import io.reactivex.Observable;
 /**
  * MVVM的Model层，统一模块的数据仓库，包含网络数据和本地数据（一个应用可以有多个Repositor）
  */
-public class DemoRepository extends BaseModel implements HttpDataSource, LocalDataSource {
+public class DemoRepository extends BaseModelMVVM implements HttpDataSource, LocalDataSource {
     private volatile static DemoRepository INSTANCE = null;
     private final HttpDataSource mHttpDataSource;
     private final LocalDataSource mLocalDataSource;

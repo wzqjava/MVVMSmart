@@ -6,7 +6,7 @@
 
         <variable
             name="toolbarViewModel"
-            type="com.wzq.sample.ui.base.viewmodel.ToolbarViewModel" />
+            type="com.wzq.sample.ui.base.ToolbarViewModel" />
     </data>
 
     <androidx.appcompat.widget.Toolbar

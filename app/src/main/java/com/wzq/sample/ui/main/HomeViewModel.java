@@ -4,11 +4,11 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 
-import com.wzq.mvvmsmart.base.BaseViewModel;
 import com.wzq.mvvmsmart.event.SingleLiveEvent;
+import com.wzq.sample.ui.base.ToolbarViewModel;
 
 
-public class HomeViewModel extends BaseViewModel {
+public class HomeViewModel extends ToolbarViewModel {
     //使用Observable
     public SingleLiveEvent<Boolean> requestCameraPermissions = new SingleLiveEvent<>();
     //使用LiveData
