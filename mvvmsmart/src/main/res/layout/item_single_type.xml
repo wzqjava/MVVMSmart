@@ -4,11 +4,11 @@
     <data>
         <variable
             name="presenter"
-            type="com.wzq.mvvmsmart.rv_adapter.BaseViewAdapter.Presenter"/>
+            type="com.wzq.mvvmsmart.adapter.BaseViewAdapter.Presenter"/>
 
         <variable
             name="item"
-            type="com.wzq.mvvmsmart.rv_adapter.DummyBean"/>
+            type="com.wzq.mvvmsmart.adapter.DummyBean"/>
     </data>
 
     <LinearLayout

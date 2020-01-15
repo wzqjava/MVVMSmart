@@ -3,7 +3,7 @@ package com.wzq.sample.ui.vp_frg;
 
 import androidx.fragment.app.Fragment;
 
-import com.wzq.sample.ui.base.fragment.BasePagerFragment;
+import com.wzq.sample.ui.base.BasePagerFragment;
 import com.wzq.sample.ui.tab_bar.fragment.TabBar1Fragment;
 import com.wzq.sample.ui.tab_bar.fragment.TabBar2Fragment;
 import com.wzq.sample.ui.tab_bar.fragment.TabBar3Fragment;

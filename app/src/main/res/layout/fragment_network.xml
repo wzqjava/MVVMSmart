@@ -12,11 +12,11 @@
 
         <variable
             name="viewModel"
-            type="com.wzq.sample.ui.network.NetWorkViewModel" />
+            type="com.wzq.sample.ui.recycler_single_network.NetWorkViewModel" />
 
         <variable
             name="adapter"
-            type="com.wzq.mvvmsmart.rv_adapter.SingleTypeAdapter" />
+            type="com.wzq.mvvmsmart.adapter.SingleTypeAdapter" />
 
     </data>
 

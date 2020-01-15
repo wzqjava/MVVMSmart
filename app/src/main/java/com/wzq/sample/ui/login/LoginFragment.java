@@ -10,12 +10,12 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.wzq.mvvmsmart.base.BaseFragment;
 import com.wzq.mvvmsmart.event.StateLiveData;
 import com.wzq.mvvmsmart.utils.KLog;
 import com.wzq.sample.R;
 import com.wzq.sample.app.AppViewModelFactory;
 import com.wzq.sample.databinding.FragmentLoginBinding;
+import com.wzq.sample.ui.base.BaseFragment;
 
 /**
  * 一个MVVM模式的登陆界面

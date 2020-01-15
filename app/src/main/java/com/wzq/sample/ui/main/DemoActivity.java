@@ -3,10 +3,10 @@ package com.wzq.sample.ui.main;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
-import com.wzq.mvvmsmart.base.BaseActivity;
-import com.wzq.mvvmsmart.base.BaseViewModel;
 import com.wzq.sample.R;
 import com.wzq.sample.databinding.ActivityDemoBinding;
+import com.wzq.sample.ui.base.BaseActivity;
+import com.wzq.sample.ui.base.BaseViewModel;
 
 public class DemoActivity extends BaseActivity<ActivityDemoBinding, BaseViewModel> {
     @Override

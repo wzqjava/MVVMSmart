@@ -2,7 +2,9 @@ package com.wzq.sample.ui.form;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 
@@ -11,11 +13,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.Observable;
 import androidx.lifecycle.Observer;
 
-import com.wzq.mvvmsmart.base.BaseFragment;
 import com.wzq.mvvmsmart.utils.MaterialDialogUtils;
+import com.wzq.mvvmsmart.utils.ToastUtils;
 import com.wzq.sample.R;
-import com.wzq.sample.databinding.FragmentFormTempBinding;
 import com.wzq.sample.bean.FormEntity;
+import com.wzq.sample.databinding.FragmentFormTempBinding;
+import com.wzq.sample.ui.base.BaseFragment;
 
 import java.util.Calendar;
 
@@ -51,11 +54,28 @@ public class FormFragment extends BaseFragment<FragmentFormTempBinding, FormView
     @Override
     public void initData() {
         //通过binding拿到toolbar控件, 设置给Activity
-        ((AppCompatActivity) getActivity()).setSupportActionBar(binding.include.toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(binding.title.toolbar);
         //View层传参到ViewModel层
         viewModel.setFormEntity(entity);
-        //初始化标题
-        viewModel.initToolbar();
+    }
+
+    /**
+     * 初始化Toolbar
+     */
+    @Override
+    public void initToolbar() {
+        //初始化标题栏
+        viewModel.setRightTextVisible(View.VISIBLE);
+        if (TextUtils.isEmpty(entity.getId())) {
+            //ID为空是新增
+            viewModel.setTitleText("表单提交");
+        } else {
+            //ID不为空是修改
+            viewModel.setTitleText("表单编辑");
+        }
+        binding.title.tvRightText.setOnClickListener(viewModel ->{
+            ToastUtils.showShort("点击了更多");
+        });
     }
 
     @Override

@@ -93,6 +93,28 @@ public class GlideLoadUtils {
         }
     }
 
+    /**
+     * 设置圆角bitmap
+     *
+     * @param context
+     * @param placeHolderID
+     * @param target
+     * @param bitmap
+     */
+    public static void loadRoundImgWithBitmap(final Context context, int placeHolderID, final ImageView target, Bitmap bitmap) {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            byte[] bytes = baos.toByteArray();
+            Glide.with(context)
+                    .load(bytes)
+                    .placeholder(placeHolderID)
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(target);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
     static class GlideCircleTransformWithBorder extends BitmapTransformation {
@@ -149,26 +171,5 @@ public class GlideLoadUtils {
 
     }
 
-    /**
-     * 设置圆角bitmap
-     * @param context
-     * @param placeHolderID
-     * @param target
-     * @param bitmap
-     */
-    public static void loadRoundImgWithBitmap(final Context context, int placeHolderID, final ImageView target, Bitmap bitmap) {
-        try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-            byte[] bytes = baos.toByteArray();
-            Glide.with(context)
-                    .load(bytes)
-                    .placeholder(placeHolderID)
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(target);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
 }

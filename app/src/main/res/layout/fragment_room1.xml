@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.wzq.sample.ui.room_sample.RoomSampleViewModel" />
+            type="com.wzq.sample.ui.room_db.RoomSampleViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
