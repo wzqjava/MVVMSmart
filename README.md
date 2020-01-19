@@ -1,24 +1,20 @@
 # MVVMSmart
 ## 技术讨QQ群：531944409
-## 最新日志 **v1.0：2020年1月10日**
-1. 添加BaseRecyclerViewAdapterHelper,是中高级开发者都能快速开发.	
-## 建议大家用clone的方式关联开源框架,方便及时更新,下载github的压缩包更新不方便
-1. AndroidStudio 从github下载代码的正确姿势:	https://juejin.im/post/5e09dd306fb9a01648718430	
-2. MVVMSmart系列解读文章: https://juejin.im/user/574e36b179bc440062693484/posts
- 
+## 最新日志 **v1.0：2020年1月18日**
+1. 添加BaseRecyclerViewAdapterHelper,使中高级开发者都能高效实用.	
+
 ##
-目前，android基于MVVM模式开发框架比较很少。**MVVMSmart是以谷歌DataBinding+LiveData+ViewModel框架为基础，整合Okhttp+RxJava+Retrofit+Glide等流行模块，加上各种原生控件自定义的BindingAdapter，让事件与数据源完美绑定的一款容易上瘾的实用性MVVM快速开发框架**。从此告别findViewById()，告别setText()，告别setOnClickListener()...
+目前，android基于MVVM模式开发框架比较很少。**MVVMSmart是以谷歌Jetpack架构组件ViewModel+Lifecycles+Navigation+DataBinding+LiveData+Okhttp+Retrofit+RxJava+Glide等，加上各种原生控件自定义的BindingAdapter，让事件与数据源完美绑定的一款容易上瘾的实用性MVVM快速开发框架**。从此告别findViewById()，告别setText()，告别setOnClickListener()...
 
-## 框架流程
-
+## 建议大家用clone的方式下载开源框架,方便及时更新。
+1. AndroidStudio 从github下载代码的正确姿势:https://juejin.im/post/5e09dd306fb9a01648718430	
+2. MVVMSmart系列解读文章: https://juejin.im/user/574e36b179bc440062693484/posts
 
 ## 框架特点
 - **快速开发**
-
-	只需要写项目的业务逻辑，不用再去关心网络请求、权限申请、View的生命周期等问题，撸起袖子就是干。
+只需要写项目的业务逻辑，不用去关心网络请求、权限申请、View的生命周期等问题，撸起袖子就是干，高效开发。
 
 - **维护方便**
-
 	MVVM开发模式，低耦合，逻辑分明。Model层负责将请求的数据交给ViewModel；ViewModel层负责将请求到的数据做业务逻辑处理，最后交给View层去展示，与View一一对应；View层只负责界面绘制刷新，不处理业务逻辑，非常适合分配独立模块开发。
 
 - **本项目使用流行框架**
@@ -28,7 +24,13 @@ google AAC(Android Architecture Components:安卓架构组件):
 [Navigation](https://developer.android.google.cn/jetpack):google推荐的轻Activity方案,一个大的功能只用一个Activity,内部导航多个Fragment.
 [DataBinding](https://developer.android.google.cn/jetpack):负责ViewModel中数据和UI控件的自动绑定
 [LiveData]:(https://developer.android.google.cn/jetpack)负责ViewModel中数据的管理和与UI层的通信
-[retrofit](https://github.com/square/retrofit)+[okhttp](https://github.com/square/okhttp)+[rxJava](https://github.com/ReactiveX/RxJava)负责网络请求；[gson](https://github.com/google/gson)负责解析json数据；[glide](https://github.com/bumptech/glide)负责加载图片；[BaseRecyclerViewAdapterHelper](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)负责管理RecyclerView的适配器；[rxpermissions](https://github.com/tbruyelle/RxPermissions)负责Android 6.0权限申请；[material-dialogs](https://github.com/afollestad/material-dialogs)一个漂亮的、流畅的、可定制的material design风格的对话框。
+[retrofit](https://github.com/square/retrofit)+[okhttp](https://github.com/square/okhttp)
+[rxJava](https://github.com/ReactiveX/RxJava)负责网络请求
+[gson](https://github.com/google/gson)负责解析json数据
+[glide](https://github.com/bumptech/glide)负责加载图片；
+[BaseRecyclerViewAdapterHelper](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)负责管理RecyclerView的适配器
+[rxpermissions](https://github.com/tbruyelle/RxPermissions)负责Android 6.0权限申请
+[material-dialogs](https://github.com/afollestad/material-dialogs)一个漂亮的、流畅的、可定制的material design风格的对话框。
 
 - **数据绑定**
 
