@@ -85,7 +85,7 @@ dependencies {
 ```
 
 ### 1.3、配置config.gradle
-如果不是远程依赖，而是下载的例子程序，那么还需要将例子程序中的config.gradle放入你的主项目根目录中，然后在根目录build.gradle的第一行加入：
+下载例子程序，例子程序中的config.gradle放入你的主项目根目录中，然后在根目录build.gradle的第一行加入：
 
 ```gradle
 apply from: "config.gradle"
@@ -93,7 +93,7 @@ apply from: "config.gradle"
 
 **注意：** config.gradle中的 
 
-android = [] 是你的开发相关版本配置，可自行修改
+android = [] 是你的开发相关版本配置，可自行修改，比如compileSdkVersion，buildToolsVersion，versionCode等等。
 
 dependencies = [] 是依赖第三方库的配置，可以加新库，用户也可以自己修改版本号,目前都是androidx依赖.
 
@@ -109,7 +109,7 @@ dependencies = [] 是依赖第三方库的配置，可以加新库，用户也�
 ```
 配置Application：
 
-继承**mvvmsmart**中的BaseApplication，或者调用
+继承**mvvmsmart**中的BaseApplicationMVVM，或者调用
 
 ```java
 BaseApplication.setApplication(this);
@@ -140,7 +140,7 @@ CaocConfig.Builder.create()
 
 ### 2.1、第一个Fragment
 为啥是第一Fragment,因为目前google IO 大会和aac已经推荐Activity中用navigation导航Fargment来处理所以目前我在例子中用Activity导航了所有功能,一个功能是一个Fargment.同时你想继续用一个个Activity也是可以的,ActivityBase层都已经处理好了.
-> 以大家都熟悉的Recyclerview加载多条目操作为例：三个文件**MultiRecycleViewFragment.java**、**MultiRecycleViewModel.java**、**fragment_multi_rv.xml.xml**
+以大家都熟悉的Recyclerview加载多条目操作为例：三个文件**MultiRecycleViewFragment.java**、**MultiRecycleViewModel.java**、**fragment_multi_rv.xml.xml**
 
 ##### 2.1.1、关联ViewModel
 fragment_multi_rv.xml中关联LinearLayoutManager和MyMultiAdapter。
