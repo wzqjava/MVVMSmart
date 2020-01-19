@@ -36,7 +36,7 @@ google AAC(Android Architecture Components:安卓架构组件):
 
 - **基类封装**
 
-	专门针对MVVM模式打造的BaseActivity、BaseFragment、BaseViewModel，在View层中不再需要定义ViewDataBinding和ViewModel，直接在BaseActivity、BaseFragment上限定泛型即可使用.支持navigation导航Fragment的管理,导航返回时候回调用OnCreateView,BaseFragment已经封装。ToolbarViewModel封装了标题返回,标题和右侧文字不要在BaseActivit和BaseFragment中进行任何处理即可使用,普通界面只需要编写Fragment，然后使用ContainerActivity盛装(代理)，这样就不需要每个界面都在AndroidManifest中注册一遍。
+	专门针对MVVM模式打造的BaseActivityMVVM、BaseFragmentMVVM、BaseViewModel，在View层中不再需要定义ViewDataBinding和ViewModel，直接在BaseActivityMVVM、BaseFragmentMVVM上限定泛型即可使用.支持navigation导航Fragment的管理,导航返回时候回调用OnCreateView,BaseFragmentMVVM已经封装。ToolbarViewModel封装了标题返回,标题和右侧文字不要在BaseActivit和BaseFragmentMVVM中进行任何处理即可使用,普通界面只需要编写Fragment，然后使用ContainerActivity盛装(代理)，这样就不需要每个界面都在AndroidManifest中注册一遍。
 
 - **全局操作**
 1. google的AAC架构，ViewModel+Lifecycles+Navigation+DataBinding+LiveData。
@@ -139,8 +139,8 @@ CaocConfig.Builder.create()
 ## 2、快速上手
 
 ### 2.1、第一个Fragment
-为啥是第一Fragment,因为目前google IO 大会和aac已经推荐Activity中用navigation导航Fargment来处理所以目前我在例子中用Activity导航了所有功能,一个功能是一个Fargment.同时你想继续用一个个Activity也是可以的,ActivityBase层都已经处理好了.
-以大家都熟悉的Recyclerview加载多条目操作为例：
+为啥是第一Fragment,因为目前google IO 大会已经推荐在Activity中使用navigation来导航Fargment。目前sample中用Activity导航了所有功能Fragment,一个功能是一个Fargment.同时你想继续用一个个Activity也是可以的,ActivityBase层都已经处理好了.
+以大家都熟悉的Recyclerview加载多条目为例：
 - 三个文件**MultiRecycleViewFragment.java**、**MultiRecycleViewModel.java**、**fragment_multi_rv.xml.xml**
 
 ##### 2.1.1、关联ViewModel
@@ -162,12 +162,12 @@ fragment_multi_rv.xml中关联LinearLayoutManager和MyMultiAdapter。
 
 > variable - type：类的全路径 <br>variable - name：变量名
 
-##### 2.1.2、继承BaseActivity
+##### 2.1.2、继承BaseFragmentMVVM
 
-MultiRecycleViewFragment继承BaseFragment
+MultiRecycleViewFragment继承BaseFragmentMVVM
 ```java
 
-public class MultiRecycleViewFragment extends BaseFragment<FragmentMultiRvBinding, MultiRecycleViewModel> {
+public class MultiRecycleViewFragment extends BaseFragmentMVVM<FragmentMultiRvBinding, MultiRecycleViewModel> {
 
 
     private MyMultiAdapter mAdapter;
@@ -200,9 +200,9 @@ public class MultiRecycleViewFragment extends BaseFragment<FragmentMultiRvBindin
 ```
 > fragment_multi_rv.xml后databinding会生成一个FragmentMultiRvBinding类。（如果没有生成，试着点击Build->Clean Project）
 
-BaseFragment是一个抽象类(专门在Sample中独立与框架处理,方便大家使用自己项目中的Base,不用修改自己项目中的base名称,框架中的Base都有MVVM后缀), base中有两个泛型参数，一个是ViewDataBinding，另一个是BaseViewModel，上面的ActivityLoginBinding则是继承的ViewDataBinding作为第一个泛型约束，MultiRecycleViewModel继承BaseViewModel作为第二个泛型约束。
+BaseFragmentMVVM是一个抽象类(专门在Sample中独立与框架处理,方便大家使用自己项目中的Base,不用修改自己项目中的base名称,框架中的Base都有MVVM后缀), base中有两个泛型参数，一个是ViewDataBinding，另一个是BaseViewModel，上面的ActivityLoginBinding则是继承的ViewDataBinding作为第一个泛型约束，MultiRecycleViewModel继承BaseFragmentMVVM作为第二个泛型约束。
 
-重写BaseFragment的两个抽象方法
+重写BaseFragmentMVVM的两个抽象方法
 
 initContentView() 返回界面layout的id<br>
 initVariableId() 返回viewModel变量的id，就像一个控件的id，可以使用R.id.xxx，这里的BR跟R文件一样，由系统生成，使用BR.xxx找到这个ViewModel的id。<br>
@@ -234,8 +234,8 @@ public class MultiRecycleViewModel extends BaseViewModel {
     .....
 }
 ```
-BaseViewModel与BaseFragment通过StateLiveData来处理常用UI逻辑，即可在ViewModel中使用父类的showDialog()、startActivity()等方法。在这个MultiRecycleViewModel中就可以尽情的写你的逻辑了！
-> BaseActivity的使用和BaseFragment几乎一样(BaseFragment中单独处理的配合navigation)，详情参考Sample。
+BaseViewModel与BaseFragmentMVVM通过StateLiveData来处理常用UI逻辑，即可在ViewModel中使用父类的showDialog()、startActivity()等方法。在这个MultiRecycleViewModel中就可以尽情的写你的逻辑了！
+> BaseActivityMVVM的使用和BaseFragmentMVVM几乎一样(BaseFragmentMVVM中单独处理的配合navigation)，详情参考Sample。
 
 ### 2.2、数据绑定
 > 拥有databinding框架自带的双向绑定，也有扩展
@@ -449,7 +449,7 @@ RetrofitClient.getInstance().create(DemoApiService.class)
 
 ```
 在请求时关键需要加入组合操作符`.compose(RxUtils.bindToLifecycle(getLifecycleProvider()))`<br>
-**注意：** 由于BaseActivity/BaseFragment都实现了LifecycleProvider接口，并且默认注入到ViewModel中，所以在调用请求方法时可以直接调用getLifecycleProvider()拿到生命周期接口。如果你没有使用 **mvvmabit** 里面的BaseActivity或BaseFragment，使用自己定义的Base，那么需要让你自己的Activity继承RxAppCompatActivity、Fragment继承RxFragment才能用`RxUtils.bindToLifecycle(lifecycle)`方法。
+**注意：** 由于BaseActivityMVVM/BaseFragmentMVVM都实现了LifecycleProvider接口，并且默认注入到ViewModel中，所以在调用请求方法时可以直接调用getLifecycleProvider()拿到生命周期接口。如果你没有使用 **mvvmabit** 里面的BaseActivityMVVM或BaseFragmentMVVM，使用自己定义的Base，那么需要让你自己的Activity继承RxAppCompatActivity、Fragment继承RxFragment才能用`RxUtils.bindToLifecycle(lifecycle)`方法。
 #### 2.3.5、网络异常处理
 网络异常在网络请求中非常常见，比如请求超时、解析错误、资源不存在、服务器内部错误等，在客户端则需要做相应的处理(当然，你可以把一部分异常甩锅给网络，比如当出现code 500时，提示：请求超时，请检查网络连接，此时偷偷将异常信息发送至后台(手动滑稽))。<br>
 
