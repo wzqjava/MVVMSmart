@@ -140,7 +140,8 @@ CaocConfig.Builder.create()
 
 ### 2.1、第一个Fragment
 为啥是第一Fragment,因为目前google IO 大会和aac已经推荐Activity中用navigation导航Fargment来处理所以目前我在例子中用Activity导航了所有功能,一个功能是一个Fargment.同时你想继续用一个个Activity也是可以的,ActivityBase层都已经处理好了.
-以大家都熟悉的Recyclerview加载多条目操作为例：三个文件**MultiRecycleViewFragment.java**、**MultiRecycleViewModel.java**、**fragment_multi_rv.xml.xml**
+以大家都熟悉的Recyclerview加载多条目操作为例：
+- 三个文件**MultiRecycleViewFragment.java**、**MultiRecycleViewModel.java**、**fragment_multi_rv.xml.xml**
 
 ##### 2.1.1、关联ViewModel
 fragment_multi_rv.xml中关联LinearLayoutManager和MyMultiAdapter。
