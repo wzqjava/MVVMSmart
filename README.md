@@ -39,13 +39,13 @@ google AAC(Android Architecture Components:安卓架构组件):
 	专门针对MVVM模式打造的BaseActivity、BaseFragment、BaseViewModel，在View层中不再需要定义ViewDataBinding和ViewModel，直接在BaseActivity、BaseFragment上限定泛型即可使用.支持navigation导航Fragment的管理,导航返回时候回调用OnCreateView,BaseFragment已经封装。ToolbarViewModel封装了标题返回,标题和右侧文字不要在BaseActivit和BaseFragment中进行任何处理即可使用,普通界面只需要编写Fragment，然后使用ContainerActivity盛装(代理)，这样就不需要每个界面都在AndroidManifest中注册一遍。
 
 - **全局操作**
-	1. google的AAC架构，ViewModel+Lifecycles+Navigation+DataBinding+LiveData。
-	2. LoggingInterceptor全局拦截网络请求日志，打印Request和Response，格式化json、xml数据显示，方便与后台调试接口。
-	3. 全局Cookie，支持SharedPreferences和内存两种管理模式。
-	4. 通用的网络请求异常监听，根据不同的状态码或异常设置相应的message。
-	5. 全局的异常捕获，程序发生异常时不会崩溃，可跳入异常界面重启应用。
-	6. 全局唯一可信事件源处理，提供LiveEventBus回调方式。
-	7. 全局任意位置一行代码实现文件下载进度监听（暂不支持多文件进度监听）。
+1. google的AAC架构，ViewModel+Lifecycles+Navigation+DataBinding+LiveData。
+2. LoggingInterceptor全局拦截网络请求日志，打印Request和Response，格式化json、xml数据显示，方便与后台调试接口。
+3. 全局Cookie，支持SharedPreferences和内存两种管理模式。
+4. 通用的网络请求异常监听，根据不同的状态码或异常设置相应的message。
+5. 全局的异常捕获，程序发生异常时不会崩溃，可跳入异常界面重启应用。
+6. 全局唯一可信事件源处理，提供LiveEventBus回调方式。
+7. 全局任意位置一行代码实现文件下载进度监听（暂不支持多文件进度监听）。
   
 
 ## 1、准备工作
