@@ -49,8 +49,8 @@ google AAC(Android Architecture Components:安卓架构组件):
   
 
 ## 1、准备工作
-> 网上的很多有关MVVM的资料，在此就不再阐述什么是MVVM了，不清楚的朋友可以先去了解一下。
-architecture-components-samples](https://github.com/android/architecture-components-samples)
+> 网上有很多MVVM入门资料，在此就不再阐述什么是MVVM了，不清楚的朋友可以先去了解一下。
+[architecture-components-samples](https://github.com/android/architecture-components-samples)
 [todo-mvvm-live](https://github.com/googlesamples/android-architecture/tree/todo-mvvm-live)
 
 ### 1.1、启用databinding
