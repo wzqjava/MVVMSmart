@@ -36,7 +36,7 @@ google AAC(Android Architecture Components:安卓架构组件):
 
 - **基类封装**
 
-	专门针对MVVM模式打造的BaseActivityMVVM、BaseFragmentMVVM、BaseViewModel，在View层中不再需要定义ViewDataBinding和ViewModel，直接在BaseActivityMVVM、BaseFragmentMVVM上限定泛型即可使用.支持navigation导航Fragment的管理,导航返回时候回调用OnCreateView,BaseFragmentMVVM已经封装。ToolbarViewModel封装了标题返回,标题和右侧文字不要在BaseActivit和BaseFragmentMVVM中进行任何处理即可使用,普通界面只需要编写Fragment，然后使用ContainerActivity盛装(代理)，这样就不需要每个界面都在AndroidManifest中注册一遍。
+	专门针对MVVM模式打造的BaseActivityMVVM、BaseFragmentMVVM、BaseViewModelMVVM，在View层中不再需要定义ViewDataBinding和ViewModel，直接在BaseActivityMVVM、BaseFragmentMVVM上限定泛型即可使用.支持navigation导航Fragment的管理,导航返回时候回调用OnCreateView,BaseFragmentMVVM已经封装。ToolbarViewModel封装了标题返回,标题和右侧文字不要在BaseActivit和BaseFragmentMVVM中进行任何处理即可使用,普通界面只需要编写Fragment，然后使用ContainerActivity盛装(代理)，这样就不需要每个界面都在AndroidManifest中注册一遍。
 
 - **全局操作**
 1. google的AAC架构，ViewModel+Lifecycles+Navigation+DataBinding+LiveData。
@@ -200,7 +200,7 @@ public class MultiRecycleViewFragment extends BaseFragmentMVVM<FragmentMultiRvBi
 ```
 > fragment_multi_rv.xml后databinding会生成一个FragmentMultiRvBinding类。（如果没有生成，试着点击Build->Clean Project）
 
-BaseFragmentMVVM是一个抽象类(专门在Sample中独立与框架处理,方便大家使用自己项目中的Base,不用修改自己项目中的base名称,框架中的Base都有MVVM后缀), base中有两个泛型参数，一个是ViewDataBinding，另一个是BaseViewModel，上面的ActivityLoginBinding则是继承的ViewDataBinding作为第一个泛型约束，MultiRecycleViewModel继承BaseFragmentMVVM作为第二个泛型约束。
+BaseFragmentMVVM是一个抽象类(专门在Sample中独立与框架处理,方便大家使用自己项目中的Base,不用修改自己项目中的base名称,框架中的Base都有MVVM后缀), base中有两个泛型参数，一个是ViewDataBinding，另一个是BaseViewModelMVVM，上面的ActivityLoginBinding则是继承的ViewDataBinding作为第一个泛型约束，MultiRecycleViewModel继承BaseFragmentMVVM作为第二个泛型约束。
 
 重写BaseFragmentMVVM的两个抽象方法
 
@@ -216,13 +216,13 @@ public LoginViewModel initViewModel() {
 }
 ```
 
-**注意：** 不重写initViewModel()，默认会创建MultiRecycleViewFragment中第二个泛型约束的MultiRecycleViewModel，如果没有指定第二个泛型，则会创建BaseViewModel
+**注意：** 不重写initViewModel()，默认会创建MultiRecycleViewFragment中第二个泛型约束的MultiRecycleViewModel，如果没有指定第二个泛型，则会创建BaseViewModelMVVM
 
-##### 2.1.3、继承BaseViewModel
+##### 2.1.3、继承BaseViewModelMVVM
 
-MultiRecycleViewModel继承BaseViewModel
+MultiRecycleViewModel继承BaseViewModelMVVM
 ```java
-public class MultiRecycleViewModel extends BaseViewModel {
+public class MultiRecycleViewModel extends BaseViewModelMVVM {
 
     //给RecyclerView添加ObservableList
     public MutableLiveData<ArrayList<DemoBean.ItemsEntity>> itemsEntityLiveData;
@@ -234,7 +234,7 @@ public class MultiRecycleViewModel extends BaseViewModel {
     .....
 }
 ```
-BaseViewModel与BaseFragmentMVVM通过StateLiveData来处理常用UI逻辑，即可在ViewModel中使用父类的showDialog()、startActivity()等方法。在这个MultiRecycleViewModel中就可以尽情的写你的逻辑了！
+BaseViewModelMVVM与BaseFragmentMVVM通过StateLiveData来处理常用UI逻辑，即可在ViewModel中使用父类的showDialog()、startActivity()等方法。在这个MultiRecycleViewModel中就可以尽情的写你的逻辑了！
 > BaseActivityMVVM的使用和BaseFragmentMVVM几乎一样(BaseFragmentMVVM中单独处理的配合navigation)，详情参考Sample。
 
 ### 2.2、数据绑定
@@ -511,11 +511,11 @@ DownLoadManager.getInstance().load(loadUrl, new ProgressCallBack<ResponseBody>(d
 
 使用方法：
 
-在ViewModel中调用BaseViewModel的方法开一个Fragment
+在ViewModel中调用BaseViewModelMVVM的方法开一个Fragment
 ```java
 startContainerActivity(你的Fragment类名.class.getCanonicalName())
 ```
-在ViewModel中调用BaseViewModel的方法，携带一个序列化实体打开一个Fragment
+在ViewModel中调用BaseViewModelMVVM的方法，携带一个序列化实体打开一个Fragment
 ```java
 Bundle mBundle = new Bundle();
 mBundle.putParcelable("entity", entity);
