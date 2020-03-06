@@ -30,7 +30,7 @@ public abstract class BaseViewAdapter<T> extends RecyclerView.Adapter<BindingVie
 
     protected final LayoutInflater mLayoutInflater;
 
-    protected List<T> mCollection;
+    List<T> mCollection;
     protected Presenter mPresenter;
     protected Decorator mDecorator;
 
