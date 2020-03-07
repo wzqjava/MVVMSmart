@@ -71,13 +71,17 @@ public abstract class BaseFragmentMVVM<V extends ViewDataBinding, VM extends Bas
     /**
      * 注入绑定
      */
+    @SuppressWarnings("unchecked")
     private void initViewDataBinding() {
         viewModelId = initVariableId();
         viewModel = initViewModel();
         if (viewModel == null) {
             Class modelClass;
+            //返回表示此 Class 所表示的实体（类、接口、基本类型或 void）的直接超类的 Type
+            //然后将其转换ParameterizedType
             Type type = getClass().getGenericSuperclass();
             if (type instanceof ParameterizedType) {
+                // 返回表示此类型实际类型参数的 Type 对象的数组。简而言之就是获得超类的泛型参数的实际类型,获取第二个泛型
                 modelClass = (Class) ((ParameterizedType) type).getActualTypeArguments()[1];
             } else {
                 //如果没有指定泛型参数，则默认使用BaseViewModel
@@ -97,15 +101,14 @@ public abstract class BaseFragmentMVVM<V extends ViewDataBinding, VM extends Bas
         getLifecycle().addObserver(viewModel);
     }
 
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (binding != null) {
-            binding.unbind();
-        }
+    /**
+     * @param cls 类
+     * @param <T> 泛型参数,必须继承ViewMode
+     * @return 生成的viewMode实例
+     */
+    private <T extends ViewModel> T createViewModel(Fragment fragment, Class<T> cls) {
+        return ViewModelProviders.of(fragment).get(cls);
     }
-
 
     /**
      * =====================================================================
@@ -179,18 +182,6 @@ public abstract class BaseFragmentMVVM<V extends ViewDataBinding, VM extends Bas
         startActivity(intent);
     }
 
-
-    /**
-     * =====================================================================
-     **/
-
-    //刷新布局
-    public void refreshLayout() {
-        if (viewModel != null) {
-            binding.setVariable(viewModelId, viewModel);
-        }
-    }
-
     @Override
     public void initParam() {
 
@@ -224,27 +215,25 @@ public abstract class BaseFragmentMVVM<V extends ViewDataBinding, VM extends Bas
 
     }
 
-    public void initToolbar() { }
+    public void initToolbar() {
+    }
 
     @Override
     public void initViewObservable() {
 
     }
 
-    public boolean isBackPressed() {
-        return false;
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (binding != null) {
+            binding.unbind();
+        }
     }
 
-    /**
-     * 创建ViewModel
-     *
-     * @param cls
-     * @param <T>
-     * @return
-     */
-    public <T extends ViewModel> T createViewModel(Fragment fragment, Class<T> cls) {
-        return ViewModelProviders.of(fragment).get(cls);
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
-
 
 }
