@@ -82,7 +82,7 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
                         } else {
                             //code错误时也可以定义Observable回调到View层去处理
                             KLog.e("请求失败response.getCode():" + response.getCode());
-                            ToastUtils.showShort("请求错误,code:" + response.getCode());
+                            ToastUtils.showLong("提醒开发者: 本次上拉服务器没有数据");
                         }
                     }
 
