@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.wzq.mvvmsmart.utils.GlideLoadUtils;
+import com.wzq.mvvmsmart.utils.KLog;
 import com.wzq.sample.R;
 import com.wzq.sample.bean.DemoBean;
 
@@ -24,7 +25,8 @@ public class MAdapter extends BaseQuickAdapter<DemoBean.ItemsEntity, BaseViewHol
     protected void convert(BaseViewHolder helper, DemoBean.ItemsEntity item) {
 
         helper.setText(R.id.iv2, item.getName());
-        GlideLoadUtils.loadRoundCornerImg(helper.getView(R.id.iv1),item.getImg(),R.mipmap.ic_launcher,5);
+        KLog.e(item.getImg());
+        GlideLoadUtils.loadRoundCornerImg(helper.getView(R.id.iv1),item.getImg(),R.mipmap.ic_launcher,10);
         helper.addOnClickListener(R.id.btn2);
     }
 

@@ -23,7 +23,8 @@
                 android:layout_height="wrap_content"
                 android:foreground="?selectableItemBackground">
 
-
+<!--  app:placeholderRes="@mipmap/ic_launcher"
+                    app:round="@{20}"-->
                 <ImageView
                     android:id="@+id/iv1"
                     android:layout_width="60dp"
@@ -36,8 +37,6 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:placeholderRes="@mipmap/ic_launcher"
-                    app:round="@{20}"
                     tools:srcCompat="@tools:sample/avatars" />
 
                 <TextView
@@ -46,7 +45,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:textSize="24sp"
