@@ -3,6 +3,7 @@ package com.wzq.mvvmsmart.base;
 import android.annotation.SuppressLint;
 import android.app.Application;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -33,6 +34,7 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
         mApplication = application;
     }
 
+    @NonNull
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
         if (modelClass.isAssignableFrom(BaseViewModelMVVM.class)) {

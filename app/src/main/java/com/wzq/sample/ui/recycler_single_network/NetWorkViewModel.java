@@ -4,8 +4,6 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 
-import com.wzq.mvvmsmart.binding.command.BindingAction;
-import com.wzq.mvvmsmart.binding.command.BindingCommand;
 import com.wzq.mvvmsmart.event.SingleLiveEvent;
 import com.wzq.mvvmsmart.event.StateLiveData;
 import com.wzq.mvvmsmart.http.BaseResponse;
@@ -24,7 +22,7 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
-    private int pageNum = 1;
+    public int pageNum = 1;
     public StateLiveData<List<DemoBean.ItemsEntity>> stateLiveData;
 //    public SingleLiveEvent<NetWorkItemViewModel> deleteItemLiveData = new SingleLiveEvent<>();
 
@@ -110,24 +108,7 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
                 });
     }
 
-    //下拉刷新
-    public BindingCommand onRefreshCommand = new BindingCommand(new BindingAction() {
-        @Override
-        public void call() {
-            pageNum = 1;
-            requestNetWork();
-        }
-    });
 
-    //上拉加载
-    public BindingCommand onLoadMoreCommand = new BindingCommand(new BindingAction() {
-        @Override
-        public void call() {
-            pageNum++;
-//            loadMoreTestData();   // 模拟加载更多数据
-            requestNetWork();
-        }
-    });
 
     /**
      * 王志强 2019/12/20
@@ -177,21 +158,9 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
         KLog.e("调用了删除");
         KLog.e("size" + stateLiveData.getValue().size());
         stateLiveData.getValue().remove(itemsEntity);
-//        stateLiveData.setValue(stateLiveData.getValue());
         KLog.e("size" + stateLiveData.getValue().size());
 
     }
 
-    /**
-     * 获取条目下标
-     * @return
-     */
-    public int getItemPosition(DemoBean.ItemsEntity itemsEntity) {
-        return stateLiveData.getValue().indexOf(itemsEntity);
-    }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
 }
