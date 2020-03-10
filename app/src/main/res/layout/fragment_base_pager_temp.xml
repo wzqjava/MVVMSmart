@@ -3,8 +3,6 @@
 
     <data>
 
-        <import type="com.wzq.mvvmsmart.base.BaseViewModelMVVM" />
-
         <variable
             name="viewModel"
             type="com.wzq.mvvmsmart.base.BaseViewModelMVVM" />

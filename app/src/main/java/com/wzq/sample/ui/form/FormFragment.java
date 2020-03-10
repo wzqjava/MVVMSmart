@@ -13,12 +13,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.Observable;
 import androidx.lifecycle.Observer;
 
-import com.wzq.mvvmsmart.utils.MaterialDialogUtils;
 import com.wzq.mvvmsmart.utils.ToastUtils;
 import com.wzq.sample.R;
+import com.wzq.sample.base.BaseFragment;
 import com.wzq.sample.bean.FormEntity;
 import com.wzq.sample.databinding.FragmentFormTempBinding;
-import com.wzq.sample.ui.base.BaseFragment;
+import com.wzq.sample.utils.MaterialDialogUtils;
 
 import java.util.Calendar;
 
@@ -80,6 +80,7 @@ public class FormFragment extends BaseFragment<FragmentFormTempBinding, FormView
 
     @Override
     public void initViewObservable() {
+        super.initViewObservable();
         //监听日期选择
         viewModel.uc.showDateDialogObservable.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override

@@ -19,7 +19,7 @@ import com.wzq.mvvmsmart.utils.ToastUtils;
 import com.wzq.sample.R;
 import com.wzq.sample.bean.FormEntity;
 import com.wzq.sample.databinding.FragmentHomeBinding;
-import com.wzq.sample.ui.base.BaseFragment;
+import com.wzq.sample.base.BaseFragment;
 import com.wzq.sample.ui.tab_bar.activity.TabBarActivity;
 
 import io.reactivex.functions.Consumer;
@@ -49,6 +49,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     @Override
     public void initViewObservable() {
+        super.initViewObservable();
         //注册监听相机权限的请求
         viewModel.requestCameraPermissions.observe(this, new Observer<Boolean>() {
             @Override
@@ -100,13 +101,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         //ViewPager绑定
         public void viewPagerBindingClick() {
             ToastUtils.showShort("点击跳转viewpager");
-            NavHostFragment
-                    .findNavController(HomeFragment.this)
-                    .navigate(R.id.action_homeFragment_to_viewPagerGroupFragment);
-        }
-
-        //ViewPager+Fragment
-        public void viewPagerGroupBindingClick() {
             NavHostFragment
                     .findNavController(HomeFragment.this)
                     .navigate(R.id.action_homeFragment_to_viewPagerGroupFragment);

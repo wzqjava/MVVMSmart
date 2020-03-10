@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout >
 
     <data>
 
@@ -7,6 +7,9 @@
             name="viewModel"
             type="com.wzq.sample.ui.form.FormViewModel" />
     </data>
+
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:binding="http://schemas.android.com/apk/res-auto"-->
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:binding="http://schemas.android.com/apk/res-auto"

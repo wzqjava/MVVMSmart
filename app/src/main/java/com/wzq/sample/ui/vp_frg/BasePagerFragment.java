@@ -1,4 +1,4 @@
-package com.wzq.sample.ui.base;
+package com.wzq.sample.ui.vp_frg;
 
 
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.tabs.TabLayout;
 import com.wzq.sample.R;
+import com.wzq.sample.base.BaseFragment;
+import com.wzq.sample.base.BaseViewModel;
 import com.wzq.sample.databinding.FragmentBasePagerTempBinding;
 
 import java.util.List;

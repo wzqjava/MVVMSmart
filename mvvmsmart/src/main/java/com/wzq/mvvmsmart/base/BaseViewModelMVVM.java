@@ -39,8 +39,6 @@ public class BaseViewModelMVVM<M extends BaseModelMVVM> extends AndroidViewModel
         mCompositeDisposable.add(disposable);
     }
 
-
-
     public UIChangeLiveData getUC() {
         if (uiChangeLiveData == null) {
             uiChangeLiveData = new UIChangeLiveData();
@@ -48,11 +46,8 @@ public class BaseViewModelMVVM<M extends BaseModelMVVM> extends AndroidViewModel
         return uiChangeLiveData;
     }
 
-
-
     /**
      * 跳转页面
-     *
      * @param clz 所跳转的目的Activity类
      */
     public void startActivity(Class<?> clz) {

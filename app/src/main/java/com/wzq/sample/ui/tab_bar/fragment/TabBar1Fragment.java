@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 
 import com.wzq.sample.R;
-import com.wzq.sample.ui.base.BaseFragment;
+import com.wzq.sample.base.BaseFragment;
 
 
 public class TabBar1Fragment extends BaseFragment {

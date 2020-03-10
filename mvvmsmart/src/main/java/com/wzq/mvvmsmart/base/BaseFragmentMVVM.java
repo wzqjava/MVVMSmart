@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
@@ -15,9 +16,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.wzq.mvvmsmart.base.BaseViewModelMVVM.ParameterField;
-import com.wzq.mvvmsmart.utils.MaterialDialogUtils;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -27,7 +26,6 @@ public abstract class BaseFragmentMVVM<V extends ViewDataBinding, VM extends Bas
     protected V binding;
     protected VM viewModel;
     private int viewModelId;
-    private MaterialDialog dialog;
     private boolean isNavigationViewInit = false; // 记录是否已经初始化过一次视图
     private View lastView = null; // 记录上次创建的view
 
@@ -40,7 +38,7 @@ public abstract class BaseFragmentMVVM<V extends ViewDataBinding, VM extends Bas
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //如果fragment的view已经创建则不再重新创建
         if (lastView == null) {
             binding = DataBindingUtil.inflate(inflater, initContentView(inflater, container, savedInstanceState), container, false);
@@ -52,13 +50,11 @@ public abstract class BaseFragmentMVVM<V extends ViewDataBinding, VM extends Bas
 
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         if (!isNavigationViewInit) {//初始化过视图则不再进行view和data初始化
             super.onViewCreated(view, savedInstanceState);
             //私有的初始化Databinding和ViewModel方法
             initViewDataBinding();
-            //私有的ViewModel与View的契约事件回调逻辑
-            registorUIChangeLiveDataCallBack();
             //页面数据初始化方法
             initData();
             initToolbar();
@@ -101,6 +97,40 @@ public abstract class BaseFragmentMVVM<V extends ViewDataBinding, VM extends Bas
         getLifecycle().addObserver(viewModel);
     }
 
+    @Override
+    public void initParam() {
+    }
+
+    /**
+     * 初始化根布局
+     *
+     * @return 布局layout的id
+     */
+    public abstract int initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState);
+
+    public void initToolbar() {
+    }
+
+    /**
+     * 初始化ViewModel的id
+     *
+     * @return BR的id
+     */
+    public abstract int initVariableId();
+
+    /**
+     * 初始化ViewModel
+     *
+     * @return 继承BaseViewModel的ViewModel
+     */
+    public VM initViewModel() {
+        return null;
+    }
+
+    @Override
+    public void initData() {
+    }
+
     /**
      * @param cls 类
      * @param <T> 泛型参数,必须继承ViewMode
@@ -110,11 +140,9 @@ public abstract class BaseFragmentMVVM<V extends ViewDataBinding, VM extends Bas
         return ViewModelProviders.of(fragment).get(cls);
     }
 
-    /**
-     * =====================================================================
-     **/
+
     //注册ViewModel与View的契约UI回调事件
-    protected void registorUIChangeLiveDataCallBack() {
+    private void registorUIChangeLiveDataCallBack() {
         //跳入新页面
         viewModel.getUC().getStartActivityLiveData().observe(this, new Observer<Map<String, Object>>() {
             @Override
@@ -143,21 +171,13 @@ public abstract class BaseFragmentMVVM<V extends ViewDataBinding, VM extends Bas
     }
 
 
-    public void showLoading(String title) {
-        if (dialog != null) {
-            dialog = dialog.getBuilder().title(title).build();
-            dialog.show();
-        } else {
-            MaterialDialog.Builder builder = MaterialDialogUtils.showIndeterminateProgressDialog(getActivity(), title, true);
-            dialog = builder.show();
+    //刷新布局数据
+    public void refreshLayout() {
+        if (viewModel != null) {
+            binding.setVariable(viewModelId, viewModel);
         }
     }
 
-    public void dismissLoading() {
-        if (dialog != null && dialog.isShowing()) {
-            dialog.dismiss();
-        }
-    }
 
     /**
      * 跳转页面
@@ -183,44 +203,9 @@ public abstract class BaseFragmentMVVM<V extends ViewDataBinding, VM extends Bas
     }
 
     @Override
-    public void initParam() {
-
-    }
-
-    /**
-     * 初始化根布局
-     *
-     * @return 布局layout的id
-     */
-    public abstract int initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState);
-
-    /**
-     * 初始化ViewModel的id
-     *
-     * @return BR的id
-     */
-    public abstract int initVariableId();
-
-    /**
-     * 初始化ViewModel
-     *
-     * @return 继承BaseViewModel的ViewModel
-     */
-    public VM initViewModel() {
-        return null;
-    }
-
-    @Override
-    public void initData() {
-
-    }
-
-    public void initToolbar() {
-    }
-
-    @Override
     public void initViewObservable() {
-
+        //私有的ViewModel与View的契约事件回调逻辑
+        registorUIChangeLiveDataCallBack();
     }
 
     @Override

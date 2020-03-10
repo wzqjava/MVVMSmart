@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer;
 
 import com.wzq.sample.R;
 import com.wzq.sample.databinding.FragmentRoom1Binding;
-import com.wzq.sample.ui.base.BaseFragment;
+import com.wzq.sample.base.BaseFragment;
 
 import java.util.List;
 

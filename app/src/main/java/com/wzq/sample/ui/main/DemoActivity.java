@@ -5,8 +5,8 @@ import android.os.Bundle;
 
 import com.wzq.sample.R;
 import com.wzq.sample.databinding.ActivityDemoBinding;
-import com.wzq.sample.ui.base.BaseActivity;
-import com.wzq.sample.ui.base.BaseViewModel;
+import com.wzq.sample.base.BaseActivity;
+import com.wzq.sample.base.BaseViewModel;
 
 public class DemoActivity extends BaseActivity<ActivityDemoBinding, BaseViewModel> {
     @Override

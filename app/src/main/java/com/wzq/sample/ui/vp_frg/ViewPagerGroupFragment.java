@@ -3,7 +3,6 @@ package com.wzq.sample.ui.vp_frg;
 
 import androidx.fragment.app.Fragment;
 
-import com.wzq.sample.ui.base.BasePagerFragment;
 import com.wzq.sample.ui.tab_bar.fragment.TabBar1Fragment;
 import com.wzq.sample.ui.tab_bar.fragment.TabBar2Fragment;
 import com.wzq.sample.ui.tab_bar.fragment.TabBar3Fragment;
@@ -13,7 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Description：ViewPager+Fragment的实现
+ * Description：ViewPager+Fragment的实现(绑定命令)
+ * 使用这个Fragment,内部封装好了ViewPager+Fragment;
  */
 
 public class ViewPagerGroupFragment extends BasePagerFragment {

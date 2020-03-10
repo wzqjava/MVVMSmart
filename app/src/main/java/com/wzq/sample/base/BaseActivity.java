@@ -1,4 +1,4 @@
-package com.wzq.sample.ui.base;
+package com.wzq.sample.base;
 
 import androidx.databinding.ViewDataBinding;
 
