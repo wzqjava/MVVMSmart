@@ -8,8 +8,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.wzq.sample.R;
 import com.wzq.sample.databinding.ActivityTabBarBinding;
-import com.wzq.sample.ui.base.BaseActivity;
-import com.wzq.sample.ui.base.BaseViewModel;
+import com.wzq.sample.base.BaseActivity;
+import com.wzq.sample.base.BaseViewModel;
 import com.wzq.sample.ui.tab_bar.fragment.TabBar1Fragment;
 import com.wzq.sample.ui.tab_bar.fragment.TabBar2Fragment;
 import com.wzq.sample.ui.tab_bar.fragment.TabBar3Fragment;

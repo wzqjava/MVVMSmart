@@ -15,7 +15,7 @@ import com.wzq.mvvmsmart.utils.KLog;
 import com.wzq.sample.R;
 import com.wzq.sample.app.AppViewModelFactory;
 import com.wzq.sample.databinding.FragmentLoginBinding;
-import com.wzq.sample.ui.base.BaseFragment;
+import com.wzq.sample.base.BaseFragment;
 
 /**
  * 一个MVVM模式的登陆界面
@@ -58,6 +58,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
 
     @Override
     public void initViewObservable() {
+        super.initViewObservable();
         binding.btnLogin.setOnClickListener(view ->{
             viewModel.login();
         });

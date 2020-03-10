@@ -13,7 +13,7 @@ import com.wzq.mvvmsmart.utils.ToastUtils;
 import com.wzq.sample.R;
 import com.wzq.sample.bean.DemoBean;
 import com.wzq.sample.databinding.FragmentMultiRvBinding;
-import com.wzq.sample.ui.base.BaseFragment;
+import com.wzq.sample.base.BaseFragment;
 
 import java.util.ArrayList;
 

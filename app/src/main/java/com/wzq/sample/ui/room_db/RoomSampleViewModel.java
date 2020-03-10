@@ -5,7 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
-import com.wzq.sample.ui.base.BaseViewModel;
+import com.wzq.sample.base.BaseViewModel;
 
 import java.util.List;
 

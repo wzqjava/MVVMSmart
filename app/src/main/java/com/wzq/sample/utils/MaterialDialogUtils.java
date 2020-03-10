@@ -1,4 +1,4 @@
-package com.wzq.mvvmsmart.utils;
+package com.wzq.sample.utils;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,8 +14,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
-import com.wzq.mvvmsmart.R;
-
+import com.wzq.sample.R;
 import java.util.List;
 
 public class MaterialDialogUtils {

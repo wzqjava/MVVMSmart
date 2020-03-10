@@ -43,6 +43,8 @@ dependencies {
     api rootProject.ext.dependencies["smartRefreshLayout"] // 刷新框架
     implementation "androidx.room:room-runtime:2.2.3"
     annotationProcessor "androidx.room:room-compiler:2.2.3" // For Kotlin use kapt instead of annotationProcessor
-
+    //material-dialogs
+    api rootProject.ext.dependencies["material-dialogs-core"]
+    api rootProject.ext.dependencies["material-dialogs-commons"]
 
 }

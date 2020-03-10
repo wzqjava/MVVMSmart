@@ -13,7 +13,6 @@
     <string name="hello_blank_fragment">空白Fragment</string>
     <string name="net_multiple_cell">网络多布局</string>
     <string name="text_tip">眼睛多才能看的更清楚</string>
-    <string name="viewpager_command">ViewPager绑定命令</string>
-    <string name="viewpager_fragment">ViewPager+Fragment</string>
+    <string name="viewpager_command">ViewPager_Fragment</string>
     <string name="room_sample">room数据库示例</string>
 </resources>

@@ -14,7 +14,7 @@ import com.wzq.mvvmsmart.binding.viewadapter.spinner.IKeyAndValue;
 import com.wzq.mvvmsmart.event.SingleLiveEvent;
 import com.wzq.sample.bean.FormEntity;
 import com.wzq.sample.bean.SpinnerItemData;
-import com.wzq.sample.ui.base.ToolbarViewModel;
+import com.wzq.sample.base.ToolbarViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +80,7 @@ public class FormViewModel extends ToolbarViewModel {
         }
     });
     //提交按钮点击事件
-    public BindingCommand onCmtClickCommand = new BindingCommand(   new BindingAction() {
+    public BindingCommand onCmtClickCommand = new BindingCommand(new BindingAction() {
         @Override
         public void call() {
             Toast.makeText(getApplication(), "触发提交按钮", Toast.LENGTH_SHORT).show();

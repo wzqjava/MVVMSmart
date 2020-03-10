@@ -13,7 +13,7 @@ import com.wzq.mvvmsmart.utils.RxUtils;
 import com.wzq.mvvmsmart.utils.ToastUtils;
 import com.wzq.sample.bean.DemoBean;
 import com.wzq.sample.data.DemoRepository;
-import com.wzq.sample.ui.base.BaseViewModel;
+import com.wzq.sample.base.BaseViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

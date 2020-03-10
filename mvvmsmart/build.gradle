@@ -59,9 +59,7 @@ dependencies {
     api rootProject.ext.dependencies["gson"] //     Gson
     api rootProject.ext.dependencies["glide"] //    Glide
     annotationProcessor rootProject.ext.dependencies["glide-compiler"]  //  Glide
-    //material-dialogs
-    api rootProject.ext.dependencies["material-dialogs-core"]
-    api rootProject.ext.dependencies["material-dialogs-commons"]
+
 
     //rx 6.0权限请求
     api rootProject.ext.dependencies["rxpermissions"]

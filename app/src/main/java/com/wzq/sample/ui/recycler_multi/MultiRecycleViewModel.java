@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.wzq.sample.bean.DemoBean;
-import com.wzq.sample.ui.base.BaseViewModel;
+import com.wzq.sample.base.BaseViewModel;
 import com.wzq.sample.utils.TestUtils;
 
 import java.util.ArrayList;

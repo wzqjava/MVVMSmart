@@ -13,9 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.wzq.mvvmsmart.base.BaseViewModelMVVM.ParameterField;
-import com.wzq.mvvmsmart.utils.MaterialDialogUtils;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -30,17 +28,14 @@ public abstract class BaseActivityMVVM<V extends ViewDataBinding, VM extends Bas
     protected V binding;
     protected VM viewModel;
     private int viewModelId;
-    private MaterialDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //页面接受的参数方法
         initParam();
-        //私有的初始化Databinding和ViewModel方法
+        //私有的初始化 binding和ViewModel方法
         initViewDataBinding(savedInstanceState);
-        //私有的ViewModel与View的契约事件回调逻辑
-        registorUIChangeLiveDataCallBack();
         //页面数据初始化方法
         initData();
         //页面事件监听的方法，一般用于ViewModel层转到View层的事件注册
@@ -60,7 +55,7 @@ public abstract class BaseActivityMVVM<V extends ViewDataBinding, VM extends Bas
      * 注入绑定
      */
     private void initViewDataBinding(Bundle savedInstanceState) {
-        //DataBindingUtil类需要在project的build中配置 dataBinding {enabled true }, 同步后会自动关联android.databinding包
+        //DataBindingUtil类需要在project的build中配置 dataBinding {enabled true }, 同步后会自动关联android.binding包
         binding = DataBindingUtil.setContentView(this, initContentView(savedInstanceState));
         viewModelId = initVariableId();
         viewModel = initViewModel();
@@ -83,7 +78,7 @@ public abstract class BaseActivityMVVM<V extends ViewDataBinding, VM extends Bas
 
     }
 
-    //刷新布局
+    //刷新布局数据
     public void refreshLayout() {
         if (viewModel != null) {
             binding.setVariable(viewModelId, viewModel);
@@ -114,6 +109,7 @@ public abstract class BaseActivityMVVM<V extends ViewDataBinding, VM extends Bas
             }
         });
         //关闭上一层
+
         viewModel.getUC().getOnBackPressedLiveData().observe(this, new Observer<Void>() {
             @Override
             public void onChanged(@Nullable Void v) {
@@ -122,25 +118,8 @@ public abstract class BaseActivityMVVM<V extends ViewDataBinding, VM extends Bas
         });
     }
 
-    public void showLoading(String title) {
-        if (dialog != null) {
-            dialog = dialog.getBuilder().title(title).build();
-            dialog.show();
-        } else {
-            MaterialDialog.Builder builder = MaterialDialogUtils.showIndeterminateProgressDialog(this, title, true);
-            dialog = builder.show();
-        }
-    }
-
-    public void dismissLoading() {
-        if (dialog != null && dialog.isShowing()) {
-            dialog.dismiss();
-        }
-    }
-
     /**
      * 跳转页面
-     *
      * @param clz 所跳转的目的Activity类
      */
     public void startActivity(Class<?> clz) {
@@ -149,7 +128,6 @@ public abstract class BaseActivityMVVM<V extends ViewDataBinding, VM extends Bas
 
     /**
      * 跳转页面
-     *
      * @param clz    所跳转的目的Activity类
      * @param bundle 跳转所携带的信息
      */
@@ -162,10 +140,6 @@ public abstract class BaseActivityMVVM<V extends ViewDataBinding, VM extends Bas
     }
 
 
-
-    /**
-     * =====================================================================
-     **/
     @Override
     public void initParam() {
 
@@ -201,15 +175,14 @@ public abstract class BaseActivityMVVM<V extends ViewDataBinding, VM extends Bas
 
     @Override
     public void initViewObservable() {
-
+        //私有的ViewModel与View的契约事件回调逻辑
+        registorUIChangeLiveDataCallBack();
     }
 
     /**
-     * 创建ViewModel
-     *
-     * @param cls
-     * @param <T>
-     * @return
+     * @param cls 类
+     * @param <T> 泛型参数,必须继承ViewMode
+     * @return 生成的viewMode实例
      */
     public <T extends ViewModel> T createViewModel(FragmentActivity activity, Class<T> cls) {
         return ViewModelProviders.of(activity).get(cls);

@@ -1,4 +1,4 @@
-package com.wzq.sample.ui.base;
+package com.wzq.sample.base;
 
 import android.app.Application;
 
@@ -21,6 +21,7 @@ public class BaseViewModel<M extends BaseModelMVVM> extends BaseViewModelMVVM<M>
     public MutableLiveData<Object> getStateLiveData() {
         return stateLiveData;
     }
+
     public BaseViewModel(@NonNull Application application) {
         super(application);
         stateLiveData = new StateLiveData<>();
@@ -30,8 +31,4 @@ public class BaseViewModel<M extends BaseModelMVVM> extends BaseViewModelMVVM<M>
         super(application, (M) model);
         stateLiveData = new StateLiveData<>();
     }
-
-
-
-
 }
