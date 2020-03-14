@@ -8,13 +8,13 @@ import com.wzq.mvvmsmart.event.SingleLiveEvent;
 import com.wzq.sample.base.ToolbarViewModel;
 
 
-public class HomeViewModel extends ToolbarViewModel {
+public class MainViewModel extends ToolbarViewModel {
     //使用Observable
     public SingleLiveEvent<Boolean> requestCameraPermissions = new SingleLiveEvent<>();
     //使用LiveData
     public SingleLiveEvent<String> loadUrlEvent = new SingleLiveEvent<>();
 
-    public HomeViewModel(@NonNull Application application) {
+    public MainViewModel(@NonNull Application application) {
         super(application);
     }
 

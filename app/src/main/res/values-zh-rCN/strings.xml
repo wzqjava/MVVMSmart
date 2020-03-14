@@ -15,4 +15,5 @@
     <string name="text_tip">眼睛多才能看的更清楚</string>
     <string name="viewpager_command">ViewPager_Fragment</string>
     <string name="room_sample">room数据库示例</string>
+    <string name="test_url">测试接口</string>
 </resources>

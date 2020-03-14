@@ -8,7 +8,7 @@ import com.wzq.sample.databinding.ActivityDemoBinding;
 import com.wzq.sample.base.BaseActivity;
 import com.wzq.sample.base.BaseViewModel;
 
-public class DemoActivity extends BaseActivity<ActivityDemoBinding, BaseViewModel> {
+public class MainActivity extends BaseActivity<ActivityDemoBinding, BaseViewModel> {
     @Override
     public void initParam() {
         super.initParam();

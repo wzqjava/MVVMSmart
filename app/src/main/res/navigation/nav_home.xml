@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.wzq.sample.ui.main.HomeFragment"
+        android:name="com.wzq.sample.ui.main.MainFragment"
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment_to_netWorkFragment"
@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_homeFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_testNetFragment"
+            app:destination="@id/testNetFragment" />
     </fragment>
     <fragment
         android:id="@+id/netWorkFragment"
@@ -61,4 +64,8 @@
         android:id="@+id/loginFragment"
         android:name="com.wzq.sample.ui.login.LoginFragment"
         android:label="LoginFragment" />
+    <fragment
+        android:id="@+id/testNetFragment"
+        android:name="com.wzq.sample.ui.testnet.TestNetFragment"
+        android:label="TestNetFragment" />
 </navigation>

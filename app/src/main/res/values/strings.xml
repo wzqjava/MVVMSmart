@@ -14,4 +14,5 @@
     <string name="catch_all_crush">catch_all_crush</string>
     <string name="download_file">download_file</string>
     <string name="room_sample">room_sample</string>
+    <string name="test_url">test_url</string>
 </resources>
