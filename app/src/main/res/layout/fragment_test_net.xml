@@ -4,11 +4,9 @@
 
     <data>
         <variable
-            name="layoutManager"
-            type="androidx.recyclerview.widget.LinearLayoutManager" />
-        <variable
-            name="adapter"
-            type="com.wzq.sample.ui.recycler_multi.MyMultiAdapter" />
+            name="viewMole"
+            type="com.wzq.sample.ui.testnet.TestNetViewModel" />
+
     </data>
 
     <LinearLayout
@@ -20,6 +18,14 @@
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="请求接口" />
+
+        <TextView
+            android:id="@+id/tvJson"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="result: " />
     </LinearLayout>
 </layout>

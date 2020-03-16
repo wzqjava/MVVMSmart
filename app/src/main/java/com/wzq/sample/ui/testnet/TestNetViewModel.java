@@ -10,11 +10,8 @@ import com.wzq.mvvmsmart.utils.KLog;
 import com.wzq.mvvmsmart.utils.RxUtils;
 import com.wzq.mvvmsmart.utils.ToastUtils;
 import com.wzq.sample.base.BaseViewModel;
-import com.wzq.sample.bean.DemoBean;
 import com.wzq.sample.data.source.http.service.DemoApiService;
 import com.wzq.sample.utils.RetrofitClient;
-
-import java.util.ArrayList;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -27,11 +24,11 @@ import io.reactivex.disposables.Disposable;
 public class TestNetViewModel extends BaseViewModel {
 
     //给RecyclerView添加ObservableList
-    public MutableLiveData<ArrayList<DemoBean.ItemsEntity>> itemsEntityLiveData;
+    public MutableLiveData<String> resultJson;
 
     public TestNetViewModel(@NonNull Application application) {
         super(application);
-        itemsEntityLiveData = new MutableLiveData<>();
+        resultJson = new MutableLiveData<>();
     }
 
     public void getData() {
@@ -50,6 +47,7 @@ public class TestNetViewModel extends BaseViewModel {
                     @Override
                     public void onNext(BaseResponse<Object> response) {
                         KLog.e("返回数据: " + response.toString());
+                        resultJson.postValue(response.toString());
                         ToastUtils.showShort(response.toString());
                     }
 
@@ -62,6 +60,7 @@ public class TestNetViewModel extends BaseViewModel {
                     @Override
                     public void onComplete() {
                         ToastUtils.showShort("进入onComplete");
+
                         KLog.e("进入onComplete");
                     }
                 });
