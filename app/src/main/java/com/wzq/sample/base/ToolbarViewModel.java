@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 
-import com.wzq.mvvmsmart.base.BaseModelMVVM;
 import com.wzq.mvvmsmart.binding.command.BindingAction;
 import com.wzq.mvvmsmart.binding.command.BindingCommand;
 
@@ -19,7 +18,7 @@ import com.wzq.mvvmsmart.binding.command.BindingCommand;
  * 所有例子仅做参考,业务多种多样,可能我这里写的例子和你的需求不同，理解如何使用才最重要。
  */
 
-public class ToolbarViewModel<M extends BaseModelMVVM> extends BaseViewModel<M> {
+public class ToolbarViewModel extends BaseViewModel {
     //标题文字
     public ObservableField<String> titleText = new ObservableField<>("");
     //右边文字
@@ -32,11 +31,7 @@ public class ToolbarViewModel<M extends BaseModelMVVM> extends BaseViewModel<M> 
     public ToolbarViewModel toolbarViewModel;
 
     public ToolbarViewModel(@NonNull Application application) {
-        this(application, null);
-    }
-
-    public ToolbarViewModel(@NonNull Application application, M model) {
-        super(application, model);
+        super(application);
         toolbarViewModel = this;
     }
 

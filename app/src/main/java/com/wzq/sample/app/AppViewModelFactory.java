@@ -8,7 +8,6 @@ import androidx.annotation.VisibleForTesting;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.wzq.sample.data.DemoRepository;
 import com.wzq.sample.ui.login.LoginViewModel;
 import com.wzq.sample.ui.recycler_single_network.NetWorkViewModel;
 

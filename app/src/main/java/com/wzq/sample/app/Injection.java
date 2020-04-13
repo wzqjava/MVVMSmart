@@ -1,9 +1,6 @@
 package com.wzq.sample.app;
 
 
-import com.wzq.sample.data.DemoRepository;
-import com.wzq.sample.data.source.HttpDataSource;
-import com.wzq.sample.data.source.LocalDataSource;
 import com.wzq.sample.data.source.http.HttpDataSourceImpl;
 import com.wzq.sample.data.source.http.service.DemoApiService;
 import com.wzq.sample.data.source.local.LocalDataSourceImpl;

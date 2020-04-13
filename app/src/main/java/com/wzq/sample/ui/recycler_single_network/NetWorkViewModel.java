@@ -12,7 +12,6 @@ import com.wzq.mvvmsmart.utils.KLog;
 import com.wzq.mvvmsmart.utils.RxUtils;
 import com.wzq.mvvmsmart.utils.ToastUtils;
 import com.wzq.sample.bean.DemoBean;
-import com.wzq.sample.data.DemoRepository;
 import com.wzq.sample.base.BaseViewModel;
 
 import java.util.ArrayList;
@@ -21,13 +20,15 @@ import java.util.List;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
+public class NetWorkViewModel extends BaseViewModel {
+    NetWorkModel netWorkModel;
     public int pageNum = 1;
     public StateLiveData<List<DemoBean.ItemsEntity>> stateLiveData;
 //    public SingleLiveEvent<NetWorkItemViewModel> deleteItemLiveData = new SingleLiveEvent<>();
 
-    public NetWorkViewModel(@NonNull Application application, DemoRepository repository) {
-        super(application, repository);
+    public NetWorkViewModel(@NonNull Application application) {
+        super(application);
+
         stateLiveData = new StateLiveData<>();
         stateLiveData.setValue(new ArrayList<DemoBean.ItemsEntity>());
     }
@@ -48,7 +49,7 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
     public void requestNetWork() {
         //可以调用addSubscribe()添加Disposable，请求与View周期同步
 
-        model.demoGet(pageNum)
+        netWorkModel.demoGet(pageNum)
                 .compose(RxUtils.observableToMain()) //线程调度,compose操作符是直接对当前Observable进行操作（可简单理解为不停地.方法名（）.方法名（）链式操作当前Observable）
                 .compose(RxUtils.exceptionTransformer()) // 网络错误的异常转换, 这里可以换成自己的ExceptionHandle
                 .doOnSubscribe(NetWorkViewModel.this)    //  请求与ViewModel周期同步
@@ -120,7 +121,7 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
             uc.finishLoadMore.call();
             return;
         }
-        model.loadMore()
+        netWorkModel.loadMore()
                 .compose(RxUtils.observableToMain()) //线程调度
                 .doOnSubscribe(NetWorkViewModel.this) //请求与ViewModel周期同步
                 .subscribe(new Observer<DemoBean>() {

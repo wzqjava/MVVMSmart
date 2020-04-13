@@ -17,18 +17,12 @@ import java.util.Map;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-public class BaseViewModelMVVM<M extends BaseModelMVVM> extends AndroidViewModel implements IBaseViewModelMVVM, Consumer<Disposable> {
-    protected M model;
+public class BaseViewModelMVVM extends AndroidViewModel implements IBaseViewModelMVVM, Consumer<Disposable> {
     private UIChangeLiveData uiChangeLiveData;
     //管理RxJava，主要针对RxJava异步操作造成的内存泄漏
     private CompositeDisposable mCompositeDisposable;
     public BaseViewModelMVVM(@NonNull Application application) {
-        this(application, null);
-    }
-
-    public BaseViewModelMVVM(@NonNull Application application, M model) {
         super(application);
-        this.model = model;
         mCompositeDisposable = new CompositeDisposable();
     }
 
@@ -120,9 +114,6 @@ public class BaseViewModelMVVM<M extends BaseModelMVVM> extends AndroidViewModel
     @Override
     protected void onCleared() {
         super.onCleared();
-        if (model != null) {
-            model.onCleared();
-        }
         //ViewModel销毁时会执行，同时取消所有异步任务
         if (mCompositeDisposable != null) {
             mCompositeDisposable.clear();
