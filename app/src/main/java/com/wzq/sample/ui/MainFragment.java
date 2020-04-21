@@ -73,13 +73,6 @@ public class MainFragment extends BaseFragment<FragmentHomeBinding, MainViewMode
     public class Presenter {
 
         //网络访问点击事件
-        public void loginClick() {
-            NavHostFragment
-                    .findNavController(MainFragment.this)
-                    .navigate(R.id.action_homeFragment_to_loginFragment);
-        }
-
-        //网络访问点击事件
         public void netWorkClick() {
             NavHostFragment
                     .findNavController(MainFragment.this)
@@ -106,21 +99,14 @@ public class MainFragment extends BaseFragment<FragmentHomeBinding, MainViewMode
                     .navigate(R.id.action_homeFragment_to_viewPagerGroupFragment);
         }
 
-        //表单提交点击事件
-        public void formSbmClick() {
-            NavHostFragment
-                    .findNavController(MainFragment.this)
-                    .navigate(R.id.action_homeFragment_to_formFragment);
-        }
 
         //表单修改点击事件
         public void formModifyClick() {
             //模拟一个修改的实体数据
             FormEntity entity = new FormEntity();
             entity.setId("12345678");
-            entity.setName("text");
-            entity.setSex("1");
-            entity.setBir("xxxx年xx月xx日");
+            entity.setName("wzq");
+            entity.setBir("2020年08月08日");
             entity.setMarry(true);
             //传入实体数据
             Bundle mBundle = new Bundle();

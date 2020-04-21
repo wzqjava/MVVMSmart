@@ -8,7 +8,6 @@ import androidx.databinding.BaseObservable;
 public class FormEntity extends BaseObservable implements Parcelable {
     private String id;
     private String name;
-    private String sex;
     private String Bir;
     private String hobby;
     private Boolean isMarry;
@@ -28,15 +27,6 @@ public class FormEntity extends BaseObservable implements Parcelable {
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
     public String getBir() {
         return Bir;
     }
@@ -73,7 +63,6 @@ public class FormEntity extends BaseObservable implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
         dest.writeString(this.name);
-        dest.writeString(this.sex);
         dest.writeString(this.Bir);
         dest.writeString(this.hobby);
         dest.writeValue(this.isMarry);
@@ -82,7 +71,6 @@ public class FormEntity extends BaseObservable implements Parcelable {
     protected FormEntity(Parcel in) {
         this.id = in.readString();
         this.name = in.readString();
-        this.sex = in.readString();
         this.Bir = in.readString();
         this.hobby = in.readString();
         this.isMarry = (Boolean) in.readValue(Boolean.class.getClassLoader());
