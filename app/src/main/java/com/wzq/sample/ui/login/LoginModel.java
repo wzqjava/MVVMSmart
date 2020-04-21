@@ -1,9 +1,12 @@
 package com.wzq.sample.ui.login;
 
+import android.annotation.SuppressLint;
+
 import com.wzq.mvvmsmart.base.BaseModelMVVM;
 
-import io.reactivex.Completable;
-import io.reactivex.CompletableObserver;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 
 /**
  * <p>作者：王志强<p>
@@ -14,7 +17,6 @@ class LoginModel extends BaseModelMVVM {
 
 
     String getUserName() {
-
         return "1";
     }
 
@@ -22,20 +24,26 @@ class LoginModel extends BaseModelMVVM {
         return "1";
     }
 
-    public Completable login() {
-      return new Completable() {
-          @Override
-          protected void subscribeActual(CompletableObserver observer) {
+    @SuppressLint("CheckResult")
+    public Observable login() {
+        return Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
 
-          }
-      };
+                emitter.onNext(1);
+                emitter.onNext(2);
+                emitter.onNext(3);
+                emitter.onComplete();
+            }
+        });
+
     }
 
-    public void saveUserName(String name) {
+    void saveUserName(String name) {
 
     }
 
-    public void savePassword(String pwd) {
+    void savePassword(String pwd) {
 
     }
 }

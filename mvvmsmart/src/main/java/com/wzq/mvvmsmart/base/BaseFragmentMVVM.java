@@ -12,15 +12,11 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.wzq.mvvmsmart.base.BaseViewModelMVVM.ParameterField;
-
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.Map;
 
 public abstract class BaseFragmentMVVM<V extends ViewDataBinding, VM extends BaseViewModelMVVM> extends Fragment implements IBaseViewMVVM {
     protected V binding;
@@ -140,37 +136,6 @@ public abstract class BaseFragmentMVVM<V extends ViewDataBinding, VM extends Bas
         return ViewModelProviders.of(fragment).get(cls);
     }
 
-
-    //注册ViewModel与View的契约UI回调事件
-    private void registorUIChangeLiveDataCallBack() {
-        //跳入新页面
-        viewModel.getUC().getStartActivityLiveData().observe(this, new Observer<Map<String, Object>>() {
-            @Override
-            public void onChanged(@Nullable Map<String, Object> params) {
-                Class<?> clz = (Class<?>) params.get(ParameterField.CLASS);
-                Bundle bundle = (Bundle) params.get(ParameterField.BUNDLE);
-                startActivity(clz, bundle);
-            }
-        });
-
-        //关闭界面
-        viewModel.getUC().getFinishLiveData().observe(this, new Observer<Void>() {
-            @Override
-            public void onChanged(@Nullable Void v) {
-                getActivity().finish();
-            }
-        });
-
-        //关闭上一层
-        viewModel.getUC().getOnBackPressedLiveData().observe(this, new Observer<Void>() {
-            @Override
-            public void onChanged(@Nullable Void v) {
-                getActivity().onBackPressed();
-            }
-        });
-    }
-
-
     //刷新布局数据
     public void refreshLayout() {
         if (viewModel != null) {
@@ -204,8 +169,7 @@ public abstract class BaseFragmentMVVM<V extends ViewDataBinding, VM extends Bas
 
     @Override
     public void initViewObservable() {
-        //私有的ViewModel与View的契约事件回调逻辑
-        registorUIChangeLiveDataCallBack();
+
     }
 
     @Override

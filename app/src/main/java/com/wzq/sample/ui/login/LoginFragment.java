@@ -32,27 +32,11 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
         return com.wzq.sample.BR.viewModel;
     }
 
-    /**
-     * initViewModel---此方法很重要,初学者可以慢慢体会,此处不必马上追究清楚,以先会用MVVMSmart为首要原则
-     */
-    /**
-     * 重写父类的initViewModel,baseActivity中创建viewmodel会调用此处重写的创建方法
-     * 使用自定义的ViewModelFactory来创建ViewModel
-     * AppViewModelFactory,中注入仓库类(网络数据,本地数据)
-     * 网络数据: 初始化RetrofitClient(),HttpDataSource(get和pos请求)
-     * 本地数据: 保存和获取用户名和密码(4个功能),目前用sp,可以接入room
-     */
-    /**
-     * 如果不重写调用默认的创建viewmode的方法(没有使用factory),
-     * 如果不重写该方法，则默认会调用LoginViewModel(@NonNull Application application)构造方法
-     * 如果不重写且LoginActivity的viewmode泛型传null,则会默认使用BaseViewModel
-     */
-
 
     @Override
     public void initViewObservable() {
         super.initViewObservable();
-        binding.btnLogin.setOnClickListener(view ->{
+        binding.btnLogin.setOnClickListener(view -> {
             viewModel.login();
         });
         /**
@@ -78,11 +62,11 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
                     }
                 });
         //监听ViewModel中pSwitchObservable的变化, 当ViewModel中执行【uc.pSwitchObservable.set(!uc.pSwitchObservable.get());】时会回调该方法
-        viewModel.uc.pSwitchEvent.observe(this, new Observer<Boolean>() {
+        viewModel.pSwitchEvent.observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable Boolean aBoolean) {
                 //pSwitchObservable是boolean类型的LiveData观察者,所以可以直接使用它的值改变密码开关的图标
-                if (viewModel.uc.pSwitchEvent.getValue()) {
+                if (viewModel.pSwitchEvent.getValue()) {
                     //密码可见
                     //在xml中定义id后,使用binding可以直接拿到这个view的引用,不再需要findViewById去找控件了
                     binding.ivSwichPasswrod.setImageResource(R.drawable.show_psw);

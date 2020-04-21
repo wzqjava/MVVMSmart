@@ -89,9 +89,6 @@ public class NetWorkViewModel extends BaseViewModel {
                         KLog.e("进入onComplete");
                         //关闭对话框
                         stateLiveData.postIdle();
-                        //请求刷新完成收回
-//                        uc.finishRefreshing.call();
-//                        uc.finishLoadMore.call();
                     }
                 });
 
