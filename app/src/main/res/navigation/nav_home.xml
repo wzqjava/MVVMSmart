@@ -60,10 +60,7 @@
         android:id="@+id/roomSampleFragment"
         android:name="com.wzq.sample.ui.room_db.RoomSampleFragment"
         android:label="RoomSampleFragment" />
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.wzq.sample.ui.login.LoginFragment"
-        android:label="LoginFragment" />
+
     <fragment
         android:id="@+id/testNetFragment"
         android:name="com.wzq.sample.ui.testnet.TestNetFragment"

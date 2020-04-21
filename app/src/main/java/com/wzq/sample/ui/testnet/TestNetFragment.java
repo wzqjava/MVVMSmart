@@ -2,7 +2,6 @@ package com.wzq.sample.ui.testnet;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
@@ -39,11 +38,7 @@ public class TestNetFragment extends BaseFragment<FragmentTestNetBinding, TestNe
     public void initViewObservable() {
         super.initViewObservable();
         binding.button.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View v) {
-                        viewModel.getData();
-                    }
-                }
+                v -> viewModel.getData()
         );
         viewModel.resultJson.observe(this, new Observer<String>() {
             @Override
