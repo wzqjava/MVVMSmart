@@ -5,11 +5,11 @@
 
         <variable
             name="presenter"
-            type="com.wzq.sample.ui.main.HomeFragment.Presenter" />
+            type="com.wzq.sample.ui.MainFragment.Presenter" />
 
         <variable
             name="viewModel"
-            type="com.wzq.sample.ui.main.HomeViewModel" />
+            type="com.wzq.sample.ui.MainViewModel" />
     </data>
 
     <ScrollView
@@ -24,17 +24,12 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp">
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:onClick="@{()->presenter.loginClick()}"
-                android:text="@string/simulate_login" />
+
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:onClick="@{()->presenter.netWorkClick()}"
                 android:text="@string/net_single_cell" />
 
@@ -59,13 +54,6 @@
                 android:onClick="@{() -> presenter.viewPagerBindingClick()}"
                 android:text="@string/viewpager_command" />
 
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:onClick="@{() -> presenter.formSbmClick()}"
-                android:text="@string/form_submit" />
 
             <Button
                 android:layout_width="match_parent"
@@ -101,6 +89,13 @@
                 android:layout_marginTop="10dp"
                 android:onClick="@{() -> presenter.roomSampleClick()}"
                 android:text="@string/room_sample" />
+
+          <!--  <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:onClick="@{() -> presenter.testNetUrl()}"
+                android:text="@string/test_url" />-->
         </LinearLayout>
     </ScrollView>
 </layout>

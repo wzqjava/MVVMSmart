@@ -1,4 +1,4 @@
-package com.wzq.sample.ui.main;
+package com.wzq.sample.ui;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -29,7 +29,7 @@ import okhttp3.ResponseBody;
  * 截止2019年12月21日累计投入时间:45小时
  * 本项目接口地址:  https://www.oschina.net/action/apiv2/banner?catalog=1
  */
-public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewModel> {
+public class MainFragment extends BaseFragment<FragmentHomeBinding, MainViewModel> {
 
     @Override
     public int initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -73,23 +73,16 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     public class Presenter {
 
         //网络访问点击事件
-        public void loginClick() {
-            NavHostFragment
-                    .findNavController(HomeFragment.this)
-                    .navigate(R.id.action_homeFragment_to_loginFragment);
-        }
-
-        //网络访问点击事件
         public void netWorkClick() {
             NavHostFragment
-                    .findNavController(HomeFragment.this)
+                    .findNavController(MainFragment.this)
                     .navigate(R.id.action_homeFragment_to_netWorkFragment);
         }
 
         //RecycleView多布局
         public void rvMultiClick() {
             NavHostFragment
-                    .findNavController(HomeFragment.this)
+                    .findNavController(MainFragment.this)
                     .navigate(R.id.action_homeFragment_to_multiRecycleViewFragment);
         }
 
@@ -102,31 +95,24 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         public void viewPagerBindingClick() {
             ToastUtils.showShort("点击跳转viewpager");
             NavHostFragment
-                    .findNavController(HomeFragment.this)
+                    .findNavController(MainFragment.this)
                     .navigate(R.id.action_homeFragment_to_viewPagerGroupFragment);
         }
 
-        //表单提交点击事件
-        public void formSbmClick() {
-            NavHostFragment
-                    .findNavController(HomeFragment.this)
-                    .navigate(R.id.action_homeFragment_to_formFragment);
-        }
 
         //表单修改点击事件
         public void formModifyClick() {
             //模拟一个修改的实体数据
             FormEntity entity = new FormEntity();
             entity.setId("12345678");
-            entity.setName("text");
-            entity.setSex("1");
-            entity.setBir("xxxx年xx月xx日");
+            entity.setName("wzq");
+            entity.setBir("2020年08月08日");
             entity.setMarry(true);
             //传入实体数据
             Bundle mBundle = new Bundle();
             mBundle.putParcelable("entity", entity);
             NavHostFragment
-                    .findNavController(HomeFragment.this)
+                    .findNavController(MainFragment.this)
                     .navigate(R.id.action_homeFragment_to_formFragment, mBundle);
         }
 
@@ -150,8 +136,15 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         //文件下载
         public void roomSampleClick() {
             NavHostFragment
-                    .findNavController(HomeFragment.this)
+                    .findNavController(MainFragment.this)
                     .navigate(R.id.action_homeFragment_to_roomSampleFragment);
+        }
+
+        // 测试网络接口
+        public void testNetUrl() {
+            NavHostFragment
+                    .findNavController(MainFragment.this)
+                    .navigate(R.id.action_homeFragment_to_testNetFragment);
         }
 
     }
@@ -189,7 +182,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         /**
          * ProgressCallBack构造方法中，LiveEventBus监听进度改变，调用ProgressCallBack的progress方法设置进度
          */
-        DownLoadManager.getInstance().load(url, new ProgressCallBack<ResponseBody>(HomeFragment.this, destFileDir, destFileName) {
+        DownLoadManager.getInstance().load(url, new ProgressCallBack<ResponseBody>(MainFragment.this, destFileDir, destFileName) {
             @Override
             public void onStart() {
                 super.onStart();

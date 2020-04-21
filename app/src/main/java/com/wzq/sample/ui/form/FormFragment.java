@@ -2,17 +2,16 @@ package com.wzq.sample.ui.form;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.Observable;
-import androidx.lifecycle.Observer;
 
+import com.google.gson.Gson;
+import com.wzq.mvvmsmart.utils.KLog;
 import com.wzq.mvvmsmart.utils.ToastUtils;
 import com.wzq.sample.R;
 import com.wzq.sample.base.BaseFragment;
@@ -30,7 +29,8 @@ import java.util.Calendar;
 
 public class FormFragment extends BaseFragment<FragmentFormTempBinding, FormViewModel> {
 
-    private FormEntity entity = new FormEntity();
+
+    private FormEntity entity;
 
     @Override
     public void initParam() {
@@ -38,6 +38,7 @@ public class FormFragment extends BaseFragment<FragmentFormTempBinding, FormView
         Bundle mBundle = getArguments();
         if (mBundle != null) {
             entity = mBundle.getParcelable("entity");
+
         }
     }
 
@@ -53,10 +54,11 @@ public class FormFragment extends BaseFragment<FragmentFormTempBinding, FormView
 
     @Override
     public void initData() {
+        binding.setPresenter(new Presenter());
+        binding.switchId.setChecked(entity.getMarry());
+        viewModel.entityLiveData.setValue(entity);
         //通过binding拿到toolbar控件, 设置给Activity
         ((AppCompatActivity) getActivity()).setSupportActionBar(binding.title.toolbar);
-        //View层传参到ViewModel层
-        viewModel.setFormEntity(entity);
     }
 
     /**
@@ -64,46 +66,61 @@ public class FormFragment extends BaseFragment<FragmentFormTempBinding, FormView
      */
     @Override
     public void initToolbar() {
-        //初始化标题栏
-        viewModel.setRightTextVisible(View.VISIBLE);
-        if (TextUtils.isEmpty(entity.getId())) {
-            //ID为空是新增
-            viewModel.setTitleText("表单提交");
-        } else {
-            //ID不为空是修改
-            viewModel.setTitleText("表单编辑");
-        }
-        binding.title.tvRightText.setOnClickListener(viewModel ->{
-            ToastUtils.showShort("点击了更多");
-        });
+
+        //ID不为空是修改
+        binding.title.tvTitle.setText("表单编辑");
+        binding.title.ivRight.setOnClickListener(v -> ToastUtils.showShort("点击了更多"));
+
     }
+
+    /**
+     * 封装布局中的点击事件儿;
+     */
+    public class Presenter {
+
+        public void commitClick() {
+            Toast.makeText(getActivity(), "触发提交按钮", Toast.LENGTH_SHORT).show();
+            String submitJson = new Gson().toJson(viewModel.entityLiveData.getValue());
+            MaterialDialogUtils.showBasicDialog(getContext(), "提交的json实体数据：\r\n" + submitJson).show();
+        }
+
+
+        public void showDateDialog() {
+            final Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    FormEntity value = viewModel.entityLiveData.getValue();
+                    //设置数据到实体中，自动刷新界面
+                    value.setBir(year + "年" + (month + 1) + "月" + dayOfMonth + "日");
+                    viewModel.entityLiveData.setValue(value);
+                }
+            }, year, month, day);
+            datePickerDialog.setMessage("生日选择");
+            datePickerDialog.show();
+        }
+
+    }
+
 
     @Override
     public void initViewObservable() {
         super.initViewObservable();
-        //监听日期选择
-        viewModel.uc.showDateDialogObservable.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+        binding.switchId.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onPropertyChanged(Observable sender, int propertyId) {
-                final Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        viewModel.setBir(year, month, dayOfMonth);
-                    }
-                }, year, month, day);
-                datePickerDialog.setMessage("生日选择");
-                datePickerDialog.show();
-            }
-        });
-        viewModel.entityJsonLiveData.observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String submitJson) {
-                MaterialDialogUtils.showBasicDialog(getContext(), "提交的json实体数据：\r\n" + submitJson).show();
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                //是否已婚Switch点状态改变回调
+                KLog.e("婚姻状态::" + isChecked);
+                FormEntity value = viewModel.entityLiveData.getValue();
+                value.setMarry(isChecked);
+                viewModel.entityLiveData.setValue(value);
+
             }
         });
     }
+
+
 }

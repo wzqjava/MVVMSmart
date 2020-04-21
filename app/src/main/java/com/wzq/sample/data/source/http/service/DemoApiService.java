@@ -20,4 +20,7 @@ public interface DemoApiService {
     @FormUrlEncoded
     @POST("action/apiv2/banner")
     Observable<BaseResponse<DemoBean>> demoPost(@Field("catalog") String catalog);
+
+    @GET("getJsonFile")
+    Observable<BaseResponse<Object>> getJsonFile();
 }

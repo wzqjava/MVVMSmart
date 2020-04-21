@@ -1,7 +1,6 @@
 package com.wzq.sample.data.source.http;
 
 
-import com.wzq.sample.data.source.HttpDataSource;
 import com.wzq.sample.data.source.http.service.DemoApiService;
 import com.wzq.sample.bean.DemoBean;
 import com.wzq.mvvmsmart.http.BaseResponse;
@@ -14,7 +13,7 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
-public class HttpDataSourceImpl implements HttpDataSource {
+public class HttpDataSourceImpl {
     private DemoApiService apiService;
     private volatile static HttpDataSourceImpl INSTANCE = null;
 
@@ -37,13 +36,13 @@ public class HttpDataSourceImpl implements HttpDataSource {
         this.apiService = apiService;
     }
 
-    @Override
+
     public Observable<Object> login() {
         // TODO: wzq 2019/12/18  延迟时间
         return Observable.just(new Object()).delay(1, TimeUnit.SECONDS); //延迟3秒
     }
 
-    @Override
+
     public Observable<DemoBean> loadMore() {
         return Observable.create(new ObservableOnSubscribe<DemoBean>() {
             @Override
@@ -63,12 +62,10 @@ public class HttpDataSourceImpl implements HttpDataSource {
         }).delay(2, TimeUnit.SECONDS); //延迟3秒
     }
 
-    @Override
     public Observable<BaseResponse<DemoBean>> demoGet(int pageNum) {
         return apiService.demoGet(pageNum);
     }
 
-    @Override
     public Observable<BaseResponse<DemoBean>> demoPost(String catalog) {
         return apiService.demoPost(catalog);
     }

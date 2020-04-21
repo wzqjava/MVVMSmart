@@ -6,21 +6,23 @@
         <variable
             name="viewModel"
             type="com.wzq.sample.ui.form.FormViewModel" />
+        <variable
+            name="presenter"
+            type="com.wzq.sample.ui.form.FormFragment.Presenter" />
+
     </data>
 
 <!--    xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:binding="http://schemas.android.com/apk/res-auto"-->
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:binding="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <include
             android:id="@+id/title"
-            layout="@layout/layout_toolbar"
-            binding:toolbarViewModel="@{viewModel.toolbarViewModel}" />
+            layout="@layout/layout_toolbar" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,30 +42,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:text="@={viewModel.entity.name}" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="性别" />
-
-            <Spinner
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                binding:itemDatas="@{viewModel.sexItemDatas}"
-                binding:onItemSelectedCommand="@{viewModel.onSexSelectorCommand}"
-                binding:valueReply="@{viewModel.entity.sex}" />
+                android:text="@={viewModel.entityLiveData.name}" />
         </LinearLayout>
 
         <LinearLayout
@@ -80,12 +59,13 @@
                 android:gravity="center"
                 android:text="生日" />
 
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:text="@={viewModel.entity.bir}"
-                binding:onClickCommand="@{viewModel.onBirClickCommand}" />
+                android:onClick="@{() ->presenter.showDateDialog()}"
+                android:text="@={viewModel.entityLiveData.bir}" />
         </LinearLayout>
 
         <LinearLayout
@@ -102,19 +82,21 @@
                 android:gravity="center"
                 android:text="是否已婚" />
 
+
             <Switch
+                android:id="@+id/switchId"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
-                binding:onCheckedChangeCommand="@{viewModel.onMarryCheckedChangeCommand}"
-                binding:switchState="@{viewModel.entity.marry}" />
+                android:layout_weight="3" />
+
         </LinearLayout>
+
 
         <Button
             android:id="@+id/btn_cmt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="立即提交"
-            binding:onClickCommand="@{viewModel.onCmtClickCommand}" />
+            android:onClick="@{() ->presenter.commitClick()}"
+            android:text="立即提交" />
     </LinearLayout>
 </layout>

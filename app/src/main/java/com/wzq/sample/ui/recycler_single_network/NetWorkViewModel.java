@@ -3,43 +3,33 @@ package com.wzq.sample.ui.recycler_single_network;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 
-import com.wzq.mvvmsmart.event.SingleLiveEvent;
-import com.wzq.mvvmsmart.event.StateLiveData;
 import com.wzq.mvvmsmart.http.BaseResponse;
 import com.wzq.mvvmsmart.http.ResponseThrowable;
 import com.wzq.mvvmsmart.utils.KLog;
 import com.wzq.mvvmsmart.utils.RxUtils;
 import com.wzq.mvvmsmart.utils.ToastUtils;
-import com.wzq.sample.bean.DemoBean;
-import com.wzq.sample.data.DemoRepository;
 import com.wzq.sample.base.BaseViewModel;
+import com.wzq.sample.bean.DemoBean;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
+public class NetWorkViewModel extends BaseViewModel {
+    private NetWorkModel model;
     public int pageNum = 1;
-    public StateLiveData<List<DemoBean.ItemsEntity>> stateLiveData;
-//    public SingleLiveEvent<NetWorkItemViewModel> deleteItemLiveData = new SingleLiveEvent<>();
+    public MutableLiveData<List<DemoBean.ItemsEntity>> liveData;
 
-    public NetWorkViewModel(@NonNull Application application, DemoRepository repository) {
-        super(application, repository);
-        stateLiveData = new StateLiveData<>();
-        stateLiveData.setValue(new ArrayList<DemoBean.ItemsEntity>());
-    }
-
-    //封装一个界面发生改变的观察者
-    public UIChangeObservable uc = new UIChangeObservable();
-
-    public class UIChangeObservable {
-        //下拉刷新完成
-        public SingleLiveEvent<Object> finishRefreshing = new SingleLiveEvent<Object>();
-        //上拉加载完成
-        public SingleLiveEvent<Object> finishLoadMore = new SingleLiveEvent<Object>();
+    public NetWorkViewModel(@NonNull Application application) {
+        super(application);
+        liveData = new MutableLiveData<>();
+        liveData.setValue(new ArrayList<>());
+        model = new NetWorkModel();
     }
 
     /**
@@ -47,9 +37,8 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
      */
     public void requestNetWork() {
         //可以调用addSubscribe()添加Disposable，请求与View周期同步
-
-        model.demoGet(pageNum)
-                .compose(RxUtils.observableToMain()) //线程调度,compose操作符是直接对当前Observable进行操作（可简单理解为不停地.方法名（）.方法名（）链式操作当前Observable）
+        Observable observable = model.demoGet(pageNum);
+        observable.compose(RxUtils.observableToMain()) //线程调度,compose操作符是直接对当前Observable进行操作（可简单理解为不停地.方法名（）.方法名（）链式操作当前Observable）
                 .compose(RxUtils.exceptionTransformer()) // 网络错误的异常转换, 这里可以换成自己的ExceptionHandle
                 .doOnSubscribe(NetWorkViewModel.this)    //  请求与ViewModel周期同步
                 .subscribe(new Observer<BaseResponse<DemoBean>>() {
@@ -67,10 +56,9 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
                             if (itemsEntities != null) {
                                 if (itemsEntities.size() > 0) {
                                     if (pageNum == 1) {
-                                        stateLiveData.getValue().clear();
+                                        liveData.getValue().clear();
                                     }
-                                    stateLiveData.getValue().addAll(itemsEntities);
-                                    stateLiveData.postValueAndSuccess(stateLiveData.getValue());
+                                    liveData.postValue(itemsEntities);
                                 } else {
                                     ToastUtils.showShort("没有更多数据了");
                                     KLog.e("请求到数据students.size" + itemsEntities.size());
@@ -101,13 +89,11 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
                         KLog.e("进入onComplete");
                         //关闭对话框
                         stateLiveData.postIdle();
-                        //请求刷新完成收回
-                        uc.finishRefreshing.call();
-                        uc.finishLoadMore.call();
                     }
                 });
-    }
 
+
+    }
 
 
     /**
@@ -115,12 +101,12 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
      * 接口不能用的时候,模拟加载更多数据
      */
     private void loadMoreTestData() {
-        if (stateLiveData.getValue().size() > 50) {
+        /*if (liveData.getValue().size() > 50) {
             ToastUtils.showLong("兄dei，崩是不可能的~");
-            uc.finishLoadMore.call();
+//            uc.finishLoadMore.call();
             return;
         }
-        model.loadMore()
+        netWorkModel.loadMore()
                 .compose(RxUtils.observableToMain()) //线程调度
                 .doOnSubscribe(NetWorkViewModel.this) //请求与ViewModel周期同步
                 .subscribe(new Observer<DemoBean>() {
@@ -131,9 +117,9 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
 
                     @Override
                     public void onNext(DemoBean demoBean) {
-                        stateLiveData.getValue().addAll(demoBean.getItems());
-                        stateLiveData.setValue(stateLiveData.getValue());
-                        ToastUtils.showShort("" + stateLiveData.getValue().size());
+                        liveData.getValue().addAll(demoBean.getItems());
+                        liveData.setValue(liveData.getValue());
+                        ToastUtils.showShort("" + liveData.getValue().size());
                     }
 
                     @Override
@@ -144,9 +130,9 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
                     @Override
                     public void onComplete() {
                         //刷新完成收回
-                        uc.finishLoadMore.call();
+
                     }
-                });
+                });*/
     }
 
 
@@ -156,9 +142,9 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
     public void deleteItem(DemoBean.ItemsEntity itemsEntity) {
         //点击确定，在 observableList 绑定中删除，界面立即刷新
         KLog.e("调用了删除");
-        KLog.e("size" + stateLiveData.getValue().size());
-        stateLiveData.getValue().remove(itemsEntity);
-        KLog.e("size" + stateLiveData.getValue().size());
+        KLog.e("size" + liveData.getValue().size());
+        liveData.getValue().remove(itemsEntity);
+        KLog.e("size" + liveData.getValue().size());
 
     }
 

@@ -14,10 +14,13 @@ public class StateLiveData<T> extends MutableLiveData<T> {
         Loading,
         Success,
         Error,
-        NoData
+        NoData,
+        NoMoreData,
+        NoNet
     }
 
-    public MutableLiveData<StateEnum> stateEnumMutableLiveData = new MutableLiveData<StateEnum>();
+    // 封装的枚举,用MutableLiveData可以被view观察;
+    public MutableLiveData<StateEnum> stateEnumMutableLiveData = new MutableLiveData<>();
 
     public final void postValueAndSuccess(T t) {
         super.postValue(t);
@@ -32,12 +35,20 @@ public class StateLiveData<T> extends MutableLiveData<T> {
         stateEnumMutableLiveData.postValue(StateEnum.Loading);
     }
 
-    public void postSuccess() {
-        stateEnumMutableLiveData.postValue(StateEnum.Success);
-    }
-
     public void postNoData() {
         stateEnumMutableLiveData.postValue(StateEnum.NoData);
+    }
+
+    public void postNoMoreData() {
+        stateEnumMutableLiveData.postValue(StateEnum.NoMoreData);
+    }
+
+    public void postNoNet() {
+        stateEnumMutableLiveData.postValue(StateEnum.NoNet);
+    }
+
+    public void postSuccess() {
+        stateEnumMutableLiveData.postValue(StateEnum.Success);
     }
 
     public void postError() {
@@ -47,5 +58,6 @@ public class StateLiveData<T> extends MutableLiveData<T> {
     public void changeState(StateEnum stateEnum) {
         stateEnumMutableLiveData.postValue(stateEnum);
     }
+
 
 }
