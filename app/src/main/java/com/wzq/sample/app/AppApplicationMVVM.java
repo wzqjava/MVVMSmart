@@ -17,7 +17,7 @@ import com.wzq.mvvmsmart.crash.CaocConfig;
 import com.wzq.mvvmsmart.utils.KLog;
 import com.wzq.sample.BuildConfig;
 import com.wzq.sample.R;
-import com.wzq.sample.ui.main.MainActivity;
+import com.wzq.sample.ui.MainActivity;
 
 
 public class AppApplicationMVVM extends BaseApplicationMVVM {

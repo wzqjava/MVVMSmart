@@ -8,14 +8,12 @@ import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.wzq.mvvmsmart.event.StateLiveData;
 import com.wzq.mvvmsmart.utils.KLog;
 import com.wzq.sample.R;
-import com.wzq.sample.app.AppViewModelFactory;
-import com.wzq.sample.databinding.FragmentLoginBinding;
 import com.wzq.sample.base.BaseFragment;
+import com.wzq.sample.databinding.FragmentLoginBinding;
 
 /**
  * 一个MVVM模式的登陆界面
@@ -49,12 +47,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
      * 如果不重写该方法，则默认会调用LoginViewModel(@NonNull Application application)构造方法
      * 如果不重写且LoginActivity的viewmode泛型传null,则会默认使用BaseViewModel
      */
-    @Override
-    public LoginViewModel initViewModel() {
-        AppViewModelFactory factory = AppViewModelFactory.getInstance(getActivity().getApplication());
-        //  使用了factory ,factory向LoginView里注入了数据仓库
-        return ViewModelProviders.of(this, factory).get(LoginViewModel.class);
-    }
+
 
     @Override
     public void initViewObservable() {

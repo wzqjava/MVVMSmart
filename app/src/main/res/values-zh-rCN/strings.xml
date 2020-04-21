@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MVVMSmart-sample</string>
+    <string name="image_desc">我是图片</string>
     <string name="simulate_login">模拟登录</string>
     <string name="net_single_cell">网络单条目</string>
     <string name="bottom_tab">底部Tab按钮</string>

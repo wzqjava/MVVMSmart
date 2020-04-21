@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.wzq.sample.ui.main.MainFragment"
+        android:name="com.wzq.sample.ui.MainFragment"
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment_to_netWorkFragment"

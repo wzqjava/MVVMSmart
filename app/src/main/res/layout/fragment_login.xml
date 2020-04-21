@@ -54,6 +54,7 @@
                     android:layout_marginRight="8dp"
                     android:background="@color/textColorHint" />
 
+<!--                binding:onFocusChangeCommand="@{viewModel.onFocusChangeCommand}"-->
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -63,16 +64,16 @@
                     android:text="@={viewModel.userName}"
                     android:textColor="@color/textColor"
                     android:textColorHint="@color/textColorHint"
-                    android:textSize="16sp"
-                    binding:onFocusChangeCommand="@{viewModel.onFocusChangeCommand}" />
+                    android:textSize="16sp" />
 
+<!--                binding:onClickCommand="@{viewModel.clearUserNameOnClickCommand}"-->
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:padding="6dp"
                     android:src="@drawable/clean_edit"
                     android:visibility="@{viewModel.clearBtnVisibility}"
-                    binding:onClickCommand="@{viewModel.clearUserNameOnClickCommand}" />
+                     />
             </LinearLayout>
 
             <LinearLayout
@@ -109,13 +110,13 @@
                     android:textColorHint="@color/textColorHint"
                     android:textSize="16sp" />
 
+<!--                binding:onClickCommand="@{viewModel.passwordShowSwitchOnClickCommand}"-->
                 <ImageView
                     android:id="@+id/iv_swich_passwrod"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:padding="6dp"
-                    android:src="@drawable/show_psw_press"
-                    binding:onClickCommand="@{viewModel.passwordShowSwitchOnClickCommand}" />
+                    android:src="@drawable/show_psw_press" />
             </LinearLayout>
 
             <RelativeLayout

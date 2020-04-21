@@ -65,17 +65,16 @@ public class FormFragment extends BaseFragment<FragmentFormTempBinding, FormView
     @Override
     public void initToolbar() {
         //初始化标题栏
-        viewModel.setRightTextVisible(View.VISIBLE);
+        binding.title.tvRight.setVisibility(View.VISIBLE);
         if (TextUtils.isEmpty(entity.getId())) {
             //ID为空是新增
-            viewModel.setTitleText("表单提交");
+            binding.title.tvTitle.setText("表单提交");
         } else {
             //ID不为空是修改
-            viewModel.setTitleText("表单编辑");
+            binding.title.tvTitle.setText("表单编辑");
         }
-        binding.title.tvRightText.setOnClickListener(viewModel ->{
-            ToastUtils.showShort("点击了更多");
-        });
+        binding.title.tvRight.setOnClickListener(v -> ToastUtils.showShort("点击了更多"));
+
     }
 
     @Override

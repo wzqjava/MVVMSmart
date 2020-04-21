@@ -5,11 +5,11 @@
 
         <variable
             name="presenter"
-            type="com.wzq.sample.ui.main.MainFragment.Presenter" />
+            type="com.wzq.sample.ui.MainFragment.Presenter" />
 
         <variable
             name="viewModel"
-            type="com.wzq.sample.ui.main.MainViewModel" />
+            type="com.wzq.sample.ui.MainViewModel" />
     </data>
 
     <ScrollView
@@ -102,12 +102,12 @@
                 android:onClick="@{() -> presenter.roomSampleClick()}"
                 android:text="@string/room_sample" />
 
-            <Button
+          <!--  <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:onClick="@{() -> presenter.testNetUrl()}"
-                android:text="@string/test_url" />
+                android:text="@string/test_url" />-->
         </LinearLayout>
     </ScrollView>
 </layout>

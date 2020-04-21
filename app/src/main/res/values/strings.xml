@@ -15,4 +15,5 @@
     <string name="download_file">download_file</string>
     <string name="room_sample">room_sample</string>
     <string name="test_url">test_url</string>
+    <string name="image_desc">i am image</string>
 </resources>

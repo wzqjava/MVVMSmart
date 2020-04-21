@@ -1,4 +1,4 @@
-package com.wzq.sample.ui.main;
+package com.wzq.sample.ui;
 
 import android.Manifest;
 import android.annotation.SuppressLint;

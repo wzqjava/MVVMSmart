@@ -1,5 +1,6 @@
-package com.wzq.sample.ui.main;
+package com.wzq.sample.ui;
 
+import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
@@ -9,6 +10,7 @@ import com.wzq.sample.base.BaseActivity;
 import com.wzq.sample.base.BaseViewModel;
 
 public class MainActivity extends BaseActivity<ActivityDemoBinding, BaseViewModel> {
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     public void initParam() {
         super.initParam();
