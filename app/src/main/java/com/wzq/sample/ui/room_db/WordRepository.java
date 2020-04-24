@@ -8,13 +8,18 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 class WordRepository {
-    private LiveData<List<Word>> allWordsLive;
+    private LiveData<List<Word>> listLiveData;
     private WordDao wordDao;
 
+
+    LiveData<List<Word>> getListLiveData() {
+        return listLiveData;
+    }
+
     WordRepository(Context context) {
-        WordDatabase wordDatabase = WordDatabase.getDatabase(context.getApplicationContext());
+        WordDatabase wordDatabase = WordDatabase.Companion.getDatabase(context.getApplicationContext());
         wordDao = wordDatabase.getWordDao();
-        allWordsLive = wordDao.getAllWordsLive();
+        listLiveData = wordDao.getAllWordsLive();
     }
 
     void insertWords(Word... words) {
@@ -33,10 +38,6 @@ class WordRepository {
         new DeleteAllAsyncTask(wordDao).execute();
     }
 
-
-    LiveData<List<Word>> getAllWordsLive() {
-        return allWordsLive;
-    }
 
     static class InsertAsyncTask extends AsyncTask<Word, Void, Void> {
         private WordDao wordDao;

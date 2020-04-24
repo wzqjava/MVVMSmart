@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
@@ -13,6 +16,9 @@ android {
     }
     dataBinding {
         enabled true
+    }
+    androidExtensions{
+        experimental = true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -41,10 +47,17 @@ dependencies {
     //底部tabBar
     implementation 'me.majiajie:pager-bottom-tab-strip:2.2.5'
     api rootProject.ext.dependencies["smartRefreshLayout"] // 刷新框架
-    implementation "androidx.room:room-runtime:2.2.3"
-    annotationProcessor "androidx.room:room-compiler:2.2.3" // For Kotlin use kapt instead of annotationProcessor
+    implementation "androidx.room:room-runtime:2.2.5"
+    kapt "android.arch.persistence.room:compiler:2.2.3"     // java
+    annotationProcessor "androidx.room:room-compiler:2.2.5" // For Kotlin use kapt instead of annotationProcessor
     //material-dialogs
     api rootProject.ext.dependencies["material-dialogs-core"]
     api rootProject.ext.dependencies["material-dialogs-commons"]
+    implementation "androidx.core:core-ktx:+"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+}
+repositories {
+    mavenCentral()
 }

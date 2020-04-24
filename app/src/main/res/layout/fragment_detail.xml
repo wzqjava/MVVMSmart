@@ -19,12 +19,12 @@
             android:orientation="vertical"
             >
 <!--        binding:url="@{viewModel.entity.img}"-->
+<!--        binding:placeholderRes="@{R.mipmap.ic_launcher_round}"-->
         <ImageView
                 android:layout_width="280dp"
                 android:layout_height="140dp"
                 android:src="@mipmap/ic_launcher"
 
-                binding:placeholderRes="@{R.mipmap.ic_launcher_round}"
                 />
 
         <LinearLayout
