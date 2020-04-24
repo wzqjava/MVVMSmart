@@ -1,4 +1,4 @@
-# MVVMSmart
+# MVVMSmart-kotlin
 > 目前，android基于MVVM模式开发框架比较少。**MVVMSmart是以谷歌Jetpack架构组件ViewModel+Lifecycles+Navigation+DataBinding+LiveData+Okhttp+Retrofit+RxJava+Glide等，加上各种原生控件自定义的BindingAdapter，让事件与数据源完美绑定的一款容易上瘾的实用性MVVM快速开发框架**。从此告别findViewById()，告别setText()，告别setOnClickListener()...
 ## 技术讨QQ群：531944409
 ## 最新日志 **v1.0：2020年1月18日**
