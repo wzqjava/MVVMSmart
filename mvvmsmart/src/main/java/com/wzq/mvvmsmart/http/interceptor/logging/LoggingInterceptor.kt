@@ -43,9 +43,9 @@ class LoggingInterceptor private constructor(private val builder: Builder) : Int
                         || rSubtype.contains("xml")
                         || rSubtype.contains("plain")
                         || rSubtype.contains("html"))) {
-            Printer.Companion.printJsonRequest(builder, request)
+            Printer.printJsonRequest(builder, request)
         } else {
-            Printer.Companion.printFileRequest(builder, request)
+            Printer.printFileRequest(builder, request)
         }
         val st = System.nanoTime()
         val response = chain.proceed(request)
@@ -66,11 +66,11 @@ class LoggingInterceptor private constructor(private val builder: Builder) : Int
                         || subtype.contains("plain")
                         || subtype.contains("html"))) {
             val bodyString = responseBody.string()
-            val bodyJson: String = Printer.Companion.getJsonString(bodyString)
-            Printer.Companion.printJsonResponse(builder, chainMs, isSuccessful, code, header, bodyJson, segmentList)
+            val bodyJson: String = Printer.getJsonString(bodyString)
+            Printer.printJsonResponse(builder, chainMs, isSuccessful, code, header, bodyJson, segmentList)
             ResponseBody.create(contentType, bodyString)
         } else {
-            Printer.Companion.printFileResponse(builder, chainMs, isSuccessful, code, header, segmentList)
+            Printer.printFileResponse(builder, chainMs, isSuccessful, code, header, segmentList)
             return response
         }
         return response.newBuilder().body(body).build()
@@ -84,7 +84,7 @@ class LoggingInterceptor private constructor(private val builder: Builder) : Int
         private var responseTag: String? = null
         var level = Level.BASIC
             private set
-        private val builder: Headers.Builder
+        private val builder: Headers.Builder = Headers.Builder()
         var logger: Logger? = null
             private set
 
@@ -190,9 +190,6 @@ class LoggingInterceptor private constructor(private val builder: Builder) : Int
             private var TAG = "LoggingI"
         }
 
-        init {
-            builder = Headers.Builder()
-        }
     }
 
     init {

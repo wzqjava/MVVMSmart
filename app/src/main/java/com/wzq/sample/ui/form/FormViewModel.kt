@@ -8,7 +8,4 @@ import com.wzq.sample.bean.FormEntity
 class FormViewModel(application: Application) : BaseViewModel(application) {
     var entity: FormEntity? = null
     var entityLiveData = SingleLiveEvent<FormEntity?>()
-    override fun onCreate() {
-        super.onCreate()
-    }
 }

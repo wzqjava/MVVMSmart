@@ -103,7 +103,6 @@ object KLog {
     }
 
     private fun printLog(type: Int, tagStr: String?, objectMsg: Any?) {
-        val msg: String
         if (!IS_SHOW_LOG) {
             return
         }
@@ -116,7 +115,7 @@ object KLog {
         methodName = methodName.substring(0, 1).toUpperCase() + methodName.substring(1)
         val stringBuilder = StringBuilder()
         stringBuilder.append("[ (").append(className).append(":").append(lineNumber).append(")#").append(methodName).append(" ] ")
-        msg = objectMsg?.toString() ?: "Log with null Object"
+        val msg: String = objectMsg?.toString() ?: "Log with null Object"
         if ( type != JSON) {
             stringBuilder.append(msg)
         }

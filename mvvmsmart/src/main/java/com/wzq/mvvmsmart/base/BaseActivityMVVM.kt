@@ -44,7 +44,7 @@ abstract class BaseActivityMVVM<V : ViewDataBinding, VM : BaseViewModelMVVM> : A
         binding = DataBindingUtil.setContentView(this, initContentView(savedInstanceState))
         viewModelId = initVariableId()
 //        viewModel = initViewModel()
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
 
         val modelClass: Class<VM>
         val type = javaClass.genericSuperclass
@@ -55,7 +55,7 @@ abstract class BaseActivityMVVM<V : ViewDataBinding, VM : BaseViewModelMVVM> : A
             //如果没有指定泛型参数，则默认使用BaseViewModel
             BaseViewModelMVVM::class.java as Class<VM>
         }
-        viewModel = createViewModel<VM>(this, modelClass)
+        viewModel = createViewModel(this, modelClass)
         //关联ViewModel
         binding.setVariable(viewModelId, viewModel)
         //让ViewModel拥有View的生命周期感应
@@ -64,9 +64,7 @@ abstract class BaseActivityMVVM<V : ViewDataBinding, VM : BaseViewModelMVVM> : A
 
     //刷新布局数据
     fun refreshLayout() {
-        if (viewModel != null) {
-            binding!!.setVariable(viewModelId, viewModel)
-        }
+        binding.setVariable(viewModelId, viewModel)
     }
 
     /**

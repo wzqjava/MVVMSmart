@@ -26,9 +26,8 @@ object NetworkUtil {
     fun isNetworkAvailable(context: Context?): Boolean {
         val manager = context!!.applicationContext.getSystemService(
                 Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-                ?: return false
         val info = manager.activeNetworkInfo
-        return if (null == info || !info.isAvailable) false else true
+        return !(null == info || !info.isAvailable)
     }
 
     /**
@@ -92,7 +91,7 @@ object NetworkUtil {
         try {
             httpUrl = URL(url)
                     .openConnection() as HttpURLConnection
-            httpUrl!!.connectTimeout = TIMEOUT
+            httpUrl.connectTimeout = TIMEOUT
             httpUrl.connect()
             result = true
         } catch (e: IOException) {
@@ -112,10 +111,8 @@ object NetworkUtil {
         val connectivityManager = context
                 .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetInfo = connectivityManager.activeNetworkInfo
-        return if (activeNetInfo != null
-                && activeNetInfo.type == ConnectivityManager.TYPE_MOBILE) {
-            true
-        } else false
+        return (activeNetInfo != null
+                && activeNetInfo.type == ConnectivityManager.TYPE_MOBILE)
     }
 
     /**
@@ -127,10 +124,8 @@ object NetworkUtil {
         val connectivityManager = context
                 .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetInfo = connectivityManager.activeNetworkInfo
-        return if (activeNetInfo != null
-                && activeNetInfo.type == ConnectivityManager.TYPE_WIFI) {
-            true
-        } else false
+        return (activeNetInfo != null
+                && activeNetInfo.type == ConnectivityManager.TYPE_WIFI)
     }
 
     /**
@@ -142,11 +137,9 @@ object NetworkUtil {
         val connectivityManager = context
                 .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetInfo = connectivityManager.activeNetworkInfo
-        return if (activeNetInfo != null
+        return (activeNetInfo != null
                 && (activeNetInfo.subtype == TelephonyManager.NETWORK_TYPE_EDGE || activeNetInfo.subtype == TelephonyManager.NETWORK_TYPE_GPRS || activeNetInfo
-                        .subtype == TelephonyManager.NETWORK_TYPE_CDMA)) {
-            true
-        } else false
+                .subtype == TelephonyManager.NETWORK_TYPE_CDMA))
     }
 
     /**

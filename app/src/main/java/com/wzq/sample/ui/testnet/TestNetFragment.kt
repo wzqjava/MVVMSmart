@@ -23,13 +23,10 @@ class TestNetFragment : BaseFragment<FragmentTestNetBinding, TestNetViewModel>()
         return BR.viewModel
     }
 
-    override fun initData() {
-        super.initData()
-    }
 
     override fun initViewObservable() {
         super.initViewObservable()
-        binding!!.button.setOnClickListener { v: View? -> viewModel.data }
-        viewModel!!.resultJson.observe(this, Observer { s -> binding!!.tvJson.text = "resule: $s" })
+        binding.button.setOnClickListener { v: View? -> viewModel.data }
+        viewModel.resultJson.observe(this, Observer { s -> binding.tvJson.text = "resule: $s" })
     }
 }

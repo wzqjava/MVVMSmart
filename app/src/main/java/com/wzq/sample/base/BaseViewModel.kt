@@ -20,13 +20,9 @@ import com.wzq.mvvmsmart.event.StateLiveData
  *
  */
 open class BaseViewModel(application: Application) : BaseViewModelMVVM(application) {
-    val TAG = javaClass.simpleName
-    var stateLiveData: StateLiveData<Any>
+    var stateLiveData: StateLiveData<Any> = StateLiveData()
     fun getStateLiveData(): MutableLiveData<Any> {
         return stateLiveData
     }
 
-    init {
-        stateLiveData = StateLiveData()
-    }
 }

@@ -47,7 +47,7 @@ class TabBarActivity : BaseActivity<ActivityTabBarBinding, BaseViewModel>() {
     }
 
     private fun initBottomTab() {
-        val navigationController = binding!!.pagerBottomTab.material()
+        val navigationController = binding.pagerBottomTab.material()
                 .addItem(R.drawable.yingyong, "应用")
                 .addItem(R.drawable.huanzhe, "工作")
                 .addItem(R.drawable.xiaoxi_select, "消息")

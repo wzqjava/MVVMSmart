@@ -19,7 +19,4 @@ class MAdapter(layoutResId: Int, data: List<*>?) : BaseQuickAdapter<ItemsEntity,
         helper.addOnClickListener(R.id.btn2)
     }
 
-    override fun setNewData(data: List<ItemsEntity>?) {
-        super.setNewData(data)
-    }
 }

@@ -4,127 +4,112 @@
     <data>
 
         <variable
-                name="viewModel"
-                type="com.wzq.sample.ui.recycler_single_network.detail.DetailViewModel"
-                />
+            name="viewModel"
+            type="com.wzq.sample.ui.recycler_single_network.detail.DetailViewModel" />
+
         <import type="com.wzq.sample.R" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:binding="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            >
-<!--        binding:url="@{viewModel.entity.img}"-->
-<!--        binding:placeholderRes="@{R.mipmap.ic_launcher_round}"-->
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp">
+        <!--        binding:url="@{viewModel.entity.img}"-->
+        <!--        binding:placeholderRes="@{R.mipmap.ic_launcher_round}"-->
         <ImageView
-                android:layout_width="280dp"
-                android:layout_height="140dp"
-                android:src="@mipmap/ic_launcher"
-
-                />
+            android:layout_width="280dp"
+            android:layout_height="140dp"
+            android:contentDescription="@string/image_desc"
+            android:src="@mipmap/ic_launcher" />
 
         <LinearLayout
-                android:layout_width="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                >
+                android:layout_weight="1"
+                android:text="id"
+                android:textSize="18sp" />
 
+            <!--            android:text="@{String.valueOf(viewModel.entity.id)}"-->
             <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="id"
-                    android:textSize="18sp"
-                    />
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
 
-<!--            android:text="@{String.valueOf(viewModel.entity.id)}"-->
-            <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-
-                    android:textSize="18sp"
-                    />
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
-                android:layout_width="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                >
+                android:layout_weight="1"
+                android:text="名称"
+                android:textSize="18sp" />
 
+            <!--            android:text="@{viewModel.entity.name}"-->
             <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="名称"
-                    android:textSize="18sp"
-                    />
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
 
-<!--            android:text="@{viewModel.entity.name}"-->
-            <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-
-                    android:textSize="18sp"
-                    />
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
-                android:layout_width="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                >
+                android:layout_weight="1"
+                android:text="日期"
+                android:textSize="18sp" />
 
+            <!--            android:text="@{viewModel.entity.pubDate}"-->
             <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="日期"
-                    android:textSize="18sp"
-                    />
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
 
-<!--            android:text="@{viewModel.entity.pubDate}"-->
-            <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-
-                    android:textSize="18sp"
-                    />
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
-                android:layout_width="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                >
-
+                android:layout_weight="1"
+                android:text="图片路径"
+                android:textSize="18sp" />
+            <!--            android:text="@{viewModel.entity.img}"-->
             <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="图片路径"
-                    android:textSize="18sp"
-                    />
-<!--            android:text="@{viewModel.entity.img}"-->
-            <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
 
-                    android:textSize="18sp"
-                    />
+                android:textSize="18sp" />
         </LinearLayout>
     </LinearLayout>
 </layout>

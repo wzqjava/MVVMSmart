@@ -15,7 +15,7 @@ package com.wzq.sample.utils
  *
  */
 object TestUtils {
-    fun GetGirlImgUrl(): String {
+    fun getGirlImgUrl(): String {
         val index = (Math.random() * girlImgs.size).toInt()
         return girlImgs[index]
     }

@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.jeremyliao.liveeventbus.LiveEventBus
-import com.wzq.mvvmsmart.http.download.DownLoadStateBean
 import okhttp3.ResponseBody
 import java.io.*
 

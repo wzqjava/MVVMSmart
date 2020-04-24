@@ -41,7 +41,7 @@ internal class Printer protected constructor() {
         fun printJsonRequest(builder: LoggingInterceptor.Builder, request: Request) {
             val requestBody = LINE_SEPARATOR + BODY_TAG + LINE_SEPARATOR + bodyToString(request)
             val tag = builder.getTag(true)
-            if (builder.logger == null) I.Companion.log(builder.type, tag, REQUEST_UP_LINE)
+            if (builder.logger == null) I.log(builder.type, tag, REQUEST_UP_LINE)
             logLines(builder.type, tag, arrayOf(URL_TAG + request.url()), builder.logger, false)
             logLines(builder.type, tag, getRequest(request, builder.level), builder.logger, true)
             if (request.body() is FormBody) {
@@ -58,25 +58,25 @@ internal class Printer protected constructor() {
             if (builder.level == Level.BASIC || builder.level == Level.BODY) {
                 logLines(builder.type, tag, requestBody.split(LINE_SEPARATOR!!).toTypedArray(), builder.logger, true)
             }
-            if (builder.logger == null) I.Companion.log(builder.type, tag, END_LINE)
+            if (builder.logger == null) I.log(builder.type, tag, END_LINE)
         }
 
         fun printJsonResponse(builder: LoggingInterceptor.Builder, chainMs: Long, isSuccessful: Boolean,
                               code: Int, headers: String, bodyString: String, segments: List<String>) {
             val responseBody = LINE_SEPARATOR + BODY_TAG + LINE_SEPARATOR + getJsonString(bodyString)
             val tag = builder.getTag(false)
-            if (builder.logger == null) I.Companion.log(builder.type, tag, RESPONSE_UP_LINE)
+            if (builder.logger == null) I.log(builder.type, tag, RESPONSE_UP_LINE)
             logLines(builder.type, tag, getResponse(headers, chainMs, code, isSuccessful,
                     builder.level, segments), builder.logger, true)
             if (builder.level == Level.BASIC || builder.level == Level.BODY) {
                 logLines(builder.type, tag, responseBody.split(LINE_SEPARATOR!!).toTypedArray(), builder.logger, true)
             }
-            if (builder.logger == null) I.Companion.log(builder.type, tag, END_LINE)
+            if (builder.logger == null) I.log(builder.type, tag, END_LINE)
         }
 
         fun printFileRequest(builder: LoggingInterceptor.Builder, request: Request) {
             val tag = builder.getTag(true)
-            if (builder.logger == null) I.Companion.log(builder.type, tag, REQUEST_UP_LINE)
+            if (builder.logger == null) I.log(builder.type, tag, REQUEST_UP_LINE)
             logLines(builder.type, tag, arrayOf(URL_TAG + request.url()), builder.logger, false)
             logLines(builder.type, tag, getRequest(request, builder.level), builder.logger, true)
             if (request.body() is FormBody) {
@@ -93,17 +93,17 @@ internal class Printer protected constructor() {
             if (builder.level == Level.BASIC || builder.level == Level.BODY) {
                 logLines(builder.type, tag, OMITTED_REQUEST, builder.logger, true)
             }
-            if (builder.logger == null) I.Companion.log(builder.type, tag, END_LINE)
+            if (builder.logger == null) I.log(builder.type, tag, END_LINE)
         }
 
         fun printFileResponse(builder: LoggingInterceptor.Builder, chainMs: Long, isSuccessful: Boolean,
                               code: Int, headers: String, segments: List<String>) {
             val tag = builder.getTag(false)
-            if (builder.logger == null) I.Companion.log(builder.type, tag, RESPONSE_UP_LINE)
+            if (builder.logger == null) I.log(builder.type, tag, RESPONSE_UP_LINE)
             logLines(builder.type, tag, getResponse(headers, chainMs, code, isSuccessful,
                     builder.level, segments), builder.logger, true)
             logLines(builder.type, tag, OMITTED_RESPONSE, builder.logger, true)
-            if (builder.logger == null) I.Companion.log(builder.type, tag, END_LINE)
+            if (builder.logger == null) I.log(builder.type, tag, END_LINE)
         }
 
         private fun getRequest(request: Request, level: Level?): Array<String?> {
@@ -122,8 +122,12 @@ internal class Printer protected constructor() {
             val segmentString = slashSegments(segments)
             message = ((if (!TextUtils.isEmpty(segmentString)) "$segmentString - " else "") + "is success : "
                     + isSuccessful + " - " + RECEIVED_TAG + tookMs + "ms" + DOUBLE_SEPARATOR + STATUS_CODE_TAG +
-                    code + DOUBLE_SEPARATOR + if (isEmpty(header)) "" else if (loggableHeader) HEADERS_TAG + LINE_SEPARATOR +
-                    dotHeaders(header) else "")
+                    code + DOUBLE_SEPARATOR + when {
+                        isEmpty(header) -> ""
+                        loggableHeader -> HEADERS_TAG + LINE_SEPARATOR +
+                                dotHeaders(header)
+                        else -> ""
+                    })
             return message.split(LINE_SEPARATOR!!).toTypedArray()
         }
 
@@ -141,12 +145,16 @@ internal class Printer protected constructor() {
             var tag = "─ "
             if (headers.size > 1) {
                 for (i in headers.indices) {
-                    tag = if (i == 0) {
-                        CORNER_UP
-                    } else if (i == headers.size - 1) {
-                        CORNER_BOTTOM
-                    } else {
-                        CENTER_LINE
+                    tag = when (i) {
+                        0 -> {
+                            CORNER_UP
+                        }
+                        headers.size - 1 -> {
+                            CORNER_BOTTOM
+                        }
+                        else -> {
+                            CENTER_LINE
+                        }
                     }
                     builder.append(tag).append(headers[i]).append("\n")
                 }
@@ -167,7 +175,7 @@ internal class Printer protected constructor() {
                     var end = (i + 1) * MAX_LONG_SIZE
                     end = if (end > line.length) line.length else end
                     if (logger == null) {
-                        I.Companion.log(type, tag, DEFAULT_LINE + line.substring(start, end))
+                        I.log(type, tag, DEFAULT_LINE + line.substring(start, end))
                     } else {
                         logger.log(type, tag, line.substring(start, end))
                     }
@@ -190,14 +198,18 @@ internal class Printer protected constructor() {
         fun getJsonString(msg: String): String {
             val message: String
             message = try {
-                if (msg.startsWith("{")) {
-                    val jsonObject = JSONObject(msg)
-                    jsonObject.toString(JSON_INDENT)
-                } else if (msg.startsWith("[")) {
-                    val jsonArray = JSONArray(msg)
-                    jsonArray.toString(JSON_INDENT)
-                } else {
-                    msg
+                when {
+                    msg.startsWith("{") -> {
+                        val jsonObject = JSONObject(msg)
+                        jsonObject.toString(JSON_INDENT)
+                    }
+                    msg.startsWith("[") -> {
+                        val jsonArray = JSONArray(msg)
+                        jsonArray.toString(JSON_INDENT)
+                    }
+                    else -> {
+                        msg
+                    }
                 }
             } catch (e: JSONException) {
                 msg

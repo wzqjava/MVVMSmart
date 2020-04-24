@@ -5,12 +5,11 @@
     <string name="net_multiple_cell">net_multiple_cell</string>
     <string name="bottom_tab">bottom_tab</string>
     <string name="viewpager_command">ViewPager_Fragment</string>
-    <string name="form_submit">form_submit</string>
     <string name="form_edit">form_edit</string>
     <string name="get_permission">get_permission</string>
     <string name="catch_all_crush">catch_all_crush</string>
     <string name="download_file">download_file</string>
     <string name="room_sample">room_sample</string>
     <string name="image_desc">i am image</string>
-    <string name="test_url">testUrl</string>
+    <string name="hint_input_name">please intpu name</string>
 </resources>

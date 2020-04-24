@@ -31,6 +31,6 @@ class DetailFragment : BaseFragmentMVVM<FragmentDetailBinding, DetailViewModel>(
     }
 
     override fun initData() {
-        viewModel!!.setDemoEntity(entity)
+        viewModel.setDemoEntity(entity)
     }
 }

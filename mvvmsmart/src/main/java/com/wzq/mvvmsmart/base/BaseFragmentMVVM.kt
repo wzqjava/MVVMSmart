@@ -27,8 +27,8 @@ abstract class BaseFragmentMVVM<V : ViewDataBinding, VM : BaseViewModelMVVM> : F
         //如果fragment的view已经创建则不再重新创建
         if (lastView == null) {
             binding = DataBindingUtil.inflate(inflater, initContentView(inflater, container, savedInstanceState), container, false)
-            binding.setLifecycleOwner(this)
-            lastView = binding.getRoot()
+            binding.lifecycleOwner = this
+            lastView = binding.root
         }
         return lastView
     }
@@ -63,7 +63,7 @@ abstract class BaseFragmentMVVM<V : ViewDataBinding, VM : BaseViewModelMVVM> : F
             //如果没有指定泛型参数，则默认使用BaseViewModel
             BaseViewModelMVVM::class.java as Class<VM>
         }
-        viewModel = createViewModel<VM>(this, modelClass) as VM
+        viewModel = createViewModel(this, modelClass)
 
         binding.setVariable(viewModelId, viewModel)
         /*
@@ -150,7 +150,4 @@ abstract class BaseFragmentMVVM<V : ViewDataBinding, VM : BaseViewModelMVVM> : F
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
 }

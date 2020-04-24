@@ -32,8 +32,8 @@ abstract class BasePagerFragment : BaseFragment<FragmentBasePagerTempBinding, Ba
         titlePager = pagerTitleString()
         //设置Adapter
         val pagerAdapter = BaseFragmentPagerAdapter(childFragmentManager, mFragments, titlePager)
-        binding!!.viewPager.adapter = pagerAdapter
-        binding!!.tabs.setupWithViewPager(binding!!.viewPager)
-        binding!!.viewPager.addOnPageChangeListener(TabLayoutOnPageChangeListener(binding!!.tabs))
+        binding.viewPager.adapter = pagerAdapter
+        binding.tabs.setupWithViewPager(binding.viewPager)
+        binding.viewPager.addOnPageChangeListener(TabLayoutOnPageChangeListener(binding.tabs))
     }
 }

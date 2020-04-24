@@ -14,12 +14,12 @@ import java.util.*
  */
 class MultiRecycleViewModel(application: Application) : BaseViewModel(application) {
     //给RecyclerView添加ObservableList
-    var itemsEntityLiveData: MutableLiveData<ArrayList<ItemsEntity>>
+    var itemsEntityLiveData: MutableLiveData<ArrayList<ItemsEntity>> = MutableLiveData()
     val data: Unit
         get() {
             val datas = ArrayList<ItemsEntity>()
             for (i in 0..49) {
-                val itemBean = ItemsEntity(i, "MVVMSmart", TestUtils.GetGirlImgUrl())
+                val itemBean = ItemsEntity(i, "MVVMSmart", TestUtils.getGirlImgUrl())
                 if (i % 2 == 0) {
                     itemBean.itemType = 0
                 } else {
@@ -27,10 +27,7 @@ class MultiRecycleViewModel(application: Application) : BaseViewModel(applicatio
                 }
                 datas.add(itemBean)
             }
-            itemsEntityLiveData.setValue(datas)
+            itemsEntityLiveData.value = datas
         }
 
-    init {
-        itemsEntityLiveData = MutableLiveData()
-    }
 }

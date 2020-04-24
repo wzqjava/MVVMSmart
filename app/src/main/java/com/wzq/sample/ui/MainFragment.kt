@@ -35,16 +35,16 @@ class MainFragment : BaseFragment<FragmentHomeBinding, MainViewModel>() {
 
     override fun initData() {
         super.initData()
-        binding!!.presenter = Presenter()
+        binding.presenter = Presenter()
     }
 
     override fun initViewObservable() {
         super.initViewObservable()
         //注册监听相机权限的请求
-        viewModel!!.requestCameraPermissions.observe(this, Observer { requestCameraPermissions() })
+        viewModel.requestCameraPermissions.observe(this, Observer { requestCameraPermissions() })
 
         //注册文件下载的监听
-        viewModel!!.loadUrlEvent.observe(this, Observer { url -> downFile(url) })
+        viewModel.loadUrlEvent.observe(this, Observer { url -> downFile(url) })
     }
 
     /**
@@ -92,7 +92,7 @@ class MainFragment : BaseFragment<FragmentHomeBinding, MainViewModel>() {
 
         //权限申请
         fun permissionsClick() {
-            viewModel!!.requestCameraPermissions.call()
+            viewModel.requestCameraPermissions.call()
         }
 
         //全局异常捕获
@@ -103,7 +103,7 @@ class MainFragment : BaseFragment<FragmentHomeBinding, MainViewModel>() {
 
         //文件下载
         fun fileDownLoadClick() {
-            viewModel!!.loadUrlEvent.value = "http://gdown.baidu.com/data/wisegame/a2cd8828b227b9f9/neihanduanzi_692.apk"
+            viewModel.loadUrlEvent.value = "http://gdown.baidu.com/data/wisegame/a2cd8828b227b9f9/neihanduanzi_692.apk"
         }
 
         //文件下载

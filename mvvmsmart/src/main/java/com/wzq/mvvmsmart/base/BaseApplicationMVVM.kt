@@ -27,7 +27,7 @@ open class BaseApplicationMVVM : Application() {
         fun setApplication(application: Application) {
             sInstance = application
             //初始化工具类
-            Utils.Companion.init(application)
+            Utils.init(application)
             Tasks.init()
             //注册监听每个activity的生命周期,便于堆栈式管理
             application.registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {

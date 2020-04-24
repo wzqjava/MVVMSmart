@@ -1,28 +1,21 @@
 package com.wzq.sample.ui.recycler_single_network
 
 import android.app.Application
-import android.app.TaskStackBuilder
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.wzq.mvvmsmart.http.BaseResponse
-import com.wzq.mvvmsmart.http.ResponseThrowable
 import com.wzq.mvvmsmart.utils.KLog
 import com.wzq.mvvmsmart.utils.RxUtils
-import com.wzq.mvvmsmart.utils.Tasks
 import com.wzq.sample.base.BaseViewModel
 import com.wzq.sample.bean.DemoBean
 import com.wzq.sample.bean.DemoBean.ItemsEntity
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
-import io.reactivex.internal.operators.observable.ObservableOnErrorNext
-import org.reactivestreams.Subscriber
 import java.util.*
-import java.util.function.Consumer
 
 class NetWorkViewModel(application: Application) : BaseViewModel(application) {
     private val model: NetWorkModel
     var pageNum = 1
-    var liveData: MutableLiveData<MutableList<ItemsEntity?>>
+    var liveData: MutableLiveData<MutableList<ItemsEntity?>> = MutableLiveData()
 
     /**
      * 网络请求方法，在ViewModel中调用Model层，通过Okhttp+Retrofit+RxJava发起请求
@@ -69,9 +62,9 @@ class NetWorkViewModel(application: Application) : BaseViewModel(application) {
                         KLog.e("进入onError" + throwable.message)
                         //关闭对话框
                         stateLiveData.postError()
-                        if (throwable is ResponseThrowable) {
-//                           showShortToast(throwable.message)
-                        }
+                       /* if (throwable is ResponseThrowable) {
+                        showShortToast(throwable.message)
+                        }*/
                     }
 
                     override fun onComplete() {
@@ -179,7 +172,6 @@ class NetWorkViewModel(application: Application) : BaseViewModel(application) {
     }
 
     init {
-        liveData = MutableLiveData()
         liveData.value = ArrayList()
         model = NetWorkModel()
     }

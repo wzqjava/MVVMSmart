@@ -7,7 +7,6 @@ import com.wzq.sample.BR
 import com.wzq.sample.R
 import com.wzq.sample.base.BaseFragment
 import com.wzq.sample.base.BaseViewModel
-import com.wzq.sample.databinding.FragmentTabBar1Binding
 import com.wzq.sample.databinding.FragmentTabBar2Binding
 
 class TabBar2Fragment : BaseFragment<FragmentTabBar2Binding, BaseViewModel>() {

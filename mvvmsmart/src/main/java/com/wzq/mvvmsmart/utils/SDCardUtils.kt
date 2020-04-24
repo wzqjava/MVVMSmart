@@ -76,7 +76,7 @@ class SDCardUtils private constructor() {
                 } catch (e: Exception) {
                     e.printStackTrace()
                 } finally {
-                    CloseUtils.Companion.closeIO(bufferedReader)
+                    CloseUtils.closeIO(bufferedReader)
                 }
                 return Environment.getExternalStorageDirectory().path + File.separator
             }

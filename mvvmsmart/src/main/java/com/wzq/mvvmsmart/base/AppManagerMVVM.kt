@@ -50,7 +50,7 @@ class AppManagerMVVM private constructor() {
     /**
      * 结束指定的Activity
      */
-    fun finishActivity(activity: Activity?) {
+    private fun finishActivity(activity: Activity?) {
         if (activity != null) {
             if (!activity.isFinishing) {
                 activity.finish()
@@ -73,7 +73,7 @@ class AppManagerMVVM private constructor() {
     /**
      * 结束所有Activity
      */
-    fun finishAllActivity() {
+    private fun finishAllActivity() {
         var i = 0
         val size = activityStack!!.size
         while (i < size) {
@@ -138,7 +138,7 @@ class AppManagerMVVM private constructor() {
     /**
      * 退出应用程序
      */
-    fun AppExit() {
+    fun appExit() {
         try {
             finishAllActivity()
             // 杀死该应用进程

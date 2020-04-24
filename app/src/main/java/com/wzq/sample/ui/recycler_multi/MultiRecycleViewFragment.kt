@@ -34,14 +34,14 @@ class MultiRecycleViewFragment : BaseFragment<FragmentMultiRvBinding, MultiRecyc
 
     override fun initViewObservable() {
         super.initViewObservable()
-        viewModel!!.itemsEntityLiveData.observe(this, Observer { itemsEntities: ArrayList<ItemsEntity>? -> mAdapter!!.setNewData(itemsEntities) })
+        viewModel.itemsEntityLiveData.observe(this, Observer { itemsEntities: ArrayList<ItemsEntity>? -> mAdapter!!.setNewData(itemsEntities) })
     }
 
     private fun initRecyclerView() {
         val datas = ArrayList<ItemsEntity>()
         mAdapter = MyMultiAdapter(datas)
-        binding!!.adapter = mAdapter
-        binding!!.layoutManager = LinearLayoutManager(activity)
+        binding.adapter = mAdapter
+        binding.layoutManager = LinearLayoutManager(activity)
         mAdapter!!.setOnItemClickListener { adapter, view, position ->
             val item = adapter.getItem(position) as ItemsEntity?
             showShortToast(item?.name + "---" + position)

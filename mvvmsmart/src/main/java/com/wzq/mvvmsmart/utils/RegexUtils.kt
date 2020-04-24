@@ -132,7 +132,7 @@ class RegexUtils private constructor() {
          * @return `true`: 匹配<br></br>`false`: 不匹配
          */
         fun isMatch(regex: String?, input: CharSequence?): Boolean {
-            return input != null && input.length > 0 && Pattern.matches(regex, input)
+            return input != null && input.isNotEmpty() && Pattern.matches(regex, input)
         }
 
         /**

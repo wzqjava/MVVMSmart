@@ -5,7 +5,7 @@ import androidx.databinding.ViewDataBinding
 import com.wzq.mvvmsmart.base.BaseFragmentMVVM
 
 abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : BaseFragmentMVVM<V , VM>() {
-    val TAG = javaClass.simpleName
+    val baseFragmentTAG = javaClass.simpleName
 
     protected open fun showShortToast(msg: String?) {
         Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show()

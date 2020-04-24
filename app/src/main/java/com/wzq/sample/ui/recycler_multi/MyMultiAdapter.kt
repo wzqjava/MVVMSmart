@@ -14,7 +14,7 @@ import com.wzq.sample.bean.DemoBean.ItemsEntity
  */
 class MyMultiAdapter(data: List<ItemsEntity>?) : BaseMultiItemQuickAdapter<ItemsEntity, BaseViewHolder?>(data) {
 
-    protected override fun convert(helper: BaseViewHolder, item: ItemsEntity) {
+    override fun convert(helper: BaseViewHolder, item: ItemsEntity) {
         when (helper.itemViewType) {
             0 -> {
                 GlideLoadUtils.loadRoundCornerImg(helper.getView<View>(R.id.iv1) as ImageView, item.img,
@@ -33,15 +33,10 @@ class MyMultiAdapter(data: List<ItemsEntity>?) : BaseMultiItemQuickAdapter<Items
         }
     }
 
-    override fun setNewData(datas: List<ItemsEntity>?) {
-        super.setNewData(datas)
-    }
 
     /**
      * Same as QuickAdapter#QuickAdapter(Context,int) but with
      * some initialization data.
-     *
-     * @param data A new list is created out of this one to avoid mutable list
      */
     init {
         addItemType(0, R.layout.item_multiple1)

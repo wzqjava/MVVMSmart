@@ -1,6 +1,5 @@
 package com.wzq.sample.base
 
-import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.ViewDataBinding
 import com.wzq.mvvmsmart.base.BaseActivityMVVM
@@ -21,7 +20,7 @@ import com.wzq.mvvmsmart.base.BaseViewModelMVVM
  *
  */
 abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModelMVVM> : BaseActivityMVVM<V, VM>() {
-    val TAG = javaClass.simpleName
+    val tag = javaClass.simpleName
 
     protected open fun showToast(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
