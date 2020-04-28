@@ -1,4 +1,4 @@
-package com.wzq.mvvmsmart.helper;
+package com.wzq.mvvmsmart.widget;
 
 import android.content.Context;
 import android.text.TextUtils;
