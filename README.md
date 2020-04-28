@@ -1,12 +1,13 @@
 # MVVMSmart
-> 目前，android基于MVVM模式开发框架比较少。**MVVMSmart是以谷歌Jetpack架构组件ViewModel+Lifecycles+Navigation+DataBinding+LiveData+Okhttp+Retrofit+RxJava+Glide等，加上各种原生控件自定义的BindingAdapter，让事件与数据源完美绑定的一款容易上瘾的实用性MVVM快速开发框架**。从此告别findViewById()，告别setText()，告别setOnClickListener()...
+> 目前，android基于MVVM模式开发框架比较少。**MVVMSmart-kotlin是以谷歌Jetpack架构组件ViewModel+Lifecycles+Navigation+DataBinding+LiveData+Okhttp+Retrofit+RxJava+Glide等，加上各种原生控件自定义的BindingAdapter，让事件与数据源完美绑定的一款容易上瘾的实用性MVVM快速开发框架**。告别findViewById()，告别setText()，告别setOnClickListener()...
 ## 技术讨QQ群：531944409
-## 最新日志 **v1.0：2020年1月18日**
-1. 添加BaseRecyclerViewAdapterHelper,使中高级开发者都能快速使用.
+## 最新日志 **v2.0：2020年4月28日**
+1. 上线kotlin稳定版
+2. 增加recyclerview无数据的默认页,同时支持其他任何布局层次无数据的默认页,一行代码显示默认页
 ## 中文文档
 建议大家用clone的方式下载开源框架,方便及时更新。
 1. MVVMsmart-kotlin地址:   https://github.com/wzqjava/MVVMSmart-kotlin
-2. MVVMsmart-java地址:     https://github.com/wzqjava/MVVMSmart
+2. MVVMsmart-java地址:   https://github.com/wzqjava/MVVMSmart
 3. AndroidStudio 从github下载代码的正确姿势:https://juejin.im/post/5e09dd306fb9a01648718430	
 4. MVVMSmart系列解读文章: https://juejin.im/user/574e36b179bc440062693484/posts
 
@@ -37,8 +38,7 @@ google AAC(Android Architecture Components:安卓架构组件):
 	满足google目前控件支持的databinding双向绑定，并扩展原控件一些不支持的数据绑定。例如将图片的url路径绑定到ImageView控件中，在BindingAdapter方法里面则使用Glide加载图片；View的OnClick事件在BindingAdapter中方法使用RxView防重复点击，再把事件回调到ViewModel层，实现xml与ViewModel之间数据和事件的绑定(框架里面部分扩展控件和回调命令使用的是@kelin原创的)。UI的事件儿绑定请在UI中处理,否则不好维护,可以在UI中触发,UI中持有viewmodel,调用viewmodel中的业务即可.
 
 - **基类封装**
-
-	专门针对MVVM模式打造的BaseActivityMVVM、BaseFragmentMVVM、BaseViewModelMVVM，在View层中不再需要定义ViewDataBinding和ViewModel，直接在BaseActivityMVVM、BaseFragmentMVVM上限定泛型即可使用.支持navigation导航Fragment的管理,导航返回时候回调用OnCreateView,BaseFragmentMVVM已经封装。ToolbarViewModel封装了标题返回,标题和右侧文字不要在BaseActivit和BaseFragmentMVVM中进行任何处理即可使用,普通界面只需要编写Fragment，然后使用ContainerActivity盛装(代理)，这样就不需要每个界面都在AndroidManifest中注册一遍。
+  	专门针对MVVM模式打造的BaseActivityMVVM、BaseFragmentMVVM、BaseViewModelMVVM，在View层中不再需要定义ViewDataBinding和ViewModel，直接在BaseActivityMVVM、BaseFragmentMVVM上限定泛型即可使用.支持navigation导航Fragment的管理,导航返回时候回调用OnCreateView,BaseFragmentMVVM已经封装,标题使用include导入布局, Base层预留的有 initToolbar(),标题的返回、文字设置、右侧更多等在这个方法初始化即可,普通界面只需要编写Fragment，然后使用navigation导航,不用在manifest注册,性能也更好.
 
 - **全局操作**
 1. google的AAC架构，ViewModel+Lifecycles+Navigation+DataBinding+LiveData。
@@ -48,6 +48,8 @@ google AAC(Android Architecture Components:安卓架构组件):
 5. 全局的异常捕获，程序发生异常时不会崩溃，可跳入异常界面重启应用。
 6. 全局唯一可信事件源处理，提供LiveEventBus回调方式。
 7. 全局任意位置一行代码实现文件下载进度监听（暂不支持多文件进度监听）。
+8. 任何布局层次无数据时候的默认页(主要用来: 列表无数据的默认页,接口error的默认页,无网络的默认页等,动态传入文字和图片的id即可)
+9. app崩溃重启功能(任意指定重启Activity即可,一般是欢迎页),debug模式崩溃后测试人员可以直接截屏崩溃日志给开发,再也不会听到测试说"又崩啦.."
   
 
 ## 1、准备工作
@@ -242,41 +244,39 @@ BaseViewModelMVVM与BaseFragmentMVVM通过StateLiveData来处理常用UI逻辑�
 ### 2.2、数据绑定
 > 拥有databinding框架自带的双向绑定，也有扩展
 ##### 2.2.1、传统绑定
-绑定用户名：
-
-在LoginViewModel中定义
-```java
-//用户名的绑定
-public ObservableField<String> userName = new ObservableField<>("");
+绑定用户数据：
+在FormViewModel中定义
+```kotlin
+//对象中的数据赋值(例子中来自bundle)
+entity = mBundle.getSerializable("entity") as FormEntity
 ```
-在用户名EditText标签中绑定
-```xml
-android:text="@={viewModel.userName}"
+在姓名EditText标签中绑定,直接使用ViewMode中的LiveData,方便高效.
+```fragment_form_temp.xml
+ android:text="@={viewModel.entityLiveData.name}"
 ```
 这样一来，输入框中输入了什么，userName.get()的内容就是什么，userName.set("")设置什么，输入框中就显示什么。
 **注意：** @符号后面需要加=号才能达到双向绑定效果；userName需要是public的，不然viewModel无法找到它。
 
 点击事件绑定：
 
-在LoginViewModel中定义
+在FormFragment中定义
 ```java
-//登录按钮的点击事件
-public View.OnClickListener loginOnClick = new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-            
-    }
-};
+//按钮的点击事件
+fun commitClick() {
+            Toast.makeText(activity, "触发提交按钮", Toast.LENGTH_SHORT).show()
+            val submitJson = Gson().toJson(viewModel.entityLiveData.value)
+//            MaterialDialogUtils.Companion.showBasicDialog(context, "提交的json实体数据：\r\n$submitJson").show()
+        }
 ```
 在登录按钮标签中绑定
 ```xml
-android:onClick="@{viewModel.loginOnClick}"
+  android:onClick="@{() ->presenter.commitClick()}" // 多个点击事件的话,可以参考我的放到Presenter中,几种管理,结构清晰
 ```
 这样一来，用户的点击事件直接被回调到ViewModel层了，更好的维护了业务逻辑
 
 这就是强大的databinding框架双向绑定的特性，不用再给控件定义id，setText()，setOnClickListener()。
 
-**但是，光有这些，完全满足不了我们复杂业务的需求啊！MVVMSmart闪亮登场：它有一套自定义的绑定规则，可以满足大部分的场景需求，请继续往下看。**
+**去除晦涩难懂的自定义命令绑定,特别是在viewMode中绑定事件儿,处理跳转等,非常不建议,应该交给UI层,viewmodel层也不应持有View层的东西**
 
 ##### 2.2.2、UI控件点击事件儿的绑定
 还拿点击事件说吧，建议不用使用太多网上的自定义指令,因为一般都是团队开发,不好维护,所有UI事件儿的触发都要放在UI层触发, 高级命令在后边讲解
