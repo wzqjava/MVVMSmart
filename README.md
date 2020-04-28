@@ -244,7 +244,18 @@ BaseViewModelMVVM与BaseFragmentMVVM通过StateLiveData来处理常用UI逻辑�
 
 ### 2.2、数据绑定
 > 拥有databinding框架自带的双向绑定，配合LiveData使用,逻辑特别清晰
-
+绑定用户数据：
+在FormViewModel中定义
+```kotlin
+//对象中的数据赋值(例子中来自bundle)
+entity = mBundle.getSerializable("entity") as FormEntity
+```
+在姓名EditText标签中绑定,直接使用ViewMode中的LiveData,方便高效.
+```fragment_form_temp.xml
+ android:text="@={viewModel.entityLiveData.name}"
+```
+这样一来，输入框中输入了什么，userName.get()的内容就是什么，userName.set("")设置什么，输入框中就显示什么。
+**注意：** @符号后面需要加=号才能达到双向绑定效果；userName需要是public的，不然viewModel无法找到它。
 ##### 2.2.1、自定义ImageView图片加载
 绑定图片路径：
 
