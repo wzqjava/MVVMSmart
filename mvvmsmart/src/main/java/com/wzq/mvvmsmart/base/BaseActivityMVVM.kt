@@ -25,6 +25,7 @@ abstract class BaseActivityMVVM<V : ViewDataBinding, VM : BaseViewModelMVVM> : A
         initParam()
         //私有的初始化 binding和ViewModel方法
         initViewDataBinding(savedInstanceState)
+        initToolbar()
         //页面数据初始化方法
         initData()
         //页面事件监听的方法，一般用于ViewModel层转到View层的事件注册
@@ -113,6 +114,7 @@ abstract class BaseActivityMVVM<V : ViewDataBinding, VM : BaseViewModelMVVM> : A
           return null
       }
   */
+    open fun initToolbar() {}
     override fun initData() {}
     override fun initViewObservable() {
         //私有的ViewModel与View的契约事件回调逻辑

@@ -60,7 +60,7 @@ dependencies {
     api rootProject.ext.dependencies["liveEventBus"]  //    基于livedata的事件通信,完爆EventBus
     api rootProject.ext.dependencies["gson"] //     Gson
     api rootProject.ext.dependencies["glide"] //    Glide
-    api 'cat.ereza:customactivityoncrash:2.3.0'
+    api 'cat.ereza:customactivityoncrash:2.3.0' // 崩溃捕获和重启框架
     annotationProcessor rootProject.ext.dependencies["glide-compiler"]  //  Glide
 
 
