@@ -10,11 +10,13 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
+import com.wzq.mvvmsmart.helper.EmptyViewHelper
 import java.lang.reflect.ParameterizedType
 
 abstract class BaseFragmentMVVM<V : ViewDataBinding, VM : BaseViewModelMVVM> : Fragment(), IBaseViewMVVM {
     protected lateinit var binding: V
     protected lateinit var viewModel: VM
+    private var emptyViewHelper: EmptyViewHelper? = null
     private var viewModelId = 0
     private var isNavigationViewInit = false // 记录是否已经初始化过一次视图
     private var lastView: View? = null // 记录上次创建的view
@@ -143,11 +145,36 @@ abstract class BaseFragmentMVVM<V : ViewDataBinding, VM : BaseViewModelMVVM> : F
     }
 
     override fun initViewObservable() {}
+    override fun onContentReload() {}
     override fun onDestroyView() {
         super.onDestroyView()
         if (binding != null) {
             binding.unbind()
         }
+    }
+
+
+    protected fun showNormalLayout(view: View?) {
+        if (emptyViewHelper == null) {
+            emptyViewHelper = EmptyViewHelper(activity)
+            emptyViewHelper?.setReloadCallBack(this)
+        }
+        emptyViewHelper?.loadNormallLayout(view)
+    }
+
+    /***
+     * 加载无数据、无网络、数据异常布局
+     * @param target 被替换的view
+     * @param text 显示的文字
+     * @param imgId 占位图
+     * @param reload 是否显示重新加载按钮
+     */
+    protected fun showEmptyLayout(target: View?, text: String?, imgId: Int, reload: Boolean) {
+        if (emptyViewHelper == null) {
+            emptyViewHelper = EmptyViewHelper(activity)
+            emptyViewHelper?.setReloadCallBack(this)
+        }
+        emptyViewHelper?.loadPlaceLayout(target, text, imgId, reload)
     }
 
 }

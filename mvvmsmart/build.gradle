@@ -73,7 +73,6 @@ dependencies {
     api "androidx.core:core-ktx:1.2.0"
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    //BaseRecyclerViewAdapterHelper
 
 }
 repositories {

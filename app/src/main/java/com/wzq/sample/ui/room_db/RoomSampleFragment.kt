@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import com.wzq.mvvmsmart.utils.ToastUtils
 import com.wzq.sample.BR
 import com.wzq.sample.R
 import com.wzq.sample.base.BaseFragment
@@ -39,13 +40,13 @@ class RoomSampleFragment : BaseFragment<FragmentRoom1Binding, RoomSampleViewMode
         }
         binding.buttonClear.setOnClickListener { viewModel.deleteAllWords() }
         binding.buttonUpdate.setOnClickListener {
-            showLongToast("更新 id=1 的数据...")
+            ToastUtils.showShort("更新 id=1 的数据...")
             val word = Word("update", "更新!")
             word.id = 1
             viewModel.updateWords(word)
         }
         binding.buttonDelete.setOnClickListener {
-            showLongToast("删除 id=1 的数据...")
+            ToastUtils.showShort("删除 id=1 的数据...")
             val word = Word("update", "更新!")
             word.id = 1
             viewModel.deleteWords(word)

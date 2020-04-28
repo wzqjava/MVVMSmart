@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">MVVMSmart-sample</string>
     <string name="image_desc">我是图片</string>
     <string name="net_single_cell">网络单条目</string>
@@ -13,4 +13,5 @@
     <string name="viewpager_command">ViewPager_Fragment</string>
     <string name="room_sample">room数据库示例</string>
     <string name="hint_input_name">请输入姓名</string>
+    <string name="tip_a_page_no_data" >本页没有数据</string>
 </resources>

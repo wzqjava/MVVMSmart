@@ -15,4 +15,9 @@ interface IBaseViewMVVM {
      * 初始化界面观察者的监听
      */
     fun initViewObservable()
+
+    /**
+     * 列表无数据点击加载网络功能
+     */
+    fun onContentReload()
 }

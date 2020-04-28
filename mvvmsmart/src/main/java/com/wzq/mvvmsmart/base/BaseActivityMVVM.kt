@@ -2,12 +2,14 @@ package com.wzq.mvvmsmart.base
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
+import com.wzq.mvvmsmart.helper.EmptyViewHelper
 import java.lang.reflect.ParameterizedType
 
 /**
@@ -17,6 +19,7 @@ import java.lang.reflect.ParameterizedType
 abstract class BaseActivityMVVM<V : ViewDataBinding, VM : BaseViewModelMVVM> : AppCompatActivity(), IBaseViewMVVM {
     protected lateinit var binding: V
     protected lateinit var viewModel: VM
+    private var emptyViewHelper: EmptyViewHelper? = null
     private var viewModelId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -119,6 +122,9 @@ abstract class BaseActivityMVVM<V : ViewDataBinding, VM : BaseViewModelMVVM> : A
     override fun initViewObservable() {
         //私有的ViewModel与View的契约事件回调逻辑
     }
+    override fun onContentReload() {
+        //  有列表的页面,无数据的时候点击空白页重新加载网络
+    }
 
     /**
      * @param cls 类
@@ -127,5 +133,28 @@ abstract class BaseActivityMVVM<V : ViewDataBinding, VM : BaseViewModelMVVM> : A
     </T> */
     private fun <T : ViewModel> createViewModel(activity: FragmentActivity, cls: Class<T>): T {
         return ViewModelProviders.of(activity).get(cls)
+    }
+
+    protected fun showNormalLayout(view: View?) {
+        if (emptyViewHelper == null) {
+            emptyViewHelper = EmptyViewHelper(this)
+            emptyViewHelper?.setReloadCallBack(this)
+        }
+        emptyViewHelper?.loadNormallLayout(view)
+    }
+
+    /***
+     * 加载无数据、无网络、数据异常布局
+     * @param target 被替换的view
+     * @param text 显示的文字
+     * @param imgId 占位图
+     * @param reload 是否显示重新加载按钮
+     */
+    protected fun showEmptyLayout(target: View?, text: String?, imgId: Int, reload: Boolean) {
+        if (emptyViewHelper == null) {
+            emptyViewHelper = EmptyViewHelper(this)
+            emptyViewHelper?.setReloadCallBack(this)
+        }
+        emptyViewHelper?.loadPlaceLayout(target, text, imgId, reload)
     }
 }

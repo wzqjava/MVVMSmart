@@ -12,6 +12,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import com.wzq.mvvmsmart.http.DownLoadManager
 import com.wzq.mvvmsmart.http.download.ProgressCallBack
 import com.wzq.mvvmsmart.utils.KLog
+import com.wzq.mvvmsmart.utils.ToastUtils
 import com.wzq.sample.BR
 import com.wzq.sample.R
 import com.wzq.sample.base.BaseFragment
@@ -52,6 +53,7 @@ class MainFragment : BaseFragment<FragmentHomeBinding, MainViewModel>() {
      */
     inner class Presenter {
         //网络访问点击事件
+       
         fun netWorkClick() {
             NavHostFragment
                     .findNavController(this@MainFragment)
@@ -59,6 +61,7 @@ class MainFragment : BaseFragment<FragmentHomeBinding, MainViewModel>() {
         }
 
         //RecycleView多布局
+       
         fun rvMultiClick() {
             NavHostFragment
                     .findNavController(this@MainFragment)
@@ -66,19 +69,22 @@ class MainFragment : BaseFragment<FragmentHomeBinding, MainViewModel>() {
         }
 
         //进入TabBarActivity
+       
         fun startTabBarClick() {
             startActivity(TabBarActivity::class.java)
         }
 
         //ViewPager绑定
+       
         fun viewPagerBindingClick() {
-            showShortToast("点击跳转viewpager")
+            ToastUtils.showShort("点击跳转viewpager")
             NavHostFragment
                     .findNavController(this@MainFragment)
                     .navigate(R.id.action_homeFragment_to_viewPagerGroupFragment)
         }
 
         //表单修改点击事件
+       
         fun formModifyClick() {
             //模拟一个修改的实体数据
             val entity = FormEntity("12345678","wzq","2020年08月08日",true)
@@ -91,11 +97,13 @@ class MainFragment : BaseFragment<FragmentHomeBinding, MainViewModel>() {
         }
 
         //权限申请
+       
         fun permissionsClick() {
             viewModel.requestCameraPermissions.call()
         }
 
         //全局异常捕获
+       
         fun exceptionClick() {
             //伪造一个异常
             "test".toInt()
@@ -107,6 +115,7 @@ class MainFragment : BaseFragment<FragmentHomeBinding, MainViewModel>() {
         }
 
         //文件下载
+       
         fun roomSampleClick() {
             NavHostFragment
                     .findNavController(this@MainFragment)
@@ -114,6 +123,7 @@ class MainFragment : BaseFragment<FragmentHomeBinding, MainViewModel>() {
         }
 
         // 测试网络接口
+       
         fun testNetUrl() {
             NavHostFragment
                     .findNavController(this@MainFragment)
@@ -126,15 +136,15 @@ class MainFragment : BaseFragment<FragmentHomeBinding, MainViewModel>() {
      */
     @SuppressLint("CheckResult")
     private fun requestCameraPermissions() {
-        showShortToast("请求相机权限")
+        ToastUtils.showShort("请求相机权限")
         //请求打开相机权限
         val rxPermissions = RxPermissions(activity!!)
         rxPermissions.request(Manifest.permission.CAMERA)
                 .subscribe { aBoolean ->
                     if (aBoolean) {
-                        showShortToast("相机权限已经打开，直接跳入相机")
+                        ToastUtils.showShort("相机权限已经打开，直接跳入相机")
                     } else {
-                        showShortToast("权限被拒绝")
+                        ToastUtils.showShort("权限被拒绝")
                     }
                 }
     }
@@ -160,7 +170,7 @@ class MainFragment : BaseFragment<FragmentHomeBinding, MainViewModel>() {
             override fun onSuccess(responseBody: Any?) {
                 KLog.e("下载--onSuccess")
 
-                showShortToast("文件下载完成！")
+                ToastUtils.showShort("文件下载完成！")
             }
 
             override fun progress(progress: Long, total: Long) {
@@ -171,7 +181,7 @@ class MainFragment : BaseFragment<FragmentHomeBinding, MainViewModel>() {
 
             override fun onError(e: Throwable?) {
                 e?.printStackTrace()
-                showShortToast("文件下载失败！")
+                ToastUtils.showShort("文件下载失败！")
                 progressDialog.dismiss()
             }
 

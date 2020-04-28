@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">mvvmsmart</string>
+    <string name="image_desc">我是图片</string>
     <string name="customactivityoncrash_error_activity_close_app">关闭程序</string>
     <string name="customactivityoncrash_error_activity_error_details">错误日志</string>
     <string name="customactivityoncrash_error_activity_error_details_clipboard_label">错误信息</string>

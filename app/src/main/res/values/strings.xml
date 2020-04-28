@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">MVVMSmart-sample</string>
     <string name="contentDescription">contentDescription</string>
     <string name="net_single_cell">net_single_cell</string>
@@ -12,4 +12,7 @@
     <string name="room_sample">room_sample</string>
     <string name="image_desc">i am image</string>
     <string name="hint_input_name">please intpu name</string>
+    <string name="tip_a_page_no_data" >this page no data</string>
+
+
 </resources>

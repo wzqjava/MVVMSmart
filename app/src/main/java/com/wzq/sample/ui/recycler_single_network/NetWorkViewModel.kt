@@ -5,17 +5,21 @@ import androidx.lifecycle.MutableLiveData
 import com.wzq.mvvmsmart.http.BaseResponse
 import com.wzq.mvvmsmart.utils.KLog
 import com.wzq.mvvmsmart.utils.RxUtils
+import com.wzq.mvvmsmart.utils.ToastUtils
 import com.wzq.sample.base.BaseViewModel
 import com.wzq.sample.bean.DemoBean
 import com.wzq.sample.bean.DemoBean.ItemsEntity
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
-import java.util.*
 
 class NetWorkViewModel(application: Application) : BaseViewModel(application) {
-    private val model: NetWorkModel
+    private val model: NetWorkModel = NetWorkModel()
     var pageNum = 1
-    var liveData: MutableLiveData<MutableList<ItemsEntity?>> = MutableLiveData()
+
+    //    var liveData: MutableLiveData<MutableList<ItemsEntity?>> = MutableLiveData()
+    val liveData: MutableLiveData<MutableList<ItemsEntity>> by lazy {
+        MutableLiveData<MutableList<ItemsEntity>>()
+    }
 
     /**
      * 网络请求方法，在ViewModel中调用Model层，通过Okhttp+Retrofit+RxJava发起请求
@@ -34,13 +38,10 @@ class NetWorkViewModel(application: Application) : BaseViewModel(application) {
                     override fun onNext(response: BaseResponse<DemoBean>) {
                         KLog.e("进入onNext")
                         //请求成功
-                        if (response.code == 1) {  // code  =1 代表成功
+                        if (response.code == 1) {  // 接口返回code=1 代表成功
                             val itemsEntities = response.result?.items
                             if (itemsEntities != null) {
                                 if (itemsEntities.size > 0) {
-                                    if (pageNum == 1) {
-                                        liveData.value!!.clear()
-                                    }
                                     liveData.postValue(itemsEntities)
                                 } else {
 //                                    showShortToast("没有更多数据了")
@@ -52,9 +53,9 @@ class NetWorkViewModel(application: Application) : BaseViewModel(application) {
                             }
                         } else {
                             //code错误时也可以定义Observable回调到View层去处理
+                            ToastUtils.showShort("提醒开发者:本页无数据...")
                             KLog.e("请求失败response.getCode():" + response.code)
-                            stateLiveData.postNoData() // 这里是接口问题,状态返回1代表
-
+//                            liveData.postValue(null)
                         }
                     }
 
@@ -62,9 +63,9 @@ class NetWorkViewModel(application: Application) : BaseViewModel(application) {
                         KLog.e("进入onError" + throwable.message)
                         //关闭对话框
                         stateLiveData.postError()
-                       /* if (throwable is ResponseThrowable) {
-                        showShortToast(throwable.message)
-                        }*/
+                        /* if (throwable is ResponseThrowable) {
+                         showShortToast(throwable.message)
+                         }*/
                     }
 
                     override fun onComplete() {
@@ -73,52 +74,7 @@ class NetWorkViewModel(application: Application) : BaseViewModel(application) {
                     }
                 })
 
-        /*object : Observer<BaseResponse<DemoBean>> {
-            override fun onSubscribe(d: Disposable) {
-                stateLiveData.postLoading()
-            }
 
-            override fun onNext(response: BaseResponse<DemoBean>) {
-                KLog.e("进入onNext")
-                //请求成功
-                if (response.code == 1) {
-                    val itemsEntities = response.result?.items
-                    if (itemsEntities != null) {
-                        if (itemsEntities.size > 0) {
-                            if (pageNum == 1) {
-                                liveData.value!!.clear()
-                            }
-                            liveData.postValue(itemsEntities)
-                        } else {
-//                                    showShortToast("没有更多数据了")
-                            KLog.e("请求到数据students.size" + itemsEntities.size)
-                        }
-                    } else {
-                        KLog.e("数据返回null")
-                        stateLiveData.postError()
-                    }
-                } else {
-                    //code错误时也可以定义Observable回调到View层去处理
-                    KLog.e("请求失败response.getCode():" + response.code)
-//                            showLongToast("提醒开发者: 本次上拉服务器没有数据")
-                }
-            }
-
-            override fun onError(throwable: Throwable) {
-                KLog.e("进入onError" + throwable.message)
-                //关闭对话框
-                stateLiveData.postIdle()
-                if (throwable is ResponseThrowable) {
-//                           showShortToast(throwable.message)
-                }
-            }
-
-            override fun onComplete() {
-                KLog.e("进入onComplete")
-                //关闭对话框
-                stateLiveData.postIdle()
-            }
-        }*/
     }
 
     /**
@@ -171,8 +127,5 @@ class NetWorkViewModel(application: Application) : BaseViewModel(application) {
         KLog.e("size" + liveData.value!!.size)
     }
 
-    init {
-        liveData.value = ArrayList()
-        model = NetWorkModel()
-    }
+
 }

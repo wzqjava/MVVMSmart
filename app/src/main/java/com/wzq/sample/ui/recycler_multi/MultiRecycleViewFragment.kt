@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.wzq.mvvmsmart.utils.ToastUtils
 import com.wzq.sample.BR
 import com.wzq.sample.R
 import com.wzq.sample.base.BaseFragment
@@ -44,13 +45,13 @@ class MultiRecycleViewFragment : BaseFragment<FragmentMultiRvBinding, MultiRecyc
         binding.layoutManager = LinearLayoutManager(activity)
         mAdapter!!.setOnItemClickListener { adapter, view, position ->
             val item = adapter.getItem(position) as ItemsEntity?
-            showShortToast(item?.name + "---" + position)
+            ToastUtils.showShort(item?.name + "---" + position)
         }
         mAdapter!!.setOnItemChildClickListener { adapter, view, position ->
             val item = adapter.getItem(position) as ItemsEntity?
             when (view.id) {
-                R.id.btn1 -> showShortToast("btn1---$position")
-                R.id.btn2 -> showShortToast("btn2---$position")
+                R.id.btn1 -> ToastUtils.showShort("btn1---$position")
+                R.id.btn2 -> ToastUtils.showShort("btn2---$position")
             }
         }
     }

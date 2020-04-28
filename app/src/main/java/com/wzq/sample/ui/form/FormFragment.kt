@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import com.google.gson.Gson
 import com.wzq.mvvmsmart.utils.KLog
+import com.wzq.mvvmsmart.utils.ToastUtils
 import com.wzq.sample.BR
 import com.wzq.sample.R
 import com.wzq.sample.base.BaseFragment
@@ -54,7 +55,7 @@ class FormFragment : BaseFragment<FragmentFormTempBinding, FormViewModel>() {
     override fun initToolbar() {
         //ID不为空是修改
         binding.title.tvTitle.text = "表单编辑"
-        binding.title.ivRight.setOnClickListener { showShortToast("点击了更多") }
+        binding.title.ivRight.setOnClickListener { ToastUtils.showShort("点击了更多") }
         binding.title.ivBack.setOnClickListener{ NavHostFragment.findNavController(this@FormFragment).navigateUp() }
     }
 
