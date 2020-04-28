@@ -4,10 +4,10 @@ import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
 import com.google.gson.Gson
 import com.wzq.mvvmsmart.utils.KLog
 import com.wzq.sample.BR
@@ -15,6 +15,7 @@ import com.wzq.sample.R
 import com.wzq.sample.base.BaseFragment
 import com.wzq.sample.bean.FormEntity
 import com.wzq.sample.databinding.FragmentFormTempBinding
+import kotlinx.android.synthetic.main.layout_toolbar.view.*
 import java.util.*
 
 /**
@@ -51,10 +52,10 @@ class FormFragment : BaseFragment<FragmentFormTempBinding, FormViewModel>() {
      * 初始化Toolbar
      */
     override fun initToolbar() {
-
         //ID不为空是修改
         binding.title.tvTitle.text = "表单编辑"
-        binding.title.ivRight.setOnClickListener { v: View? -> showShortToast("点击了更多") }
+        binding.title.ivRight.setOnClickListener { showShortToast("点击了更多") }
+        binding.title.ivBack.setOnClickListener{ NavHostFragment.findNavController(this@FormFragment).navigateUp() }
     }
 
     /**
