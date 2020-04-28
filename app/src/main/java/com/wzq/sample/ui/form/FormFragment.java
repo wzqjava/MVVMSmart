@@ -3,12 +3,15 @@ package com.wzq.sample.ui.form;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.gson.Gson;
 import com.wzq.mvvmsmart.utils.KLog;
@@ -67,9 +70,15 @@ public class FormFragment extends BaseFragment<FragmentFormTempBinding, FormView
     @Override
     public void initToolbar() {
 
-        //ID不为空是修改
+        /**
+         *  此处AS对include的布局支持不友好,不影响编译和运行,开发者也可以换成下面方式
+         *  TextView tvTitle = binding.getRoot().findViewById(R.id.tvTitle);
+         */
         binding.title.tvTitle.setText("表单编辑");
         binding.title.ivRight.setOnClickListener(v -> ToastUtils.showShort("点击了更多"));
+        binding.title.ivBack.setOnClickListener(
+                v -> NavHostFragment.findNavController(FormFragment.this).navigateUp()
+        );
 
     }
 
