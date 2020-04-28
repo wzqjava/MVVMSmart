@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.wzq.mvvmsmart.widget.EmptyViewHelper;
+
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
@@ -22,6 +24,7 @@ public abstract class BaseFragmentMVVM<V extends ViewDataBinding, VM extends Bas
     protected V binding;
     protected VM viewModel;
     private int viewModelId;
+    private EmptyViewHelper emptyViewHelper;
     private boolean isNavigationViewInit = false; // 记录是否已经初始化过一次视图
     private View lastView = null; // 记录上次创建的view
 
@@ -169,7 +172,12 @@ public abstract class BaseFragmentMVVM<V extends ViewDataBinding, VM extends Bas
 
     @Override
     public void initViewObservable() {
+        //私有的ViewModel与View的契约事件回调逻辑
+    }
 
+    @Override
+    public void onContentReload() {
+        //  有列表的页面,无数据的时候点击空白页重新加载网络
     }
 
     @Override
@@ -184,5 +192,26 @@ public abstract class BaseFragmentMVVM<V extends ViewDataBinding, VM extends Bas
     public void onDestroy() {
         super.onDestroy();
     }
+    public void showNormalLayout(View view) {
+        if (emptyViewHelper == null) {
+            emptyViewHelper = new EmptyViewHelper(getActivity());
+            emptyViewHelper.setReloadCallBack(this);
+        }
+        emptyViewHelper.loadNormallLayout(view);
+    }
 
+    /***
+     * 加载无数据、无网络、数据异常布局
+     * @param target 被替换的view
+     * @param text 显示的文字
+     * @param imgId 占位图
+     * @param reload 是否显示重新加载按钮
+     */
+    public void showEmptyLayout(View target, String text, int imgId, Boolean reload) {
+        if (emptyViewHelper == null) {
+            emptyViewHelper = new EmptyViewHelper(getActivity());
+            emptyViewHelper.setReloadCallBack(this);
+        }
+        emptyViewHelper.loadPlaceLayout(target, text, imgId, reload);
+    }
 }
