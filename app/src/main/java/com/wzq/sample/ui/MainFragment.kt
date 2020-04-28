@@ -53,7 +53,6 @@ class MainFragment : BaseFragment<FragmentHomeBinding, MainViewModel>() {
      */
     inner class Presenter {
         //网络访问点击事件
-       
         fun netWorkClick() {
             NavHostFragment
                     .findNavController(this@MainFragment)
@@ -61,7 +60,6 @@ class MainFragment : BaseFragment<FragmentHomeBinding, MainViewModel>() {
         }
 
         //RecycleView多布局
-       
         fun rvMultiClick() {
             NavHostFragment
                     .findNavController(this@MainFragment)
@@ -69,13 +67,11 @@ class MainFragment : BaseFragment<FragmentHomeBinding, MainViewModel>() {
         }
 
         //进入TabBarActivity
-       
         fun startTabBarClick() {
             startActivity(TabBarActivity::class.java)
         }
 
         //ViewPager绑定
-       
         fun viewPagerBindingClick() {
             ToastUtils.showShort("点击跳转viewpager")
             NavHostFragment
@@ -84,7 +80,6 @@ class MainFragment : BaseFragment<FragmentHomeBinding, MainViewModel>() {
         }
 
         //表单修改点击事件
-       
         fun formModifyClick() {
             //模拟一个修改的实体数据
             val entity = FormEntity("12345678","wzq","2020年08月08日",true)
@@ -97,13 +92,11 @@ class MainFragment : BaseFragment<FragmentHomeBinding, MainViewModel>() {
         }
 
         //权限申请
-       
         fun permissionsClick() {
             viewModel.requestCameraPermissions.call()
         }
 
         //全局异常捕获
-       
         fun exceptionClick() {
             //伪造一个异常
             "test".toInt()
@@ -114,8 +107,7 @@ class MainFragment : BaseFragment<FragmentHomeBinding, MainViewModel>() {
             viewModel.loadUrlEvent.value = "http://gdown.baidu.com/data/wisegame/a2cd8828b227b9f9/neihanduanzi_692.apk"
         }
 
-        //文件下载
-       
+        //room数据库
         fun roomSampleClick() {
             NavHostFragment
                     .findNavController(this@MainFragment)
@@ -123,7 +115,6 @@ class MainFragment : BaseFragment<FragmentHomeBinding, MainViewModel>() {
         }
 
         // 测试网络接口
-       
         fun testNetUrl() {
             NavHostFragment
                     .findNavController(this@MainFragment)

@@ -1,12 +1,13 @@
 # MVVMSmart-kotlin
-> 目前，android基于MVVM模式开发框架比较少。**MVVMSmart是以谷歌Jetpack架构组件ViewModel+Lifecycles+Navigation+DataBinding+LiveData+Okhttp+Retrofit+RxJava+Glide等，加上各种原生控件自定义的BindingAdapter，让事件与数据源完美绑定的一款容易上瘾的实用性MVVM快速开发框架**。从此告别findViewById()，告别setText()，告别setOnClickListener()...
+> 目前，android基于MVVM模式开发框架比较少。**MVVMSmart-kotlin是以谷歌Jetpack架构组件ViewModel+Lifecycles+Navigation+DataBinding+LiveData+Okhttp+Retrofit+RxJava+Glide等，加上各种原生控件自定义的BindingAdapter，让事件与数据源完美绑定的一款容易上瘾的实用性MVVM快速开发框架**。告别findViewById()，告别setText()，告别setOnClickListener()...
 ## 技术讨QQ群：531944409
-## 最新日志 **v1.0：2020年1月18日**
-1. 添加BaseRecyclerViewAdapterHelper,使中高级开发者都能快速使用.
+## 最新日志 **v2.0：2020年4月28日**
+1. 上线kotlin稳定版
+2. 增加recyclerview无数据的默认页,同时支持其他任何布局层次无数据的默认页,一行代码显示默认页
 ## 中文文档
-建议大家用clone的方式下载开源框架,方便及时更新。
-1. MVVMsmart-java地址:   https://github.com/wzqjava/MVVMSmart
-2. MVVMsmart-kotlin地址:   https://github.com/wzqjava/MVVMSmart-kotlin
+建议大家用clone的方式下载开源框架,方便及时更新,建议大家使用kotlin项目,毕竟是Android的第一语言,越用约开心。
+1. MVVMsmart-kotlin地址:   https://github.com/wzqjava/MVVMSmart-kotlin
+2. MVVMsmart-java地址:   https://github.com/wzqjava/MVVMSmart
 3. AndroidStudio 从github下载代码的正确姿势:https://juejin.im/post/5e09dd306fb9a01648718430	
 4. MVVMSmart系列解读文章: https://juejin.im/user/574e36b179bc440062693484/posts
 
@@ -38,7 +39,7 @@ google AAC(Android Architecture Components:安卓架构组件):
 
 - **基类封装**
 
-	专门针对MVVM模式打造的BaseActivityMVVM、BaseFragmentMVVM、BaseViewModelMVVM，在View层中不再需要定义ViewDataBinding和ViewModel，直接在BaseActivityMVVM、BaseFragmentMVVM上限定泛型即可使用.支持navigation导航Fragment的管理,导航返回时候回调用OnCreateView,BaseFragmentMVVM已经封装。ToolbarViewModel封装了标题返回,标题和右侧文字不要在BaseActivit和BaseFragmentMVVM中进行任何处理即可使用,普通界面只需要编写Fragment，然后使用ContainerActivity盛装(代理)，这样就不需要每个界面都在AndroidManifest中注册一遍。
+	专门针对MVVM模式打造的BaseActivityMVVM、BaseFragmentMVVM、BaseViewModelMVVM，在View层中不再需要定义ViewDataBinding和ViewModel，直接在BaseActivityMVVM、BaseFragmentMVVM上限定泛型即可使用.支持navigation导航Fragment的管理,导航返回时候回调用OnCreateView,BaseFragmentMVVM已经封装,标题使用include导入布局, Base层预留的有 initToolbar(),标题的返回、文字设置、右侧更多等在这个方法初始化即可,普通界面只需要编写Fragment，然后使用navigation导航,不用在manifest注册,性能也更好.
 
 - **全局操作**
 1. google的AAC架构，ViewModel+Lifecycles+Navigation+DataBinding+LiveData。
@@ -48,6 +49,8 @@ google AAC(Android Architecture Components:安卓架构组件):
 5. 全局的异常捕获，程序发生异常时不会崩溃，可跳入异常界面重启应用。
 6. 全局唯一可信事件源处理，提供LiveEventBus回调方式。
 7. 全局任意位置一行代码实现文件下载进度监听（暂不支持多文件进度监听）。
+8. 任何布局层次无数据时候的默认页(主要用来: 列表无数据的默认页,接口error的默认页,无网络的默认页等,动态传入文字和图片的id即可)
+9. app崩溃重启功能(任意指定重启Activity即可,一般是欢迎页),debug模式崩溃后测试人员可以直接截屏崩溃日志给开发,再也不会听到测试说"又崩啦.."
   
 
 ## 1、准备工作
@@ -82,7 +85,7 @@ allprojects {
 ```gradle
 dependencies {	
     ...
-    api project(':mvvmsmart')
+    api project(':mvvmsmart')// 这样导入方便看源码,也方便根据自己项目改造
 }
 ```
 
@@ -111,14 +114,14 @@ dependencies = [] 是依赖第三方库的配置，可以加新库，用户也�
 ```
 配置Application：
 
-继承**mvvmsmart**中的BaseApplicationMVVM，或者调用
+自己的Application继承**mvvmsmart**中的BaseApplicationMVVM，或者调用
 
 ```java
 BaseApplication.setApplication(this);
 ```
 来初始化你的Application
 
-可以在你的自己AppApplication中配置
+你可以在你的自己AppApplication中配置
 
 ```java
 //是否开启日志打印
@@ -167,36 +170,27 @@ fragment_multi_rv.xml中关联LinearLayoutManager和MyMultiAdapter。
 ##### 2.1.2、继承BaseFragmentMVVM
 
 MultiRecycleViewFragment继承BaseFragmentMVVM
-```java
+```kotlin
 
-public class MultiRecycleViewFragment extends BaseFragmentMVVM<FragmentMultiRvBinding, MultiRecycleViewModel> {
-
-
-    private MyMultiAdapter mAdapter;
-
-    @Override
-    public int initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return R.layout.fragment_multi_rv;
+class MultiRecycleViewFragment : BaseFragment<FragmentMultiRvBinding, MultiRecycleViewModel>() {
+    private lateinit var mAdapter: MyMultiAdapter
+    override fun initContentView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): Int {
+        return R.layout.fragment_multi_rv
     }
 
-    @Override
-    public int initVariableId() {
-        return com.wzq.sample.BR.viewModel;
+    override fun initVariableId(): Int {
+        return BR.viewModel
     }
 
-    @Override
-    public void initData() {
-        super.initData();
-        viewModel.getData();
-        initRecyclerView();
+    override fun initData() {
+        super.initData()
+        viewModel.data
+        initRecyclerView()
     }
 
-    @Override
-    public void initViewObservable() {
-        super.initViewObservable();
-        viewModel.itemsEntityLiveData.observe(this, itemsEntities -> {
-            mAdapter.setNewData(itemsEntities);
-        });
+    override fun initViewObservable() {
+        super.initViewObservable()
+        viewModel.itemsEntityLiveData.observe(this, Observer { itemsEntities: ArrayList<ItemsEntity>? -> 		      			mAdapter.setNewData(itemsEntities) })
     }
     ....
 ```
@@ -218,80 +212,40 @@ public LoginViewModel initViewModel() {
 }
 ```
 
-**注意：** 不重写initViewModel()，默认会创建MultiRecycleViewFragment中第二个泛型约束的MultiRecycleViewModel，如果没有指定第二个泛型，则会创建BaseViewModelMVVM
+**注意：** 一般都不用重写initViewModel()，默认会创建MultiRecycleViewFragment中第二个泛型约束的MultiRecycleViewModel，如果没有指定第二个泛型，则会创建BaseViewModelMVVM
 
 ##### 2.1.3、继承BaseViewModelMVVM
 
 MultiRecycleViewModel继承BaseViewModelMVVM
-```java
-public class MultiRecycleViewModel extends BaseViewModelMVVM {
-
+```kotlin
+class MultiRecycleViewModel(application: Application) : BaseViewModel(application) {
     //给RecyclerView添加ObservableList
-    public MutableLiveData<ArrayList<DemoBean.ItemsEntity>> itemsEntityLiveData;
+    var itemsEntityLiveData: MutableLiveData<ArrayList<ItemsEntity>> = MutableLiveData()
+    fun getData() {
+        val datas = ArrayList<ItemsEntity>()
+        for (i in 0..49) {
+            val itemBean = ItemsEntity(i, "MVVMSmart", TestUtils.getGirlImgUrl())
+            if (i % 2 == 0) {
+                itemBean.itemType = 0
+            } else {
+                itemBean.itemType = 1
+            }
+            datas.add(itemBean)
+        }
+        itemsEntityLiveData.value = datas
 
-    public MultiRecycleViewModel(@NonNull Application application) {
-        super(application);
-        itemsEntityLiveData = new MutableLiveData<>();
     }
-    .....
 }
+    .....
+
 ```
 BaseViewModelMVVM与BaseFragmentMVVM通过StateLiveData来处理常用UI逻辑，即可在ViewModel中使用父类的showDialog()、startActivity()等方法。在这个MultiRecycleViewModel中就可以尽情的写你的逻辑了！
 > BaseActivityMVVM的使用和BaseFragmentMVVM几乎一样(BaseFragmentMVVM中单独处理的配合navigation)，详情参考Sample。
 
 ### 2.2、数据绑定
-> 拥有databinding框架自带的双向绑定，也有扩展
-##### 2.2.1、传统绑定
-绑定用户名：
+> 拥有databinding框架自带的双向绑定，配合LiveData使用,逻辑特别清晰
 
-在LoginViewModel中定义
-```java
-//用户名的绑定
-public ObservableField<String> userName = new ObservableField<>("");
-```
-在用户名EditText标签中绑定
-```xml
-android:text="@={viewModel.userName}"
-```
-这样一来，输入框中输入了什么，userName.get()的内容就是什么，userName.set("")设置什么，输入框中就显示什么。
-**注意：** @符号后面需要加=号才能达到双向绑定效果；userName需要是public的，不然viewModel无法找到它。
-
-点击事件绑定：
-
-在LoginViewModel中定义
-```java
-//登录按钮的点击事件
-public View.OnClickListener loginOnClick = new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-            
-    }
-};
-```
-在登录按钮标签中绑定
-```xml
-android:onClick="@{viewModel.loginOnClick}"
-```
-这样一来，用户的点击事件直接被回调到ViewModel层了，更好的维护了业务逻辑
-
-这就是强大的databinding框架双向绑定的特性，不用再给控件定义id，setText()，setOnClickListener()。
-
-**但是，光有这些，完全满足不了我们复杂业务的需求啊！MVVMSmart闪亮登场：它有一套自定义的绑定规则，可以满足大部分的场景需求，请继续往下看。**
-
-##### 2.2.2、UI控件点击事件儿的绑定
-还拿点击事件说吧，建议不用使用太多网上的自定义指令,因为一般都是团队开发,不好维护,所有UI事件儿的触发都要放在UI层触发, 高级命令在后边讲解
-
-在LoginFragment.java中定义
-```java
-//登录按钮的点击事件
- binding.btnLogin.setOnClickListener(view ->{
-            viewModel.login();
-        });
-```
-简单粗暴,一眼明了,好维护.如果有多个点击事件怎么封装请参考HomeFragment.java中,用一个Presenter来封装;
-
-是不是觉得有点意思，好戏还在后头呢！
-##### 2.2.3、自定义ImageView图片加载
+##### 2.2.1、自定义ImageView图片加载
 绑定图片路径：
 
 在ViewModel中定义
@@ -326,7 +280,7 @@ public static void setImageUri(ImageView imageView, String url, int placeholderR
 很简单就自定义了一个ImageView图片加载的绑定，学会这种方式，可自定义扩展。
 > 如果你对这些感兴趣，可以下载源码，在binding包中可以看到各类控件的绑定实现方式
 
-##### 2.2.4、RecyclerView绑定
+##### 2.2.2、RecyclerView绑定
 > RecyclerView是很常用的控件，传统的方式需要针对各种业务要写各种Adapter，如果你使用了mvvmsmart，则可大大简化这种工作量，从此告别setAdapter()。
 mvvmsmart中的recyclerview进行了三次大改动,后期又改为了BaseRecyclerViewAdapterHelper,主要考虑到方便使用和维护,之前用Databinding和ItemViewModel都太难维护,学习成本高,与高质快速开发思想相违背,这就类似于部队的技术更重视成功,稳定,而不是一味立马上新技术.
 [BaseRecyclerViewAdapterHelper](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)负责管理RecyclerView的适配器；
@@ -373,11 +327,13 @@ api "com.squareup.retrofit2:converter-gson:2.4.0"
 api "com.squareup.retrofit2:adapter-rxjava2:2.4.0"
 ```
 构建Retrofit时加入
-```java
-Retrofit retrofit = new Retrofit.Builder()
-    .addConverterFactory(GsonConverterFactory.create())
-    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-    .build();
+```kotlin
+ retrofit = Retrofit.Builder()
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create()) //  支持返回一个Observable泛型的接收对象:
+                .baseUrl(url)
+                .build()
 ```
 或者直接使用例子程序中封装好的RetrofitClient
 #### 2.3.2、网络拦截器
@@ -394,10 +350,25 @@ LoggingInterceptor mLoggingInterceptor = new LoggingInterceptor
     .build()
 ```
 构建okhttp时加入
-```java
-OkHttpClient okHttpClient = new OkHttpClient.Builder()
-    .addInterceptor(mLoggingInterceptor)
-    .build();
+```kotlin
+okHttpClient = OkHttpClient.Builder()
+                .cookieJar(CookieJarImpl(PersistentCookieStore(mContext))) //                .cache(cache)
+                .addInterceptor(BaseInterceptor(headers)) // 添加header的拦截器
+                .addInterceptor(mContext?.let { CacheInterceptor(it) }) //无网络状态智能读取缓存
+                .sslSocketFactory(sslParams!!.sSLSocketFactory, sslParams.trustManager) // https的证书校验
+                .addInterceptor(LoggingInterceptor.Builder() //构建者模式
+                        .loggable(BuildConfig.DEBUG) //是否开启日志打印
+                        .setLevel(Level.BASIC) //打印的等级
+                        .log(Platform.INFO) // 打印类型
+                        .request("Request") // request的Tag
+                        .response("Response") // Response的Tag
+                        .addHeader("log-header", "I am the log request header.") // 添加打印头, 注意 key 和 value 都不能是中文
+                        .build()
+                )
+                .connectTimeout(DEFAULT_TIMEOUT.toLong(), TimeUnit.SECONDS)
+                .writeTimeout(DEFAULT_TIMEOUT.toLong(), TimeUnit.SECONDS) // 这里你可以根据自己的机型设置同时连接的个数和时间，我这里8个，和每个保持时间为15s
+                .connectionPool(ConnectionPool(8, 15, TimeUnit.SECONDS))
+                .build()
 ```
 **CacheInterceptor：** 缓存拦截器，当没有网络连接的时候自动读取缓存中的数据，缓存存放时间默认为3天。</br>
 创建缓存对象
@@ -419,14 +390,9 @@ OkHttpClient okHttpClient = new OkHttpClient.Builder()
 #### 2.3.3、Cookie管理
 **MVVMSmart**提供两种CookieStore：**PersistentCookieStore** (SharedPreferences管理)和**MemoryCookieStore** (内存管理)，可以根据自己的业务需求，在构建okhttp时加入相应的cookieJar
 ```java
-OkHttpClient okHttpClient = new OkHttpClient.Builder()
-    .cookieJar(new CookieJarImpl(new PersistentCookieStore(mContext)))
-    .build();
-```
-或者
-```java
-OkHttpClient okHttpClient = new OkHttpClient.Builder()
-    .cookieJar(new CookieJarImpl(new MemoryCookieStore()))
+  okHttpClient = OkHttpClient.Builder()
+                .cookieJar(CookieJarImpl(PersistentCookieStore(mContext))) //                .cache(cache)
+                .addInterceptor(BaseInterceptor(headers)) // 添加header的拦截器
     .build();
 ```
 #### 2.3.4、绑定生命周期
@@ -480,35 +446,38 @@ LiveEventBus是一个轻量级全局的消息通信工具，在我们的复杂�
 String loadUrl = "你的文件下载路径";
 String destFileDir = context.getCacheDir().getPath();  //文件存放的路径
 String destFileName = System.currentTimeMillis() + ".apk";//文件存放的名称
-DownLoadManager.getInstance().load(loadUrl, new ProgressCallBack<ResponseBody>(destFileDir, destFileName) {
-    @Override
-    public void onStart() {
-        //RxJava的onStart()
-    }
+DownLoadManager.instance?.load(url, object : ProgressCallBack<ResponseBody?>(this@MainFragment, destFileDir, destFileName) {
+            override fun onStart() {
+                super.onStart()
+                KLog.e("下载--onStart")
+            }
 
-    @Override
-    public void onCompleted() {
-        //RxJava的onCompleted()
-    }
+            override fun onSuccess(responseBody: Any?) {
+                KLog.e("下载--onSuccess")
 
-    @Override
-    public void onSuccess(ResponseBody responseBody) {
-        //下载成功的回调
-    }
+                ToastUtils.showShort("文件下载完成！")
+            }
 
-    @Override
-    public void progress(final long progress, final long total) {
-        //下载中的回调 progress：当前进度 ，total：文件总大小
-    }
+            override fun progress(progress: Long, total: Long) {
+                KLog.e("下载--progress")
+                progressDialog.max = total.toInt()
+                progressDialog.progress = progress.toInt()
+            }
 
-    @Override
-    public void onError(Throwable e) {
-        //下载错误回调
-    }
-});
+            override fun onError(e: Throwable?) {
+                e?.printStackTrace()
+                ToastUtils.showShort("文件下载失败！")
+                progressDialog.dismiss()
+            }
+
+            override fun onCompleted() {
+                progressDialog.dismiss()
+                KLog.e("下载--onCompleted")
+            }
+        })
 ```
 > 在ProgressResponseBody中使用了RxBus，发送下载进度信息到ProgressCallBack中，继承ProgressCallBack就可以监听到下载状态。回调方法全部执行在主线程，方便UI的更新，详情请参考例子程序。
-### 3.3、ContainerActivity
+### 3.3、ContainerActivity(用户可以自己封装,目前推荐navigation)
 一个盛装Fragment的一个容器(代理)Activity，普通界面只需要编写Fragment，使用此Activity盛装，这样就不需要每个界面都在AndroidManifest中注册一遍
 
 使用方法：

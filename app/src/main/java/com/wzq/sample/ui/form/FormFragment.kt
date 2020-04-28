@@ -16,7 +16,6 @@ import com.wzq.sample.R
 import com.wzq.sample.base.BaseFragment
 import com.wzq.sample.bean.FormEntity
 import com.wzq.sample.databinding.FragmentFormTempBinding
-import kotlinx.android.synthetic.main.layout_toolbar.view.*
 import java.util.*
 
 /**
@@ -67,7 +66,6 @@ class FormFragment : BaseFragment<FragmentFormTempBinding, FormViewModel>() {
             Toast.makeText(activity, "触发提交按钮", Toast.LENGTH_SHORT).show()
             val submitJson = Gson().toJson(viewModel.entityLiveData.value)
 //            MaterialDialogUtils.Companion.showBasicDialog(context, "提交的json实体数据：\r\n$submitJson").show()
-
         }
 
         fun showDateDialog() {

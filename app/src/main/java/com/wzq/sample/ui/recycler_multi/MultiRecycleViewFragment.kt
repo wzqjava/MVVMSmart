@@ -18,7 +18,7 @@ import java.util.*
  * Description：RecycleView多布局实现
  */
 class MultiRecycleViewFragment : BaseFragment<FragmentMultiRvBinding, MultiRecycleViewModel>() {
-    private var mAdapter: MyMultiAdapter? = null
+    private lateinit var mAdapter: MyMultiAdapter
     override fun initContentView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): Int {
         return R.layout.fragment_multi_rv
     }
@@ -29,7 +29,7 @@ class MultiRecycleViewFragment : BaseFragment<FragmentMultiRvBinding, MultiRecyc
 
     override fun initData() {
         super.initData()
-        viewModel.data
+        viewModel.getData()
         initRecyclerView()
     }
 
@@ -43,11 +43,11 @@ class MultiRecycleViewFragment : BaseFragment<FragmentMultiRvBinding, MultiRecyc
         mAdapter = MyMultiAdapter(datas)
         binding.adapter = mAdapter
         binding.layoutManager = LinearLayoutManager(activity)
-        mAdapter!!.setOnItemClickListener { adapter, view, position ->
+        mAdapter.setOnItemClickListener { adapter, view, position ->
             val item = adapter.getItem(position) as ItemsEntity?
             ToastUtils.showShort(item?.name + "---" + position)
         }
-        mAdapter!!.setOnItemChildClickListener { adapter, view, position ->
+        mAdapter.setOnItemChildClickListener { adapter, view, position ->
             val item = adapter.getItem(position) as ItemsEntity?
             when (view.id) {
                 R.id.btn1 -> ToastUtils.showShort("btn1---$position")
