@@ -13,7 +13,6 @@ import com.wzq.mvvmsmart.utils.ToastUtils;
 import com.wzq.sample.base.BaseViewModel;
 import com.wzq.sample.bean.DemoBean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -28,7 +27,6 @@ public class NetWorkViewModel extends BaseViewModel {
     public NetWorkViewModel(@NonNull Application application) {
         super(application);
         liveData = new MutableLiveData<>();
-        liveData.setValue(new ArrayList<>());
         model = new NetWorkModel();
     }
 
@@ -55,9 +53,6 @@ public class NetWorkViewModel extends BaseViewModel {
                             List<DemoBean.ItemsEntity> itemsEntities = response.getResult().getItems();
                             if (itemsEntities != null) {
                                 if (itemsEntities.size() > 0) {
-                                    if (pageNum == 1) {
-                                        liveData.getValue().clear();
-                                    }
                                     liveData.postValue(itemsEntities);
                                 } else {
                                     ToastUtils.showShort("没有更多数据了");
