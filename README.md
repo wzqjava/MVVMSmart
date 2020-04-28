@@ -243,7 +243,7 @@ BaseViewModelMVVM与BaseFragmentMVVM通过StateLiveData来处理常用UI逻辑�
 > BaseActivityMVVM的使用和BaseFragmentMVVM几乎一样(BaseFragmentMVVM中单独处理的配合navigation)，详情参考Sample。
 
 ### 2.2、数据绑定
-> 拥有databinding框架自带的双向绑定，配合LiveData使用,逻辑特别清晰
+##### 2.2.1、传统绑定
 绑定用户数据：
 在FormViewModel中定义
 ```kotlin
@@ -256,7 +256,27 @@ entity = mBundle.getSerializable("entity") as FormEntity
 ```
 这样一来，输入框中输入了什么，userName.get()的内容就是什么，userName.set("")设置什么，输入框中就显示什么。
 **注意：** @符号后面需要加=号才能达到双向绑定效果；userName需要是public的，不然viewModel无法找到它。
-##### 2.2.1、自定义ImageView图片加载
+**去除晦涩难懂的自定义命令绑定,特别是在viewMode中绑定事件儿,处理跳转等,非常不建议,应该交给UI层,viewmodel层也不应持有View层的东西**
+##### 2.2.1、点击事件绑定：
+
+在FormFragment中定义
+```java
+//按钮的点击事件
+fun commitClick() {
+            Toast.makeText(activity, "触发提交按钮", Toast.LENGTH_SHORT).show()
+            val submitJson = Gson().toJson(viewModel.entityLiveData.value)
+//            MaterialDialogUtils.Companion.showBasicDialog(context, "提交的json实体数据：\r\n$submitJson").show()
+        }
+```
+在登录按钮标签中绑定
+```xml
+  android:onClick="@{() ->presenter.commitClick()}" // 多个点击事件的话,可以参考我的放到Presenter中,几种管理,结构清晰
+```
+这样一来，用户的点击事件直接被回调到ViewModel层了，更好的维护了业务逻辑
+
+这就是强大的databinding框架双向绑定的特性，不用再给控件定义id，setText()，setOnClickListener()。
+
+##### 2.2.3、自定义ImageView图片加载
 绑定图片路径：
 
 在ViewModel中定义
