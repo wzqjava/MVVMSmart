@@ -5,7 +5,7 @@
 1. 上线kotlin稳定版
 2. 增加recyclerview无数据的默认页,同时支持其他任何布局层次无数据的默认页,一行代码显示默认页
 ## 中文文档
-建议大家用clone的方式下载开源框架,方便及时更新,建议大家使用kotlin项目,毕竟是Android的第一语言,越用约开心。
+建议大家用clone的方式下载开源框架,方便及时更新,建议大家使用kotlin项目,毕竟是Android的第一语言,越用越开心。
 1. MVVMsmart-kotlin地址:   https://github.com/wzqjava/MVVMSmart-kotlin
 2. MVVMsmart-java地址:   https://github.com/wzqjava/MVVMSmart
 3. AndroidStudio 从github下载代码的正确姿势:https://juejin.im/post/5e09dd306fb9a01648718430	
