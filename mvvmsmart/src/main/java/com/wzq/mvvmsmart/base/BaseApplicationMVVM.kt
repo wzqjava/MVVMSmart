@@ -16,7 +16,15 @@ open class BaseApplicationMVVM : Application() {
     }
 
     companion object {
-        private var sInstance: Application? = null
+        private lateinit var sInstance: Application
+
+        /**
+         * 获得当前app运行的Application
+         */
+        val instance: Application
+            get() {
+                return sInstance
+            }
 
         /**
          * 当主工程没有继承BaseApplication时，可以使用setApplication方法初始化BaseApplication
@@ -32,30 +40,21 @@ open class BaseApplicationMVVM : Application() {
             //注册监听每个activity的生命周期,便于堆栈式管理
             application.registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
                 override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-                    AppManagerMVVM.appManager?.addActivity(activity)
+                    AppManagerMVVM.get().addActivity(activity)
                 }
 
                 override fun onActivityStarted(activity: Activity) {}
                 override fun onActivityResumed(activity: Activity) {}
                 override fun onActivityPaused(activity: Activity) {}
                 override fun onActivityStopped(activity: Activity) {}
-                override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle?) {} // todo 是否必须加?,可为null
+                override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle?) {}
                 override fun onActivityDestroyed(activity: Activity) {
-                    AppManagerMVVM.appManager?.removeActivity(activity)
+                    AppManagerMVVM.get().removeActivity(activity)
 
                 }
             })
         }
 
-        /**
-         * 获得当前app运行的Application
-         */
-        val instance: Application?
-            get() {
-                if (sInstance == null) {
-                    throw NullPointerException("please inherit BaseApplicationMVVM or call setApplication.")
-                }
-                return sInstance
-            }
+
     }
 }
