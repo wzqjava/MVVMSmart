@@ -4,15 +4,15 @@ import android.app.Activity
 import androidx.fragment.app.Fragment
 import java.util.*
 
+/**
+ * UI管理类,任何地方可以安全退出程序
+ */
 class AppManagerMVVM private constructor() {
     /**
      * 添加Activity到堆栈
      */
     fun addActivity(activity: Activity?) {
-        if (activityStack == null) {
-            activityStack = Stack()
-        }
-        activityStack!!.add(activity)
+        activityStack.add(activity)
     }
 
     /**
@@ -20,7 +20,7 @@ class AppManagerMVVM private constructor() {
      */
     fun removeActivity(activity: Activity?) {
         if (activity != null) {
-            activityStack!!.remove(activity)
+            activityStack.remove(activity)
         }
     }
 
@@ -28,22 +28,21 @@ class AppManagerMVVM private constructor() {
      * 是否有activity
      */
     val isActivity: Boolean
-        get() = if (activityStack != null) {
-            !activityStack!!.isEmpty()
-        } else false
+        get() = activityStack.isEmpty()
+
 
     /**
      * 获取当前Activity（堆栈中最后一个压入的）
      */
     fun currentActivity(): Activity? {
-        return activityStack!!.lastElement()
+        return activityStack.lastElement()
     }
 
     /**
      * 结束当前Activity（堆栈中最后一个压入的）
      */
     fun finishActivity() {
-        val activity = activityStack!!.lastElement()
+        val activity = activityStack.lastElement()
         finishActivity(activity)
     }
 
@@ -62,8 +61,8 @@ class AppManagerMVVM private constructor() {
      * 结束指定类名的Activity
      */
     fun finishActivity(cls: Class<*>) {
-        for (activity in activityStack!!) {
-            if (activity!!.javaClass == cls) {
+        for (activity in activityStack) {
+            if (activity.javaClass == cls) {
                 finishActivity(activity)
                 break
             }
@@ -75,14 +74,14 @@ class AppManagerMVVM private constructor() {
      */
     private fun finishAllActivity() {
         var i = 0
-        val size = activityStack!!.size
+        val size = activityStack.size
         while (i < size) {
-            if (null != activityStack!![i]) {
-                finishActivity(activityStack!![i])
+            if (null != activityStack[i]) {
+                finishActivity(activityStack[i])
             }
             i++
         }
-        activityStack!!.clear()
+        activityStack.clear()
     }
 
     /**
@@ -91,8 +90,8 @@ class AppManagerMVVM private constructor() {
      * @author kymjs
      */
     fun getActivity(cls: Class<*>): Activity? {
-        if (activityStack != null) for (activity in activityStack!!) {
-            if (activity!!.javaClass == cls) {
+         for (activity in activityStack) {
+            if (activity.javaClass == cls) {
                 return activity
             }
         }
@@ -103,10 +102,7 @@ class AppManagerMVVM private constructor() {
      * 添加Fragment到堆栈
      */
     fun addFragment(fragment: Fragment) {
-        if (fragmentStack == null) {
-            fragmentStack = Stack()
-        }
-        fragmentStack!!.add(fragment)
+        fragmentStack.add(fragment)
     }
 
     /**
@@ -114,7 +110,7 @@ class AppManagerMVVM private constructor() {
      */
     fun removeFragment(fragment: Fragment?) {
         if (fragment != null) {
-            fragmentStack!!.remove(fragment)
+            fragmentStack.remove(fragment)
         }
     }
 
@@ -122,17 +118,14 @@ class AppManagerMVVM private constructor() {
      * 是否有Fragment
      */
     val isFragment: Boolean
-        get() = if (fragmentStack != null) {
-            !fragmentStack!!.isEmpty()
-        } else false
+        get() = fragmentStack.isEmpty()
 
     /**
      * 获取当前Activity（堆栈中最后一个压入的）
      */
     fun currentFragment(): Fragment? {
-        return if (fragmentStack != null) {
-            fragmentStack!!.lastElement()
-        } else null
+        return fragmentStack.lastElement()
+
     }
 
     /**
@@ -149,30 +142,27 @@ class AppManagerMVVM private constructor() {
 //            其实android的机制决定了用户无法完全退出应用，当你的application最长时间没有被用过的时候，android自身会决定将application关闭了。
             //System.exit(0);
         } catch (e: Exception) {
-            activityStack!!.clear()
+            activityStack.clear()
             e.printStackTrace()
         }
     }
 
     companion object {
-        var activityStack: Stack<Activity?>? = null
+        var activityStack: Stack<Activity> = Stack()
             private set
-        var fragmentStack: Stack<Fragment>? = null
+        var fragmentStack: Stack<Fragment> = Stack()
             private set
         private var instance: AppManagerMVVM? = null
-
-        /**
-         * 单例模式
-         *
-         * @return AppManagerMVVM
-         */
-        val appManager: AppManagerMVVM?
             get() {
-                if (instance == null) {
-                    instance = AppManagerMVVM()
+                if (field == null) {
+                    field = AppManagerMVVM()
                 }
-                return instance
+                return field
             }
+
+        fun get(): AppManagerMVVM {
+            return instance!!
+        }
 
     }
 }
