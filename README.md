@@ -4,6 +4,7 @@
 ## 最新日志 **v2.0：2020年4月28日**
 1. 上线kotlin稳定版
 2. 增加recyclerview无数据的默认页,同时支持其他任何布局层次无数据的默认页,一行代码显示默认页
+3. 优化任何页面一行代码退出程序, AppManagerMVVM堆栈管理(2020.04.29)
 ## 中文文档
 建议大家用clone的方式下载开源框架,方便及时更新,建议大家使用kotlin项目,毕竟是Android的第一语言,越用约开心。
 1. MVVMsmart-kotlin地址:   https://github.com/wzqjava/MVVMSmart-kotlin
