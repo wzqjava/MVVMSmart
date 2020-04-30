@@ -13,7 +13,6 @@ import retrofit2.http.Query;
 public interface TokenService {
     /**
      * 刷新token接口
-     *
      * @param refreshToken
      * @return
      */

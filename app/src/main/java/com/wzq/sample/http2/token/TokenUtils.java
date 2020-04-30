@@ -56,7 +56,7 @@ public class TokenUtils {
     public static String getNewToken() {
         final ConditionVariable variable = new ConditionVariable();
         // 通过获取token的接口，同步请求接口
-        if (MmkvUtils.getStringValue("refreshToken").equals("")) {
+        if ("".equals(MmkvUtils.getStringValue("refreshToken"))) {
             return "";
         }
         final String[] newToken = new String[1];

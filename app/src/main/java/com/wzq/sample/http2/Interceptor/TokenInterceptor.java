@@ -13,9 +13,10 @@ import okhttp3.Response;
 
 /**
  * created 王志强 2020.04.30
+ * 拦截token,刷新token
  */
 public class TokenInterceptor implements Interceptor {
-    private static final String TAG = TokenInterceptor.class.getSimpleName();
+//    private static final String TAG = TokenInterceptor.class.getSimpleName();
 
     @Override
     public Response intercept(Chain chain) throws IOException {
@@ -25,9 +26,7 @@ public class TokenInterceptor implements Interceptor {
         //如果token过期 再去重新请求token 然后设置token的请求头 重新发起请求 用户无感
         String content = proceed.body().string();
 
-        if (!MmkvUtils.getStringValue("refreshToken").equals("")) {
-
-
+        if (!"".equals(MmkvUtils.getStringValue("refreshToken"))) {
             //根据和服务端的约定判断token过期
             if (TokenUtils.isTokenExpired(content)) {
                 KLog.INSTANCE.e("自动刷新Token,然后重新请求数据");
@@ -51,7 +50,6 @@ public class TokenInterceptor implements Interceptor {
                 .body(okhttp3.ResponseBody.create(mediaType, content))
                 .build();
     }
-
 
 
 }

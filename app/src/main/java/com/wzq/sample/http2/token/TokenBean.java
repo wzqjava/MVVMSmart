@@ -2,6 +2,7 @@ package com.wzq.sample.http2.token;
 
 /**
  * created 王志强 2020.04.30
+ * 和服务器约定的TokenBena(不同公司字段略有差异,任意修改即可)
  */
 public class TokenBean {
 

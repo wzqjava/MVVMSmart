@@ -32,6 +32,8 @@ import okio.BufferedSource;
 /**
  * 网络公用拦截器
  * created 王志强 2020.04.30
+ * degbug模式自动打印请求的接口地址
+ * degbug模式自动打印Server返回的json(Warning级别查看,Error级别一行显示)
  */
 public class HttpCommonInterceptor implements Interceptor {
     private static final String TAG = HttpCommonInterceptor.class.getSimpleName();
@@ -83,9 +85,8 @@ public class HttpCommonInterceptor implements Interceptor {
 
     /**
      * 添加header
-     *
-     * @param request
-     * @return
+     * @param request 请求的request
+     * @return Request
      */
     private Request addHeader(Request request) {
         String uuidStr = UUID.randomUUID().toString();
