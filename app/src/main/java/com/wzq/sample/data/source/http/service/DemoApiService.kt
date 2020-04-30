@@ -5,6 +5,9 @@ import com.wzq.sample.bean.DemoBean
 import io.reactivex.Observable
 import retrofit2.http.*
 
+/**
+ * created 王志强 2020.04.30
+ */
 interface DemoApiService {
     @GET("action/apiv2/banner")
     fun demoGet(@Query("catalog") pageNum: Int): Observable<BaseResponse<DemoBean>>
@@ -15,4 +18,5 @@ interface DemoApiService {
 
     @get:GET("getJsonFile")
     val jsonFile: Observable<BaseResponse<Any>>
+
 }

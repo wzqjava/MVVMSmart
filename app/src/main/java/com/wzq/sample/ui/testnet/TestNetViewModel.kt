@@ -2,50 +2,84 @@ package com.wzq.sample.ui.testnet
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import com.wzq.mvvmsmart.utils.RxUtils
+import com.wzq.mvvmsmart.utils.KLog
 import com.wzq.sample.base.BaseViewModel
-import com.wzq.sample.data.source.http.service.DemoApiService
-import com.wzq.sample.utils.RetrofitClient
+import com.wzq.sample.bean.User
+import com.wzq.sample.http2.listener.OnServerResponseListener
+import com.wzq.sample.http2.model.BaseResponse
+import com.wzq.sample.http2.service2.MRequest
+import com.wzq.sample.http2.utils.GsonUtil
+import java.util.*
 
 /**
  * 王志强
  * Create Date：2019/01/25
- * Description：
+ * Description：业务类
  */
 class TestNetViewModel(application: Application) : BaseViewModel(application) {
     //给RecyclerView添加ObservableList
-    var resultJson: MutableLiveData<String?> = MutableLiveData()
+    var userLiveData = MutableLiveData<User>()
 
-    //线程调度,compose操作符是直接对当前Observable进行操作（可简单理解为不停地.方法名（）.方法名（）链式操作当前Observable）
-    // 网络错误的异常转换, 这里可以换成自己的ExceptionHandle
-    //  请求与ViewModel周期同步
-    val data: Unit
-        get() {
-            val apiService: DemoApiService = RetrofitClient.instance.create(DemoApiService::class.java)
-            apiService.jsonFile
-                    .compose(RxUtils.observableToMain()) //线程调度,compose操作符是直接对当前Observable进行操作（可简单理解为不停地.方法名（）.方法名（）链式操作当前Observable）
-                    .compose(RxUtils.exceptionTransformer()) // 网络错误的异常转换, 这里可以换成自己的ExceptionHandle
-                    .doOnSubscribe(this@TestNetViewModel) //  请求与ViewModel周期同步
-                    .subscribe()
+    /**
+    线程调度,compose操作符是直接对当前Observable进行操作（可简单理解为不停地.方法名（）.方法名（）链式操作当前Observable）
+    网络错误的异常转换, 这里可以换成自己的ExceptionHandle
+    请求与ViewModel周期同步
+    获取个人信息
+     */
 
-            /* object : Observer<BaseResponse<>> {
-                 override fun onSubscribe(d: Disposable) {
-                     KLog.e("开始请求...")
-                 }
+    fun getPersonalSummary() {
+        val param: Map<String, String> = HashMap()
+        MRequest.getInstance().getPersonalSummary(null, 0, GsonUtil.bean2String(param), object : OnServerResponseListener<User> {
+            override fun success(what: Int, isQualified: Boolean, response: BaseResponse<User>) {
+                KLog.e("=====success=========");
+                when (what) {
+                    0 -> {
+                        KLog.e(response.data)
+                        val user: User = response.data as User
+                        userLiveData.value = user
+//                        KLog.e(user.toString())
+                    }
+                    else -> {
+                    }
+                }
+            }
 
-                 override fun onNext(response: BaseResponse<Any?>) {
-                     KLog.e("返回数据: $response")
-                     resultJson.postValue(response.toString())
-                 }
+            override fun error(what: Int, throwable: Throwable?) {
+                KLog.e("=====error=========throwable:" + throwable?.message);
+            }
 
-                 override fun onError(throwable: Throwable) {
-                     KLog.e("进入onError" + throwable.message)
-                 }
+            override fun reTry(what: Int) {
+                KLog.e("=====reTry=========");
+            }
+        })
+    }
 
-                 override fun onComplete() {
-                     KLog.e("进入onComplete")
-                 }
-             }*/
-        }
+    // 获取个人信息2
+    fun getPersonalSummary2() {
+        val param: Map<String, String> = HashMap()
+        MRequest.getInstance().getPersonalSummary2(null, 0, GsonUtil.bean2String(param), object : OnServerResponseListener<User> {
+            override fun success(what: Int, isQualified: Boolean, response: BaseResponse<User>) {
+                KLog.e("=====success=========");
+                when (what) {
+                    0 -> {
+                        KLog.e(response.data)
+                        val user: User = response.data as User
+                        userLiveData.value = user
+//                        KLog.e(user.toString())
+                    }
+                    else -> {
+                    }
+                }
+            }
+
+            override fun error(what: Int, throwable: Throwable?) {
+                KLog.e("=====error=========throwable:" + throwable?.message);
+            }
+
+            override fun reTry(what: Int) {
+                KLog.e("=====reTry=========");
+            }
+        })
+    }
 
 }

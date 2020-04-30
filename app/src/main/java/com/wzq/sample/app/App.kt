@@ -5,6 +5,7 @@ import com.jeremyliao.liveeventbus.LiveEventBus
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
+import com.tencent.mmkv.MMKV
 import com.wzq.mvvmsmart.base.BaseApplicationMVVM
 import com.wzq.mvvmsmart.utils.KLog
 import com.wzq.sample.BuildConfig
@@ -18,6 +19,7 @@ class App : BaseApplicationMVVM() {
         KLog.init(BuildConfig.DEBUG)
         //初始化全局异常崩溃
         initCrash()
+        MMKV.initialize(this)
         LiveEventBus
                 .config()
                 .supportBroadcast(this) // 配置支持跨进程、跨APP通信，传入Context，需要在application onCreate中配置
