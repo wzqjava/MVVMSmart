@@ -6,9 +6,9 @@ import com.wzq.mvvmsmart.utils.KLog
 import com.wzq.sample.base.BaseViewModel
 import com.wzq.sample.bean.User
 import com.wzq.sample.http2.listener.OnServerResponseListener
-import com.wzq.sample.http2.model.BaseResponse
+import com.wzq.sample.http2.base.BaseResponse
 import com.wzq.sample.http2.service2.MRequest
-import com.wzq.sample.http2.utils.GsonUtil
+import com.wzq.sample.http2.net_utils.GsonUtil
 import java.util.*
 
 /**
@@ -30,12 +30,12 @@ class TestNetViewModel(application: Application) : BaseViewModel(application) {
     fun getPersonalSummary() {
         val param: Map<String, String> = HashMap()
         MRequest.getInstance().getPersonalSummary(null, 0, GsonUtil.bean2String(param), object : OnServerResponseListener<User> {
-            override fun success(what: Int, isQualified: Boolean, response: BaseResponse<User>) {
+            override fun success(what: Int, isQualified: Boolean, baseResponse: BaseResponse<User>) {
                 KLog.e("=====success=========");
                 when (what) {
                     0 -> {
-                        KLog.e(response.data)
-                        val user: User = response.data as User
+                        KLog.e(baseResponse.data)
+                        val user: User = baseResponse.data as User
                         userLiveData.value = user
 //                        KLog.e(user.toString())
                     }
@@ -58,12 +58,12 @@ class TestNetViewModel(application: Application) : BaseViewModel(application) {
     fun getPersonalSummary2() {
         val param: Map<String, String> = HashMap()
         MRequest.getInstance().getPersonalSummary2(null, 0, GsonUtil.bean2String(param), object : OnServerResponseListener<User> {
-            override fun success(what: Int, isQualified: Boolean, response: BaseResponse<User>) {
+            override fun success(what: Int, isQualified: Boolean, baseResponse: BaseResponse<User>) {
                 KLog.e("=====success=========");
                 when (what) {
                     0 -> {
-                        KLog.e(response.data)
-                        val user: User = response.data as User
+                        KLog.e(baseResponse.data)
+                        val user: User = baseResponse.data as User
                         userLiveData.value = user
 //                        KLog.e(user.toString())
                     }

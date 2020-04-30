@@ -5,8 +5,8 @@ import android.content.Context;
 
 import com.wzq.sample.bean.User;
 import com.wzq.sample.http2.listener.OnServerResponseListener;
-import com.wzq.sample.http2.model.BaseResponse;
-import com.wzq.sample.http2.model.BaseVmRequst;
+import com.wzq.sample.http2.base.BaseResponse;
+import com.wzq.sample.http2.base.BaseRequest;
 import com.wzq.sample.http2.service.DemoApiService;
 
 import io.reactivex.Observable;
@@ -17,7 +17,7 @@ import okhttp3.RequestBody;
  * author :王志强
  * date   : 2019/11/12 11:10
  */
-public class MRequest extends BaseVmRequst {
+public class MRequest extends BaseRequest {
     private DemoApiService service;
 
     public static MRequest getInstance() {

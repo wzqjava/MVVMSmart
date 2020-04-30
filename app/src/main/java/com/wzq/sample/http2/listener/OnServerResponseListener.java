@@ -1,7 +1,7 @@
 package com.wzq.sample.http2.listener;
 
 
-import com.wzq.sample.http2.model.BaseResponse;
+import com.wzq.sample.http2.base.BaseResponse;
 
 /**
  * created 王志强 2020.04.30
@@ -9,11 +9,11 @@ import com.wzq.sample.http2.model.BaseResponse;
 public interface OnServerResponseListener<T> {
     /**
      * 服务器成功返回
-     * @param what
+     * @param what 请求标记位
      * @param isQualified 返回的数据是否合格
-     * @param t
+     * @param baseResponse 网络返回Response
      */
-    void success(int what, boolean isQualified, BaseResponse<T> t);
+    void success(int what, boolean isQualified, BaseResponse<T> baseResponse);
 
     /**
      * 返回错误

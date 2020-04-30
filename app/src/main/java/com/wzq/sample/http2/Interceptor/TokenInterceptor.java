@@ -3,7 +3,7 @@ package com.wzq.sample.http2.Interceptor;
 
 import com.wzq.mvvmsmart.utils.KLog;
 import com.wzq.sample.http2.token.TokenUtils;
-import com.wzq.sample.http2.utils.MmkvUtils;
+import com.wzq.sample.http2.net_utils.MmkvUtils;
 
 import java.io.IOException;
 

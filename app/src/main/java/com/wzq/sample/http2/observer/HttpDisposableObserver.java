@@ -4,14 +4,11 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.wzq.sample.http2.base.BaseResponse;
 import com.wzq.sample.http2.listener.OnServerResponseListener;
 import com.wzq.sample.http2.listener.OnServerResponseListener2;
-import com.wzq.sample.http2.manager.HttpResponseManager;
-import com.wzq.sample.http2.model.BaseResponse;
-import com.wzq.sample.http2.utils.Utils;
-
+import com.wzq.sample.http2.net_utils.Utils;
 import java.lang.reflect.Type;
-
 import io.reactivex.observers.DisposableObserver;
 import okhttp3.ResponseBody;
 import retrofit2.HttpException;
@@ -19,7 +16,7 @@ import retrofit2.HttpException;
 /**
  * created 王志强 2020.04.30
  */
-public class HttpObserver<T> extends DisposableObserver<BaseResponse<T>> {
+public class HttpDisposableObserver<T> extends DisposableObserver<BaseResponse<T>> {
     // 刷新 token
     private final static int EXPIRED_TOKEN = 2007;//（expired_token）- token过期
 
@@ -72,17 +69,16 @@ public class HttpObserver<T> extends DisposableObserver<BaseResponse<T>> {
      */
     private boolean isAllErrorResponse;
 
-    public HttpObserver(Context context, int what, OnServerResponseListener<T> listener) {
+    public HttpDisposableObserver(Context context, int what, OnServerResponseListener<T> listener) {
         this(context, what, true, listener);
     }
 
 
-    public HttpObserver(Context context, int what, boolean isAllErrorResponse, OnServerResponseListener<T> listener) {
+    public HttpDisposableObserver(Context context, int what, boolean isAllErrorResponse, OnServerResponseListener<T> listener) {
         this.context = context;
         this.what = what;
         this.isAllErrorResponse = isAllErrorResponse;
         this.listener = listener;
-        HttpResponseManager.getInstance().addRequest(context, what, this);
     }
 
 
@@ -136,7 +132,6 @@ public class HttpObserver<T> extends DisposableObserver<BaseResponse<T>> {
 
     @Override
     public void onError(Throwable throwable) {
-
         try {
             if (throwable instanceof HttpException) {//处理服务器返回的非成功异常
                 ResponseBody responseBody = ((HttpException) throwable).response().errorBody();
@@ -145,8 +140,8 @@ public class HttpObserver<T> extends DisposableObserver<BaseResponse<T>> {
                     Type type = new TypeToken<BaseResponse<Object>>() {
                     }.getType();
 
-                    BaseResponse baseModel = new Gson().fromJson(responseBody.string(), type);
-                    onNext(baseModel);
+                    BaseResponse baseResponse = new Gson().fromJson(responseBody.string(), type);
+                    onNext(baseResponse);
 
                 } else {
                     if (listener != null)
@@ -166,7 +161,6 @@ public class HttpObserver<T> extends DisposableObserver<BaseResponse<T>> {
         if (!this.isDisposed()) {
             this.dispose();
         }
-        HttpResponseManager.getInstance().remveRequest(context, what);
     }
 
     @Override
@@ -177,7 +171,6 @@ public class HttpObserver<T> extends DisposableObserver<BaseResponse<T>> {
         if (!this.isDisposed()) {
             this.dispose();
         }
-        HttpResponseManager.getInstance().remveRequest(context, what);
     }
 
 }

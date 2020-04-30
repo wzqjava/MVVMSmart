@@ -1,7 +1,8 @@
-package com.wzq.sample.http2.model;
+package com.wzq.sample.http2.base;
 
 /**
  * created 王志强 2020.04.30
+ * 根据服务器返回决定字段(不同公司字段有差异,任意修改即可)
  */
 public class BaseResponse<T> {
     private int currentTime;

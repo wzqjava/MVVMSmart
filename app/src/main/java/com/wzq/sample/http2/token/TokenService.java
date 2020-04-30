@@ -1,7 +1,7 @@
 package com.wzq.sample.http2.token;
 
 
-import com.wzq.sample.http2.model.BaseResponse;
+import com.wzq.sample.http2.base.BaseResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

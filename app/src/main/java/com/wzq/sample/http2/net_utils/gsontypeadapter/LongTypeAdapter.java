@@ -1,4 +1,4 @@
-package com.wzq.sample.http2.utils.gsontypeadapter;
+package com.wzq.sample.http2.net_utils.gsontypeadapter;
 
 import android.util.Log;
 
@@ -12,13 +12,14 @@ import java.io.IOException;
 /**
  * created 王志强 2020.04.30
  */
-public class IntegerTypeAdapter extends TypeAdapter<Integer> {
+public class LongTypeAdapter extends TypeAdapter<Long> {
+
 
     @Override
-    public void write(JsonWriter out, Integer value)throws IOException {
+    public void write(JsonWriter out, Long value) throws IOException {
         try {
             if (value == null){
-                value = 0;
+                value = 0L;
             }
             out.value(value);
         } catch (Exception e) {
@@ -27,34 +28,34 @@ public class IntegerTypeAdapter extends TypeAdapter<Integer> {
     }
 
     @Override
-    public Integer read(JsonReader in)throws IOException {
+    public Long read(JsonReader in) throws IOException {
         try {
-            Integer value;
+            Long value;
             if (in.peek() == JsonToken.NULL) {
                 in.nextNull();
                 Log.e("TypeAdapter", "null is not a number");
-                return 0;
+                return 0L;
             }
             if (in.peek() == JsonToken.BOOLEAN) {
                 boolean b = in.nextBoolean();
                 Log.e("TypeAdapter", b + " is not a number");
-                return 0;
+                return 0L;
             }
             if (in.peek() == JsonToken.STRING) {
                 String str = in.nextString();
                 if (NumberUtils.isIntOrLong(str)){
-                    return Integer.parseInt(str);
+                    return Long.parseLong(str);
                 } else {
                     Log.e("TypeAdapter", str + " is not a int number");
-                    return 0;
+                    return 0L;
                 }
             } else {
-                value = in.nextInt();
+                value = in.nextLong();
                 return value;
             }
         } catch (Exception e) {
             Log.e("TypeAdapter", "Not a number", e);
         }
-        return 0;
+        return 0L;
     }
 }

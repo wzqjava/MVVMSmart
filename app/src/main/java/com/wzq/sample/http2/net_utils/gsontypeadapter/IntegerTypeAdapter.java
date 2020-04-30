@@ -1,4 +1,4 @@
-package com.wzq.sample.http2.utils.gsontypeadapter;
+package com.wzq.sample.http2.net_utils.gsontypeadapter;
 
 import android.util.Log;
 
@@ -12,49 +12,49 @@ import java.io.IOException;
 /**
  * created 王志强 2020.04.30
  */
-public class FloatTypeAdapter extends TypeAdapter<Float> {
+public class IntegerTypeAdapter extends TypeAdapter<Integer> {
+
     @Override
-    public void write(JsonWriter out, Float value) throws IOException {
+    public void write(JsonWriter out, Integer value)throws IOException {
         try {
             if (value == null){
-                value = 0F;
+                value = 0;
             }
-            out.value(value.toString());
+            out.value(value);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public Float read(JsonReader in) throws IOException {
+    public Integer read(JsonReader in)throws IOException {
         try {
-            Float value;
+            Integer value;
             if (in.peek() == JsonToken.NULL) {
                 in.nextNull();
                 Log.e("TypeAdapter", "null is not a number");
-                return 0F;
+                return 0;
             }
             if (in.peek() == JsonToken.BOOLEAN) {
                 boolean b = in.nextBoolean();
                 Log.e("TypeAdapter", b + " is not a number");
-                return 0F;
+                return 0;
             }
             if (in.peek() == JsonToken.STRING) {
                 String str = in.nextString();
-                if (NumberUtils.isFloatOrDouble(str)){
-                    return Float.parseFloat(str);
+                if (NumberUtils.isIntOrLong(str)){
+                    return Integer.parseInt(str);
                 } else {
-                    Log.e("TypeAdapter", str + " is not a number");
-                    return 0F;
+                    Log.e("TypeAdapter", str + " is not a int number");
+                    return 0;
                 }
             } else {
-                String str = in.nextString();
-                value = Float.valueOf(str);
+                value = in.nextInt();
+                return value;
             }
-            return value;
         } catch (Exception e) {
             Log.e("TypeAdapter", "Not a number", e);
         }
-        return 0F;
+        return 0;
     }
 }

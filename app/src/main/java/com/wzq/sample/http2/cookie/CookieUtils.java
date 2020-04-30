@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 
-import com.wzq.sample.http2.utils.MetaDataUtil;
+import com.wzq.sample.http2.net_utils.MetaDataUtil;
 
 
 /**

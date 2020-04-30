@@ -3,8 +3,31 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+def releaseTime() {
+    return new Date().format("yyyyMMdd-HH")
+}
+
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
+    signingConfigs {
+        debug {
+            keyAlias 'xxx'
+            keyPassword 'xxx'
+            storeFile file(rootProject.getRootDir().getAbsolutePath() + '/readapp.jks')
+            storePassword 'xxx'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+
+        release {
+            keyAlias 'xxx'
+            keyPassword 'xxx'
+            storeFile file(rootProject.getRootDir().getAbsolutePath() + '/readapp.jks')
+            storePassword 'xxx'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
     defaultConfig {
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
@@ -17,7 +40,7 @@ android {
     dataBinding {
         enabled true
     }
-    androidExtensions{
+    androidExtensions {
         experimental = true
     }
     compileOptions {
@@ -27,11 +50,66 @@ android {
     lintOptions {
         abortOnError false
     }
+
+
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            //Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
         }
+        debug {
+            minifyEnabled false
+            //Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    // 渠道包定义，默认定义的名称就是渠道名称
+    productFlavors {
+        // 1:线下, 0:线上;
+        dev {
+            manifestPlaceholders = [ENVIRONMENT: "1", LOG_ENABLE: "1", CHANNEL_ID: "dev", SCREENPORTRAIT: "1", APP_VERSION: rootProject.ext.android.versionCode]
+        }
+        qa {
+            manifestPlaceholders = [ENVIRONMENT: "4", LOG_ENABLE: "1", CHANNEL_ID: "qa", SCREENPORTRAIT: "1", APP_VERSION: rootProject.ext.android.versionCode]
+        }
+       /* huawei {
+            manifestPlaceholders = [ENVIRONMENT: "2", LOG_ENABLE: "0", CHANNEL_ID: "biaozhun", SCREENPORTRAIT: "1", APP_VERSION: rootProject.ext.android.versionCode]
+        }*/
+
+    }
+    //参考：https://blog.csdn.net/lablenet/article/details/78391457
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                def fileName = outputFileName.replace("app", "MVVMSmart")
+                // 中段(保持不变)
+                //fileName = fileName.replace("-ceshi", "")
+                // 尾端
+                if (fileName.contains("-dev"))
+                    fileName = fileName.replace(".apk", "_v${defaultConfig.versionName}_t${releaseTime()}.apk")
+                else
+                    fileName = fileName.replace(".apk", "_v${defaultConfig.versionName}.apk")
+                //output.outputFile = new File(outputFile.parent, fileName)
+                outputFileName = fileName
+            }
+        }
+    }
+
+    //添加 https://www.jianshu.com/p/434928537a90
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -49,7 +127,8 @@ dependencies {
     api rootProject.ext.dependencies["smartRefreshLayout"] // 刷新框架
     implementation "androidx.room:room-runtime:2.2.5"
     kapt "android.arch.persistence.room:compiler:2.2.3"     // java
-    annotationProcessor "androidx.room:room-compiler:2.2.5" // For Kotlin use kapt instead of annotationProcessor
+    annotationProcessor "androidx.room:room-compiler:2.2.5"
+    // For Kotlin use kapt instead of annotationProcessor
     //material-dialogs
     api rootProject.ext.dependencies["material-dialogs-core"]
     api rootProject.ext.dependencies["material-dialogs-commons"]
@@ -59,4 +138,8 @@ dependencies {
 }
 repositories {
     mavenCentral()
+}
+
+task removeAppBuildDir(type: Delete) {
+    new File("build").deleteDir()
 }

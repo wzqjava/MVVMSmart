@@ -1,14 +1,11 @@
-package com.wzq.sample.http2.model;
+package com.wzq.sample.http2.base;
 
 
 import android.accounts.NetworkErrorException;
-
-import com.wzq.sample.http2.utils.Utils;
-
+import com.wzq.sample.http2.net_utils.Utils;
 import java.net.ConnectException;
 import java.net.UnknownHostException;
 import java.util.concurrent.TimeoutException;
-
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -38,26 +35,26 @@ public abstract class BaseObserver<T> implements Observer<BaseResponse<T>> {
     }
 
     @Override
-    public void onNext(BaseResponse<T> tBaseResponse) {
-        if (tBaseResponse != null && (tBaseResponse.getCode() == 0 || tBaseResponse.getCode() == 200)) {
-            onSuccess(tBaseResponse);
+    public void onNext(BaseResponse<T> baseResponse) {
+        if (baseResponse != null && (baseResponse.getCode() == 0 || baseResponse.getCode() == 200)) {
+            onSuccess(baseResponse);
         } else {
-            if (tBaseResponse.getCode() == INVALID_TOKEN
-                    || tBaseResponse.getCode() == UNAUTHORIZED
-                    || tBaseResponse.getCode() == SIGNATURE_DENIED
-                    || tBaseResponse.getCode() == BAD_CREDENTIALS
-                    || tBaseResponse.getCode() == UNAUTHORIZED_CLIENT
-                    || tBaseResponse.getCode() == INVALID_GRANT
-                    || tBaseResponse.getCode() == REDIRECT_URI_MISMATCH
-                    || tBaseResponse.getCode() == ACCOUNT_DISABLED
-                    || tBaseResponse.getCode() == ACCOUNT_EXPIRED
-                    || tBaseResponse.getCode() == CREDENTIALS_EXPIRED
-                    || tBaseResponse.getCode() == ACCOUNT_LOCKED
-                    || tBaseResponse.getCode() == USERNAME_NOT_FOUND
-                    || tBaseResponse.getCode() == ACCESS_DENIED_AUTHORITY_EXPIRED) {
-                Utils.toLogin();
+            if (baseResponse.getCode() == INVALID_TOKEN
+                    || baseResponse.getCode() == UNAUTHORIZED
+                    || baseResponse.getCode() == SIGNATURE_DENIED
+                    || baseResponse.getCode() == BAD_CREDENTIALS
+                    || baseResponse.getCode() == UNAUTHORIZED_CLIENT
+                    || baseResponse.getCode() == INVALID_GRANT
+                    || baseResponse.getCode() == REDIRECT_URI_MISMATCH
+                    || baseResponse.getCode() == ACCOUNT_DISABLED
+                    || baseResponse.getCode() == ACCOUNT_EXPIRED
+                    || baseResponse.getCode() == CREDENTIALS_EXPIRED
+                    || baseResponse.getCode() == ACCOUNT_LOCKED
+                    || baseResponse.getCode() == USERNAME_NOT_FOUND
+                    || baseResponse.getCode() == ACCESS_DENIED_AUTHORITY_EXPIRED) {
+                Utils.toLogin(); // 无效token,跳转到登陆
             } else
-                onCodeError(tBaseResponse);
+                onCodeError(baseResponse);
         }
     }
 
@@ -83,14 +80,14 @@ public abstract class BaseObserver<T> implements Observer<BaseResponse<T>> {
     }
 
     //请求成功且返回码为200的回调方法，这里抽象方法声明
-    public abstract void onSuccess(BaseResponse<T> tBaseResponse);
+    public abstract void onSuccess(BaseResponse<T> baseResponse);
 
     //请求成功但返回code码不是200的回调方法，这里抽象方法声明
-    public abstract void onCodeError(BaseResponse tBaseResponse);
+    public abstract void onCodeError(BaseResponse baseResponse);
 
     /***
      * 请求失败回调方法，这里抽象方法声明
-     * @param netWork 是否由于网络造成的失败 true是
+     * @param isCauseNetReason 是否由于网络造成的失败 true是
      */
-    public abstract void onFailure(Throwable e, boolean netWork) throws Exception;
+    public abstract void onFailure(Throwable throwable, boolean isCauseNetReason) throws Exception;
 }

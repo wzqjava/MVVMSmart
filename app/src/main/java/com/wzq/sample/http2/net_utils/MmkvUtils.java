@@ -1,4 +1,4 @@
-package com.wzq.sample.http2.utils;
+package com.wzq.sample.http2.net_utils;
 
 import com.tencent.mmkv.MMKV;
 import com.wzq.mvvmsmart.utils.KLog;

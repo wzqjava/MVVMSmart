@@ -8,10 +8,10 @@ import com.wzq.mvvmsmart.utils.KLog;
 import com.wzq.sample.BuildConfig;
 import com.wzq.sample.http2.OkHttpClientHelper;
 import com.wzq.sample.http2.cookie.CookieUtils;
-import com.wzq.sample.http2.utils.BaseCommonUtils;
-import com.wzq.sample.http2.utils.MetaDataUtil;
-import com.wzq.sample.http2.utils.MmkvUtils;
-import com.wzq.sample.http2.utils.Utils;
+import com.wzq.sample.http2.net_utils.BaseCommonUtils;
+import com.wzq.sample.http2.net_utils.MetaDataUtil;
+import com.wzq.sample.http2.net_utils.MmkvUtils;
+import com.wzq.sample.http2.net_utils.Utils;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

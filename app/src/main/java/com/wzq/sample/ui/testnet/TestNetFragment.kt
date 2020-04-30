@@ -9,7 +9,7 @@ import com.wzq.sample.BR
 import com.wzq.sample.R
 import com.wzq.sample.base.BaseFragment
 import com.wzq.sample.databinding.FragmentTestNetBinding
-import com.wzq.sample.http2.utils.MmkvUtils
+import com.wzq.sample.http2.net_utils.MmkvUtils
 
 /**
  * Create Date：2019/01/25

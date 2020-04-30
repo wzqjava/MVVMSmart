@@ -1,4 +1,4 @@
-package com.wzq.sample.http2.utils;
+package com.wzq.sample.http2.net_utils;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -23,13 +23,13 @@ import java.io.DataOutputStream;
 
 /**
  * created 王志强 2020.04.30
+ * 一般header中需要的参数获取工具类
  */
 
 public class BaseCommonUtils {
 
     /**
      * 是否强制竖屏
-     *
      * @param context
      * @return
      */
@@ -155,7 +155,6 @@ public class BaseCommonUtils {
     }
     /**
      * 获取SIM卡号
-     *
      * 用到的权限： <uses-permission
      * android:name="android.permission.READ_PHONE_STATE" />
      */
@@ -184,7 +183,6 @@ public class BaseCommonUtils {
     }
     /**
      * 获取imei
-     *
      * @return
      */
     public static String getIMEI() {
@@ -201,7 +199,6 @@ public class BaseCommonUtils {
 
     /**
      * 获取mac
-     *
      * @return
      */
     public static String getMAC() {
@@ -212,20 +209,6 @@ public class BaseCommonUtils {
         } catch (Exception e) {
             e.printStackTrace();
             return "";
-        }
-    }
-
-    public static boolean isLowVersionPAD() {
-        try {
-            String fingerprint = Build.FINGERPRINT;
-            if ((!TextUtils.isEmpty(fingerprint) && fingerprint.toLowerCase().contains("color")) || Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
-                //七彩虹或者Android版本低于4.4的不能运行
-                return true;
-            } else {
-                return false;
-            }
-        } catch (Exception e) {
-            return false;
         }
     }
 }

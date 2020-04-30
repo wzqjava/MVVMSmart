@@ -1,4 +1,4 @@
-package com.wzq.sample.http2.utils;
+package com.wzq.sample.http2.net_utils;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
@@ -50,49 +50,11 @@ public class MetaDataUtil {
     }
 
     /**
-     * 服务环境
-     *
-     * @return
-     */
-    public static int getEnvironment() {
-        try {
-            ApplicationInfo appInfo = getApp().getPackageManager().
-                    getApplicationInfo(getApp().getPackageName(),
-                            PackageManager.GET_META_DATA);
-            // 获取
-            return appInfo.metaData.getInt("DADA_ENVIRONMENT");
-        } catch (Exception e) {
-            // 3 || 4 为qa环境, 参考 Config的init方法
-//          return 3;
-//---------------------------------------------------------
-            // 1 为dev环境, 参考 Config的init方法
-            return 1;
-        }
-    }
-
-    /**
-     * 渠道
-     *
-     * @return
-     */
-    public static String getChannel() {
-        try {
-            ApplicationInfo appInfo = getApp().getPackageManager().
-                    getApplicationInfo(getApp().getPackageName(),
-                            PackageManager.GET_META_DATA);
-            return appInfo.metaData.getString("CHANNEL_ID");
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    /**
-     * 获取base url
-     *
-     * @return
+     * 封装dev, qa,  release的BaseUrl
+     * @return 获取base url
      */
     public static String getBaseUrl() {
-        String baseUrl = null;
+        String baseUrl = "";
         int serviceEnvironment = getEnvironment();
         switch (serviceEnvironment) {
             case 1://测试环境
@@ -112,6 +74,50 @@ public class MetaDataUtil {
         }
         return baseUrl;
     }
+
+
+    /**
+     * 服务环境 区分dev , qa , release;
+     * @return
+     */
+    public static int getEnvironment() {
+        try {
+            ApplicationInfo appInfo = getApp().getPackageManager().
+                    getApplicationInfo(getApp().getPackageName(),
+                            PackageManager.GET_META_DATA);
+            /**
+             * AndroidManifest中封装的元数据,
+             * DADA_ENVIRONMENT的值取自build.gradle文件中的productFlavors配置的ENVIRONMENT
+             *
+             *    <meta-data
+             *             android:name="DADA_ENVIRONMENT"
+             *             android:value="${ENVIRONMENT}" />
+             */
+            return appInfo.metaData.getInt("DADA_ENVIRONMENT");
+        } catch (Exception e) {
+            // 3 || 4 为qa环境, 参考 Config的init方法
+//          return 3;
+//---------------------------------------------------------
+            // 1 为dev环境, 参考 Config的init方法
+            return 1;
+        }
+    }
+
+    /**
+     * @return 渠道号
+     */
+    public static String getChannel() {
+        try {
+            ApplicationInfo appInfo = getApp().getPackageManager().
+                    getApplicationInfo(getApp().getPackageName(),
+                            PackageManager.GET_META_DATA);
+            return appInfo.metaData.getString("CHANNEL_ID");
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+
 
 
 }

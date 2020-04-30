@@ -4,10 +4,10 @@ import android.os.ConditionVariable;
 
 import com.google.gson.reflect.TypeToken;
 import com.wzq.mvvmsmart.utils.KLog;
-import com.wzq.sample.http2.model.BaseResponse;
-import com.wzq.sample.http2.utils.GsonUtil;
-import com.wzq.sample.http2.utils.MetaDataUtil;
-import com.wzq.sample.http2.utils.MmkvUtils;
+import com.wzq.sample.http2.base.BaseResponse;
+import com.wzq.sample.http2.net_utils.GsonUtil;
+import com.wzq.sample.http2.net_utils.MetaDataUtil;
+import com.wzq.sample.http2.net_utils.MmkvUtils;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -26,8 +26,6 @@ import okhttp3.Response;
  * created 王志强 2020.04.30
  */
 public class TokenUtils {
-
-
     public static boolean isTokenExpired(String response) {
         boolean isTokenExpired = false;
         try {
@@ -36,7 +34,7 @@ public class TokenUtils {
             BaseResponse<Object> baseResponse = GsonUtil.getGson().fromJson(response, type);
             if (baseResponse != null) {
                 int remainTime = MmkvUtils.getIntValue("expirationTime") - baseResponse.getCurrentTime();//过期时间现在单位是s
-//                MLog.e("token:remainTime----"+remainTime);
+//                KLog.e("token:remainTime----"+remainTime);
                 if (remainTime < 0) {
                     return false;
                 }
@@ -84,7 +82,6 @@ public class TokenUtils {
                     } else {
                         newToken[0] = MmkvUtils.getStringValue("accessToken");
                     }
-
                 } catch (IOException e) {
                     e.printStackTrace();
                     emitter.onNext("");

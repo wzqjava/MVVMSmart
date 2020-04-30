@@ -7,12 +7,9 @@ import java.util.Map;
  * created 王志强 2020.04.30
  * Get参数
  */
-public class GetParams extends BaseParams {
+public class ParamsLinkedHashMap extends BaseParamsLinkedHashMap {
     /**
      * 添加参数
-     *
-     * @param key
-     * @param object
      */
     public void addParams(String key, Object object) {
         this.put(key, object);
