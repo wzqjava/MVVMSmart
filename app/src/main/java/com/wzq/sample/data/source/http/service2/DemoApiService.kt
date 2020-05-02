@@ -1,7 +1,7 @@
 package com.wzq.sample.http2.service
 
 import com.wzq.sample.bean.User
-import com.wzq.sample.http2.model.BaseResponse
+import com.wzq.sample.http2.base.BaseResponse
 import io.reactivex.Observable
 import okhttp3.RequestBody
 import retrofit2.http.Body

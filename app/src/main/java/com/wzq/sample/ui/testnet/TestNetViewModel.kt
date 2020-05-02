@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import com.wzq.mvvmsmart.utils.KLog
 import com.wzq.sample.base.BaseViewModel
 import com.wzq.sample.bean.User
+import com.wzq.sample.data.source.http.service2.MRequest
 import com.wzq.sample.http2.listener.OnServerResponseListener
 import com.wzq.sample.http2.base.BaseResponse
-import com.wzq.sample.http2.service2.MRequest
 import com.wzq.sample.http2.net_utils.GsonUtil
 import java.util.*
 

@@ -41,7 +41,7 @@ public class FloatTypeAdapter extends TypeAdapter<Float> {
             }
             if (in.peek() == JsonToken.STRING) {
                 String str = in.nextString();
-                if (NumberUtils.isFloatOrDouble(str)){
+                if (com.wzq.sample.http2.utils.gsontypeadapter.NumberUtils.isFloatOrDouble(str)){
                     return Float.parseFloat(str);
                 } else {
                     Log.e("TypeAdapter", str + " is not a number");

@@ -43,7 +43,7 @@ public class LongTypeAdapter extends TypeAdapter<Long> {
             }
             if (in.peek() == JsonToken.STRING) {
                 String str = in.nextString();
-                if (NumberUtils.isIntOrLong(str)){
+                if (com.wzq.sample.http2.utils.gsontypeadapter.NumberUtils.isIntOrLong(str)){
                     return Long.parseLong(str);
                 } else {
                     Log.e("TypeAdapter", str + " is not a int number");

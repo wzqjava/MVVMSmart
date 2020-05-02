@@ -3,27 +3,18 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
-def releaseTime() {
+static def releaseTime() {
     return new Date().format("yyyyMMdd-HH")
 }
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     signingConfigs {
-        debug {
-            keyAlias 'xxx'
-            keyPassword 'xxx'
-            storeFile file(rootProject.getRootDir().getAbsolutePath() + '/readapp.jks')
-            storePassword 'xxx'
-            v1SigningEnabled true
-            v2SigningEnabled true
-        }
-
-        release {
-            keyAlias 'xxx'
-            keyPassword 'xxx'
-            storeFile file(rootProject.getRootDir().getAbsolutePath() + '/readapp.jks')
-            storePassword 'xxx'
+        android_studio_app {
+            keyAlias 'wzq'
+            keyPassword '123456'
+            storeFile file('/Users/wzq/workspaces/MVVMSmart-kotlin/wzq.jks')
+            storePassword '123456'
             v1SigningEnabled true
             v2SigningEnabled true
         }
@@ -36,6 +27,8 @@ android {
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        flavorDimensions "default"
+        signingConfig signingConfigs.debug
     }
     dataBinding {
         enabled true
@@ -51,15 +44,15 @@ android {
         abortOnError false
     }
 
-
     buildTypes {
+
         release {
             minifyEnabled false
             //Zipalign优化
             zipAlignEnabled true
             // 移除无用的resource文件
             shrinkResources false
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.android_studio_app
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 //            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
@@ -70,6 +63,7 @@ android {
             zipAlignEnabled true
             // 移除无用的resource文件
             shrinkResources false
+            signingConfig signingConfigs.android_studio_app
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -83,18 +77,18 @@ android {
         qa {
             manifestPlaceholders = [ENVIRONMENT: "4", LOG_ENABLE: "1", CHANNEL_ID: "qa", SCREENPORTRAIT: "1", APP_VERSION: rootProject.ext.android.versionCode]
         }
-       /* huawei {
-            manifestPlaceholders = [ENVIRONMENT: "2", LOG_ENABLE: "0", CHANNEL_ID: "biaozhun", SCREENPORTRAIT: "1", APP_VERSION: rootProject.ext.android.versionCode]
-        }*/
-
+         huawei {
+             manifestPlaceholders = [ENVIRONMENT: "2", LOG_ENABLE: "0", CHANNEL_ID: "biaozhun", SCREENPORTRAIT: "1", APP_VERSION: rootProject.ext.android.versionCode]
+         }
+        flavorDimensions "default"
     }
+    buildToolsVersion = android.buildToolsVersion
     //参考：https://blog.csdn.net/lablenet/article/details/78391457
     applicationVariants.all { variant ->
         variant.outputs.all {
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                def fileName = outputFileName.replace("app", "MVVMSmart")
+                def fileName = outputFileName.replace("app", "MVVMSmart-kotlin")
                 // 中段(保持不变)
-                //fileName = fileName.replace("-ceshi", "")
                 // 尾端
                 if (fileName.contains("-dev"))
                     fileName = fileName.replace(".apk", "_v${defaultConfig.versionName}_t${releaseTime()}.apk")
