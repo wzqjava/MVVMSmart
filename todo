@@ -13,4 +13,6 @@
                 android:name="BUGLY_ENABLE_DEBUG"
                 android:value="true" />
 
+    test
+
 
