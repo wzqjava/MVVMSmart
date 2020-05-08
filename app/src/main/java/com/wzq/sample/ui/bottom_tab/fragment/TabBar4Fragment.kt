@@ -1,4 +1,4 @@
-package com.wzq.sample.ui.tab_bar.fragment
+package com.wzq.sample.ui.bottom_tab.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,11 +8,11 @@ import com.wzq.sample.BR
 import com.wzq.sample.R
 import com.wzq.sample.base.BaseFragment
 import com.wzq.sample.base.BaseViewModel
-import com.wzq.sample.databinding.FragmentTabBar2Binding
+import com.wzq.sample.databinding.FragmentTabBarForeBinding
 
-class TabBar2Fragment : BaseFragment<FragmentTabBar2Binding, BaseViewModel>() {
+class TabBar4Fragment : BaseFragment<FragmentTabBarForeBinding, BaseViewModel>() {
     override fun initContentView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): Int {
-        return R.layout.fragment_tab_bar_2
+        return R.layout.fragment_tab_bar_fore
     }
 
     override fun initVariableId(): Int {

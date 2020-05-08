@@ -61,7 +61,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.wzq.sample.ui.tab_bar.activity.TabBarActivity" />
+        <activity android:name="com.wzq.sample.ui.bottom_tab.activity.TabBarActivity" />
     </application>
 
 </manifest>

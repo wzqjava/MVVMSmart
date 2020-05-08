@@ -43,7 +43,7 @@
         android:label="MultiRecycleViewFragment" />
     <fragment
         android:id="@+id/viewPagerGroupFragment"
-        android:name="com.wzq.sample.ui.vp_frg.ViewPagerGroupFragment"
+        android:name="com.wzq.sample.ui.viewpager_frgment.ViewPagerGroupFragment"
         android:label="ViewPagerGroupFragment" />
     <fragment
         android:id="@+id/formFragment"

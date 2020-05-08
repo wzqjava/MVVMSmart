@@ -1,10 +1,10 @@
-package com.wzq.sample.ui.vp_frg
+package com.wzq.sample.ui.viewpager_frgment
 
 import androidx.fragment.app.Fragment
-import com.wzq.sample.ui.tab_bar.fragment.TabBar1Fragment
-import com.wzq.sample.ui.tab_bar.fragment.TabBar2Fragment
-import com.wzq.sample.ui.tab_bar.fragment.TabBar3Fragment
-import com.wzq.sample.ui.tab_bar.fragment.TabBar4Fragment
+import com.wzq.sample.ui.bottom_tab.fragment.TabBar1Fragment
+import com.wzq.sample.ui.bottom_tab.fragment.TabBar2Fragment
+import com.wzq.sample.ui.bottom_tab.fragment.TabBar3Fragment
+import com.wzq.sample.ui.bottom_tab.fragment.TabBar4Fragment
 import java.util.*
 
 /**

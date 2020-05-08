@@ -1,4 +1,4 @@
-package com.wzq.sample.ui.tab_bar.activity
+package com.wzq.sample.ui.bottom_tab.activity
 
 import android.os.Bundle
 import androidx.core.content.ContextCompat
@@ -8,10 +8,10 @@ import com.wzq.sample.R
 import com.wzq.sample.base.BaseActivity
 import com.wzq.sample.base.BaseViewModel
 import com.wzq.sample.databinding.ActivityTabBarBinding
-import com.wzq.sample.ui.tab_bar.fragment.TabBar1Fragment
-import com.wzq.sample.ui.tab_bar.fragment.TabBar2Fragment
-import com.wzq.sample.ui.tab_bar.fragment.TabBar3Fragment
-import com.wzq.sample.ui.tab_bar.fragment.TabBar4Fragment
+import com.wzq.sample.ui.bottom_tab.fragment.TabBar1Fragment
+import com.wzq.sample.ui.bottom_tab.fragment.TabBar2Fragment
+import com.wzq.sample.ui.bottom_tab.fragment.TabBar3Fragment
+import com.wzq.sample.ui.bottom_tab.fragment.TabBar4Fragment
 import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectedListener
 import java.util.*
 

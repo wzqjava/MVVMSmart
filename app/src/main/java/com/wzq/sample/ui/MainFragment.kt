@@ -18,7 +18,7 @@ import com.wzq.sample.R
 import com.wzq.sample.base.BaseFragment
 import com.wzq.sample.bean.FormEntity
 import com.wzq.sample.databinding.FragmentHomeBinding
-import com.wzq.sample.ui.tab_bar.activity.TabBarActivity
+import com.wzq.sample.ui.bottom_tab.activity.TabBarActivity
 import okhttp3.ResponseBody
 
 /**

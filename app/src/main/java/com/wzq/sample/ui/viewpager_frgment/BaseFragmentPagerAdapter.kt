@@ -1,4 +1,4 @@
-package com.wzq.sample.ui.vp_frg
+package com.wzq.sample.ui.viewpager_frgment
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

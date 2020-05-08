@@ -1,4 +1,4 @@
-package com.wzq.sample.ui.vp_frg
+package com.wzq.sample.ui.viewpager_frgment
 
 import android.os.Bundle
 import android.view.LayoutInflater
