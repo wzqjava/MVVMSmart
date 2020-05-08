@@ -26,7 +26,7 @@ public abstract class BaseFragmentMVVM<V extends ViewDataBinding, VM extends Bas
     private int viewModelId;
     private EmptyViewHelper emptyViewHelper;
     private boolean isNavigationViewInit = false; // 记录是否已经初始化过一次视图
-    private View lastView = null; // 记录上次创建的view
+    protected View lastView = null; // 记录上次创建的view
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
