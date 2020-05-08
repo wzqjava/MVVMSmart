@@ -5,10 +5,10 @@
 
         <variable
             name="viewModel"
-            type="com.wzq.sample.ui.form.FormViewModel" />
+            type="com.wzq.sample.ui.form_livedata.FormViewModel" />
         <variable
             name="presenter"
-            type="com.wzq.sample.ui.form.FormFragment.Presenter" />
+            type="com.wzq.sample.ui.form_livedata.FormFragment.Presenter" />
 
     </data>
 

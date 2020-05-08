@@ -1,4 +1,4 @@
-package com.wzq.sample.ui.form
+package com.wzq.sample.ui.form_livedata
 
 import android.app.Application
 import com.wzq.mvvmsmart.event.SingleLiveEvent

@@ -47,7 +47,7 @@
         android:label="ViewPagerGroupFragment" />
     <fragment
         android:id="@+id/formFragment"
-        android:name="com.wzq.sample.ui.form.FormFragment"
+        android:name="com.wzq.sample.ui.form_livedata.FormFragment"
         android:label="FormFragment" />
     <fragment
         android:id="@+id/detailFragment"
