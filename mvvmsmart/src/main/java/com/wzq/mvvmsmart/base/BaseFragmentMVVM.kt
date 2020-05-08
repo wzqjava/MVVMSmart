@@ -19,7 +19,7 @@ abstract class BaseFragmentMVVM<V : ViewDataBinding, VM : BaseViewModelMVVM> : F
     private var emptyViewHelper: EmptyViewHelper? = null
     private var viewModelId = 0
     private var isNavigationViewInit = false // 记录是否已经初始化过一次视图
-    private var lastView: View? = null // 记录上次创建的view
+    protected var lastView: View? = null // 记录上次创建的view
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initParam()
