@@ -10,10 +10,10 @@ static def releaseTime() {
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     signingConfigs {
-        android_studio_app {
+        app {
             keyAlias 'wzq'
             keyPassword '123456'
-            storeFile file('/Users/wzq/workspaces/MVVMSmart-kotlin/wzq.jks')
+            storeFile file(rootProject.getRootDir().getAbsolutePath() + '/wzq.jks')
             storePassword '123456'
             v1SigningEnabled true
             v2SigningEnabled true
@@ -52,7 +52,7 @@ android {
             zipAlignEnabled true
             // 移除无用的resource文件
             shrinkResources false
-            signingConfig signingConfigs.android_studio_app
+            signingConfig signingConfigs.app
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 //            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
@@ -63,7 +63,7 @@ android {
             zipAlignEnabled true
             // 移除无用的resource文件
             shrinkResources false
-            signingConfig signingConfigs.android_studio_app
+            signingConfig signingConfigs.app
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -76,6 +76,7 @@ android {
         }
         qa {
             manifestPlaceholders = [ENVIRONMENT: "4", LOG_ENABLE: "1", CHANNEL_ID: "qa", SCREENPORTRAIT: "1", APP_VERSION: rootProject.ext.android.versionCode]
+            signingConfig signingConfigs.app
         }
          huawei {
              manifestPlaceholders = [ENVIRONMENT: "2", LOG_ENABLE: "0", CHANNEL_ID: "biaozhun", SCREENPORTRAIT: "1", APP_VERSION: rootProject.ext.android.versionCode]
