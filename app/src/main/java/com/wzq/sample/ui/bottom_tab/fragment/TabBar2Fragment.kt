@@ -25,8 +25,8 @@ class TabBar2Fragment : BaseFragment<FragmentTabBar2Binding, BaseViewModel>() {
      */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (lastView != null) {
-            val parent = lastView!!.parent as ViewGroup
-            parent.removeView(lastView)
+            val parent = lastView?.parent as ViewGroup?
+            parent?.removeView(lastView)
         }
         super.onCreateView(inflater, container, savedInstanceState)
         return lastView
