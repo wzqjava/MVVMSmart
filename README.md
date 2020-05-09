@@ -7,10 +7,11 @@
 3. 优化任何页面一行代码退出程序, AppManagerMVVM堆栈管理(2020.04.29)
 ## 中文文档
 建议大家用clone的方式下载开源框架,方便及时更新,建议大家使用kotlin项目,毕竟是Android的第一语言,越用约开心。
-1. MVVMsmart-kotlin地址: https://github.com/wzqjava/MVVMSmart(分支名称:MVVMSmart-kotlin)
-2. MVVMsmart-java地址:   https://github.com/wzqjava/MVVMSmart(分支名称:MVVMSmart-java)
-3. AndroidStudio 从github下载代码的正确姿势:https://juejin.im/post/5e09dd306fb9a01648718430	
-4. MVVMSmart系列解读文章: https://juejin.im/user/574e36b179bc440062693484/posts
+1. MVVMsmart-kotlin地址: https://github.com/wzqjava/MVVMSmart
+2. 分支名称:MVVMSmart-kotlin
+3. 分支名称:MVVMSmart-java
+4. AndroidStudio 从github下载代码的正确姿势:https://juejin.im/post/5e09dd306fb9a01648718430	
+5. MVVMSmart系列解读文章: https://juejin.im/user/574e36b179bc440062693484/posts
 
 ## 框架特点
 - **快速开发**
