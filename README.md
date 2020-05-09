@@ -6,8 +6,8 @@
 2. 增加recyclerview无数据的默认页,同时支持其他任何布局层次无数据的默认页,一行代码显示默认页
 ## 中文文档
 建议大家用clone的方式下载开源框架,方便及时更新。
-1. MVVMsmart-kotlin地址:   https://github.com/wzqjava/MVVMSmart-kotlin
-2. MVVMsmart-java地址:   https://github.com/wzqjava/MVVMSmart
+1. MVVMsmart-kotlin地址: https://github.com/wzqjava/MVVMSmart(分支名称:MVVMSmart-kotlin)
+2. MVVMsmart-java地址:   https://github.com/wzqjava/MVVMSmart(分支名称:MVVMSmart-java)
 3. AndroidStudio 从github下载代码的正确姿势:https://juejin.im/post/5e09dd306fb9a01648718430	
 4. MVVMSmart系列解读文章: https://juejin.im/user/574e36b179bc440062693484/posts
 
