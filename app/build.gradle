@@ -70,16 +70,16 @@ android {
 
     // 渠道包定义，默认定义的名称就是渠道名称
     productFlavors {
-        // 1:线下, 0:线上;
+        // 0:dev, 1:qa, 2:线上
         dev {
-            manifestPlaceholders = [ENVIRONMENT: "1", LOG_ENABLE: "1", CHANNEL_ID: "dev", SCREENPORTRAIT: "1", APP_VERSION: rootProject.ext.android.versionCode]
+            manifestPlaceholders = [ENVIRONMENT: "0",  CHANNEL_ID: "dev",  APP_VERSION: rootProject.ext.android.versionCode]
         }
         qa {
-            manifestPlaceholders = [ENVIRONMENT: "4", LOG_ENABLE: "1", CHANNEL_ID: "qa", SCREENPORTRAIT: "1", APP_VERSION: rootProject.ext.android.versionCode]
+            manifestPlaceholders = [ENVIRONMENT: "1",  CHANNEL_ID: "qa",  APP_VERSION: rootProject.ext.android.versionCode]
             signingConfig signingConfigs.app
         }
          huawei {
-             manifestPlaceholders = [ENVIRONMENT: "2", LOG_ENABLE: "0", CHANNEL_ID: "biaozhun", SCREENPORTRAIT: "1", APP_VERSION: rootProject.ext.android.versionCode]
+             manifestPlaceholders = [ENVIRONMENT: "2",  CHANNEL_ID: "biaozhun",  APP_VERSION: rootProject.ext.android.versionCode]
          }
         flavorDimensions "default"
     }

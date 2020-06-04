@@ -56,5 +56,4 @@ class HttpDataSourceImpl private constructor(private val apiService: DemoApiServ
             INSTANCE = null
         }
     }
-
 }
