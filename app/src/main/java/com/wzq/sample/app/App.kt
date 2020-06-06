@@ -19,13 +19,16 @@ class App : BaseApplicationMVVM() {
         KLog.init(BuildConfig.DEBUG)
         //初始化全局异常崩溃
         initCrash()
-        MMKV.initialize(this)
-        LiveEventBus
+        MMKV.initialize(this)   // 替换sp
+        LiveEventBus  // 事件儿总线通信
                 .config()
                 .supportBroadcast(this) // 配置支持跨进程、跨APP通信，传入Context，需要在application onCreate中配置
                 .lifecycleObserverAlwaysActive(true) //    整个生命周期（从onCreate到onDestroy）都可以实时收到消息
     }
 
+    /**
+     * app 崩溃重启的配置
+     */
     private fun initCrash() {
         CaocConfig.Builder.create()
                 .backgroundMode(CaocConfig.BACKGROUND_MODE_SILENT) //背景模式,开启沉浸式
@@ -42,6 +45,9 @@ class App : BaseApplicationMVVM() {
     }
 
     companion object {
+        /**
+         * SmartRefreshLayout 上下拉刷新加载更多的全局配置
+         */
         init {
             ClassicsFooter.REFRESH_FOOTER_LOADING = "加载中..."
             //设置全局的Header构建器

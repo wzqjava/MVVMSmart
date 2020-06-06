@@ -11,7 +11,7 @@ import io.reactivex.functions.Consumer
 open class BaseViewModelMVVM(application: Application) : AndroidViewModel(application), IBaseViewModelMVVM, Consumer<Disposable?> {
     //管理RxJava，主要针对RxJava异步操作造成的内存泄漏
     private var mCompositeDisposable: CompositeDisposable?
-    protected fun addSubscribe(disposable: Disposable?) {
+    private fun addSubscribe(disposable: Disposable?) {
         if (mCompositeDisposable == null) {
             mCompositeDisposable = CompositeDisposable()
         }

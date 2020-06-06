@@ -20,7 +20,7 @@ public abstract class DefaultObserver<T> implements Observer<BaseResponse<T>> {
     private final static int EXPIRED_TOKEN = 2007;//（expired_token）- token过期
 
     // 退出登录
-    public final static int INVALID_TOKEN = 2000;//（invalid_token）- 不是正确的token
+    private final static int INVALID_TOKEN = 2000;//（invalid_token）- 不是正确的token
     private final static int UNAUTHORIZED = 2010;//（unauthorized）- 未认证
     private final static int SIGNATURE_DENIED = 2011;//（signature_denied）-签名失败
     private final static int BAD_CREDENTIALS = 3000;//（bad_credentials）-错误凭证
@@ -34,7 +34,7 @@ public abstract class DefaultObserver<T> implements Observer<BaseResponse<T>> {
     private final static int USERNAME_NOT_FOUND = 3005;//（username_not_found）- 找不到用户名
     private final static int ACCESS_DENIED_AUTHORITY_EXPIRED = 4033;//（access_denied_authority_expired）- 认证过期访问拒绝
     // 其他
-    public static final int RESPONSE_LOG_RETRY = 401;
+    private static final int RESPONSE_LOG_RETRY = 401;
     private final static int INVALID_SCOPE = 2001;//（invalid_scope）- 没有权限
     private final static int FAIL = 1000;//（fail）- 如果访问网关
     private final static int INVALID_CLIENT = 2003;//（invalid_client）- 不是正确的客户端

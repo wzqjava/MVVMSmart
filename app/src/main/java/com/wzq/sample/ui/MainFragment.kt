@@ -101,7 +101,8 @@ class MainFragment : BaseFragment<FragmentHomeBinding, MainViewModel>() {
 
         //文件下载
         fun fileDownLoadClick() {
-            viewModel.loadUrlEvent.value = "http://gdown.baidu.com/data/wisegame/a2cd8828b227b9f9/neihanduanzi_692.apk"
+            ToastUtils.showLong("网络框架重构中,下载功能暂时关闭")
+//            viewModel.loadUrlEvent.value = "http://gdown.baidu.com/data/wisegame/a2cd8828b227b9f9/neihanduanzi_692.apk"
         }
 
         //room数据库
