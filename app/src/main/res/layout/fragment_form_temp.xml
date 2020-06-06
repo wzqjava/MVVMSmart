@@ -5,10 +5,10 @@
 
         <variable
             name="viewModel"
-            type="com.wzq.sample.ui.form.FormViewModel" />
+            type="com.wzq.sample.ui.form_livedata.FormViewModel" />
         <variable
             name="presenter"
-            type="com.wzq.sample.ui.form.FormFragment.Presenter" />
+            type="com.wzq.sample.ui.form_livedata.FormFragment.Presenter" />
 
     </data>
 
@@ -43,7 +43,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:hint="@string/hint_input_name"
-                android:text="@={viewModel.entityLiveData.name}" />
+                android:text="@={viewModel.entityLiveData.name}"
+              android:inputType="text" />
         </LinearLayout>
 
         <LinearLayout

@@ -27,6 +27,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
         }
     }
 
@@ -73,7 +74,7 @@ dependencies {
     api "androidx.core:core-ktx:1.2.0"
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
+    api rootProject.ext.dependencies["MMKV"]  //共享参数
 }
 repositories {
     mavenCentral()

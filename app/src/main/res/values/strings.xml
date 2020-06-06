@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources >
     <string name="app_name">MVVMSmart-sample</string>
     <string name="contentDescription">contentDescription</string>
     <string name="net_single_cell">net_single_cell</string>

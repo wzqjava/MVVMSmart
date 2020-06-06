@@ -1,29 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
-        <variable
-            name="viewMole"
-            type="com.wzq.sample.ui.testnet.TestNetViewModel" />
-    </data>
+  <data>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <variable
+      name="viewMole"
+      type="com.wzq.sample.ui.testnet.TestNetViewModel" />
+  </data>
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="请求接口" />
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvJson"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="result: " />
-    </LinearLayout>
+    <Button
+      android:id="@+id/button"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="15dp"
+      android:layout_marginTop="20dp"
+      android:text="请求接口" />
+
+    <TextView
+      android:id="@+id/tvJson"
+      android:layout_width="match_parent"
+      android:layout_marginHorizontal="15dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:lineSpacingExtra="5dp"
+      android:text="result: " />
+  </LinearLayout>
 </layout>

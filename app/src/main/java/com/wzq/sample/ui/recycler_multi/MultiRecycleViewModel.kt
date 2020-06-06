@@ -18,7 +18,7 @@ class MultiRecycleViewModel(application: Application) : BaseViewModel(applicatio
     fun getData() {
         val datas = ArrayList<ItemsEntity>()
         for (i in 0..49) {
-            val itemBean = ItemsEntity(i, "MVVMSmart", TestUtils.getGirlImgUrl())
+            val itemBean = ItemsEntity(i, "MVVMSmart--多条目", TestUtils.getGirlImgUrl())
             if (i % 2 == 0) {
                 itemBean.itemType = 0
             } else {

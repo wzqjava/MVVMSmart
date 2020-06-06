@@ -48,7 +48,7 @@ ext {
             "material-dialogs-core"        : "com.afollestad.material-dialogs:core:0.9.4.5",
             "material-dialogs-commons"     : "com.afollestad.material-dialogs:commons:0.9.4.5",
             "BaseRecyclerViewAdapterHelper": 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47',
-
+            "MMKV"                         : "com.tencent:mmkv:1.0.23",
     ]
 }
 

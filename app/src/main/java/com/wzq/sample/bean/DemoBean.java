@@ -2,7 +2,6 @@ package com.wzq.sample.bean;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import java.util.List;
@@ -68,6 +67,7 @@ public class DemoBean {
         private String detail;
         private String href;
         private int id;
+        private int weight;
         private String img;
         private String name;
         private String pubDate;
@@ -81,6 +81,14 @@ public class DemoBean {
             this.id = id;
             this.name = name;
             this.img = img;
+        }
+
+        public int getWeight() {
+            return weight;
+        }
+
+        public void setWeight(int weight) {
+            this.weight = weight;
         }
 
         public String getDetail() {
@@ -139,6 +147,9 @@ public class DemoBean {
             this.type = type;
         }
 
+        public ItemsEntity() {
+        }
+
         @Override
         public int describeContents() {
             return 0;
@@ -146,29 +157,30 @@ public class DemoBean {
 
         @Override
         public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(this.itemType);
             dest.writeString(this.detail);
             dest.writeString(this.href);
             dest.writeInt(this.id);
+            dest.writeInt(this.weight);
             dest.writeString(this.img);
             dest.writeString(this.name);
             dest.writeString(this.pubDate);
             dest.writeInt(this.type);
         }
 
-        public ItemsEntity() {
-        }
-
         protected ItemsEntity(Parcel in) {
+            this.itemType = in.readInt();
             this.detail = in.readString();
             this.href = in.readString();
             this.id = in.readInt();
+            this.weight = in.readInt();
             this.img = in.readString();
             this.name = in.readString();
             this.pubDate = in.readString();
             this.type = in.readInt();
         }
 
-        public static final Creator<ItemsEntity> CREATOR = new Creator<ItemsEntity>() {
+        public static final Parcelable.Creator<ItemsEntity> CREATOR = new Parcelable.Creator<ItemsEntity>() {
             @Override
             public ItemsEntity createFromParcel(Parcel source) {
                 return new ItemsEntity(source);

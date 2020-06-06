@@ -1,18 +1,9 @@
 package com.wzq.sample.utils
 
 /**
- *
  * 作者：王志强
- *
- *
- *
  * 创建时间：2019/12/23
- *
- *
- *
  * 文件描述：
- *
- *
  */
 object TestUtils {
     fun getGirlImgUrl(): String {

@@ -9,8 +9,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import com.tbruyelle.rxpermissions2.RxPermissions
-import com.wzq.mvvmsmart.http.DownLoadManager
-import com.wzq.mvvmsmart.http.download.ProgressCallBack
 import com.wzq.mvvmsmart.utils.KLog
 import com.wzq.mvvmsmart.utils.ToastUtils
 import com.wzq.sample.BR
@@ -18,8 +16,7 @@ import com.wzq.sample.R
 import com.wzq.sample.base.BaseFragment
 import com.wzq.sample.bean.FormEntity
 import com.wzq.sample.databinding.FragmentHomeBinding
-import com.wzq.sample.ui.tab_bar.activity.TabBarActivity
-import okhttp3.ResponseBody
+import com.wzq.sample.ui.bottom_tab.activity.TabBarActivity
 
 /**
  * 截止2019年12月21日累计投入时间:45小时
@@ -152,7 +149,7 @@ class MainFragment : BaseFragment<FragmentHomeBinding, MainViewModel>() {
         /**
          * ProgressCallBack构造方法中，LiveEventBus监听进度改变，调用ProgressCallBack的progress方法设置进度
          */
-        DownLoadManager.instance?.load(url, object : ProgressCallBack<ResponseBody?>(this@MainFragment, destFileDir, destFileName) {
+        /*DownLoadManager.instance?.load(url, object : ProgressCallBack<ResponseBody?>(this@MainFragment, destFileDir, destFileName) {
             override fun onStart() {
                 super.onStart()
                 KLog.e("下载--onStart")
@@ -180,7 +177,7 @@ class MainFragment : BaseFragment<FragmentHomeBinding, MainViewModel>() {
                 progressDialog.dismiss()
                 KLog.e("下载--onCompleted")
             }
-        })
+        })*/
     }
 
 

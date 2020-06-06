@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources >
     <string name="app_name">MVVMSmart-sample</string>
     <string name="image_desc">我是图片</string>
     <string name="net_single_cell">网络单条目</string>

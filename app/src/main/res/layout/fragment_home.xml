@@ -90,12 +90,12 @@
                 android:onClick="@{() -> presenter.roomSampleClick()}"
                 android:text="@string/room_sample" />
 
-          <!--  <Button
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:onClick="@{() -> presenter.testNetUrl()}"
-                android:text="@string/test_url" />-->
+                android:text="测试网络" />
         </LinearLayout>
     </ScrollView>
 </layout>

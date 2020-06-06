@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import com.wzq.mvvmsmart.utils.KLog
 import com.wzq.sample.BR
 import com.wzq.sample.R
 import com.wzq.sample.base.BaseFragment
@@ -23,10 +24,16 @@ class TestNetFragment : BaseFragment<FragmentTestNetBinding, TestNetViewModel>()
         return BR.viewModel
     }
 
-
     override fun initViewObservable() {
         super.initViewObservable()
-        binding.button.setOnClickListener { v: View? -> viewModel.data }
-        viewModel.resultJson.observe(this, Observer { s -> binding.tvJson.text = "resule: $s" })
+        binding.button.setOnClickListener { v: View? ->
+            KLog.e("发起请求")
+            viewModel.demoGetNews(1) // 请求网络数据;
+        }
+        viewModel.liveData.observe(this, Observer {
+            if (it.isNotEmpty()) {
+                binding.tvJson.text = it[0].news_summary
+            }
+        })
     }
 }
