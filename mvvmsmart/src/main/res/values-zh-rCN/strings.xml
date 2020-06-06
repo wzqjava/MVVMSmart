@@ -11,4 +11,5 @@
     <string name="customactivityoncrash_error_activity_error_occurred_explanation">发生意外错误。</string>
     <string name="customactivityoncrash_error_activity_restart_app">重新启动</string>
     <string name="customactivityoncrash_error_activity_error_details_close">关闭</string>
+    <string name="tip_a_page_no_data" >本页没有数据</string>
 </resources>
