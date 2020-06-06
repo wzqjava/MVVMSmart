@@ -4,12 +4,14 @@
 ## 最新日志 **v2.0：2020年4月28日**
 1. 上线kotlin稳定版
 2. 增加recyclerview无数据的默认页,同时支持其他任何布局层次无数据的默认页,一行代码显示默认页
+3. 优化任何页面一行代码退出程序, AppManagerMVVM堆栈管理(2020.04.29)
 ## 中文文档
 建议大家用clone的方式下载开源框架,方便及时更新,建议大家使用kotlin项目,毕竟是Android的第一语言,越用约开心。
-1. MVVMsmart-kotlin地址:   https://github.com/wzqjava/MVVMSmart-kotlin
-2. MVVMsmart-java地址:   https://github.com/wzqjava/MVVMSmart
-3. AndroidStudio 从github下载代码的正确姿势:https://juejin.im/post/5e09dd306fb9a01648718430	
-4. MVVMSmart系列解读文章: https://juejin.im/user/574e36b179bc440062693484/posts
+1. MVVMsmart地址: https://github.com/wzqjava/MVVMSmart (包含kotlin分支和java分支)
+2. 分支名称:MVVMSmart-kotlin(切换分支,readme会自动切换成对应语言)
+3. 分支名称:MVVMSmart-java(切换分支,readme会自动切换成对应语言)
+4. AndroidStudio 从github下载代码的正确姿势:https://juejin.im/post/5e09dd306fb9a01648718430	
+5. MVVMSmart系列解读文章: https://juejin.im/user/574e36b179bc440062693484/posts
 
 ## 框架特点
 - **快速开发**
@@ -51,6 +53,7 @@ google AAC(Android Architecture Components:安卓架构组件):
 7. 全局任意位置一行代码实现文件下载进度监听（暂不支持多文件进度监听）。
 8. 任何布局层次无数据时候的默认页(主要用来: 列表无数据的默认页,接口error的默认页,无网络的默认页等,动态传入文字和图片的id即可)
 9. app崩溃重启功能(任意指定重启Activity即可,一般是欢迎页),debug模式崩溃后测试人员可以直接截屏崩溃日志给开发,再也不会听到测试说"又崩啦.."
+10. AppManagerMVVM管理类用两个栈管理Activity和Fragment,能动态获取栈顶UI,任何页面一行代码安全退出程序.
   
 
 ## 1、准备工作
