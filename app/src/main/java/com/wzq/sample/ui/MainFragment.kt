@@ -9,8 +9,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import com.tbruyelle.rxpermissions2.RxPermissions
-import com.wzq.mvvmsmart.http.DownLoadManager
-import com.wzq.mvvmsmart.http.download.ProgressCallBack
 import com.wzq.mvvmsmart.utils.KLog
 import com.wzq.mvvmsmart.utils.ToastUtils
 import com.wzq.sample.BR
@@ -152,7 +150,7 @@ class MainFragment : BaseFragment<FragmentHomeBinding, MainViewModel>() {
         /**
          * ProgressCallBack构造方法中，LiveEventBus监听进度改变，调用ProgressCallBack的progress方法设置进度
          */
-        DownLoadManager.instance?.load(url, object : ProgressCallBack<ResponseBody?>(this@MainFragment, destFileDir, destFileName) {
+        /*DownLoadManager.instance?.load(url, object : ProgressCallBack<ResponseBody?>(this@MainFragment, destFileDir, destFileName) {
             override fun onStart() {
                 super.onStart()
                 KLog.e("下载--onStart")
@@ -180,7 +178,7 @@ class MainFragment : BaseFragment<FragmentHomeBinding, MainViewModel>() {
                 progressDialog.dismiss()
                 KLog.e("下载--onCompleted")
             }
-        })
+        })*/
     }
 
 

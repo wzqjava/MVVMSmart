@@ -2,14 +2,13 @@ package com.wzq.sample.ui.recycler_single_network
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import com.wzq.mvvmsmart.http.BaseResponse
+import com.wzq.mvvmsmart.http.base.BaseResponse
+import com.wzq.mvvmsmart.http.observer.DefaultObserver
 import com.wzq.mvvmsmart.utils.KLog
-import com.wzq.mvvmsmart.utils.RxUtils
+import com.wzq.mvvmsmart.http.net_utils.RxUtils
 import com.wzq.mvvmsmart.utils.ToastUtils
 import com.wzq.sample.base.BaseViewModel
-import com.wzq.sample.bean.DemoBean
-import com.wzq.sample.bean.DemoBean.ItemsEntity
-import io.reactivex.Observer
+import com.wzq.sample.bean.NewsData
 import io.reactivex.disposables.Disposable
 
 class NetWorkViewModel(application: Application) : BaseViewModel(application) {
@@ -17,8 +16,8 @@ class NetWorkViewModel(application: Application) : BaseViewModel(application) {
     var pageNum = 1
 
     //    var liveData: MutableLiveData<MutableList<ItemsEntity?>> = MutableLiveData()
-    val liveData: MutableLiveData<MutableList<ItemsEntity>> by lazy {
-        MutableLiveData<MutableList<ItemsEntity>>()
+    val liveData: MutableLiveData<ArrayList<NewsData>> by lazy {
+        MutableLiveData<ArrayList<NewsData>>()
     }
 
     /**
@@ -30,22 +29,25 @@ class NetWorkViewModel(application: Application) : BaseViewModel(application) {
         observable.compose(RxUtils.observableToMain()) //线程调度,compose操作符是直接对当前Observable进行操作（可简单理解为不停地.方法名（）.方法名（）链式操作当前Observable）
                 .compose(RxUtils.exceptionTransformer()) // 网络错误的异常转换, 这里可以换成自己的ExceptionHandle
                 .doOnSubscribe(this@NetWorkViewModel) //  请求与ViewModel周期同步
-                .subscribe(object : Observer<BaseResponse<DemoBean>> {
+                .subscribe(object : DefaultObserver<ArrayList<NewsData>>() {
                     override fun onSubscribe(d: Disposable) {
+                        KLog.e("进入 onSubscribe方法")
                         stateLiveData.postLoading()
                     }
 
-                    override fun onNext(response: BaseResponse<DemoBean>) {
+                    override fun onNext(baseResponse: BaseResponse<ArrayList<NewsData>>) {
+                        super.onNext(baseResponse)
                         KLog.e("进入onNext")
-                        //请求成功
-                        if (response.code == 1) {  // 接口返回code=1 代表成功
-                            val itemsEntities = response.result?.items
-                            if (itemsEntities != null) {
-                                if (itemsEntities.size > 0) {
-                                    liveData.postValue(itemsEntities)
+                        // 请求成功
+                        if (baseResponse.status == 1) {  // 接口返回code=1 代表成功
+                            val newsDataList = baseResponse.data
+                            KLog.e(newsDataList?.toString())
+                            if (newsDataList != null) {
+                                if (newsDataList.size > 0) {
+                                    liveData.postValue(newsDataList)
                                 } else {
-//                                    showShortToast("没有更多数据了")
-                                    KLog.e("请求到数据students.size" + itemsEntities.size)
+                                    //    showShortToast("没有更多数据了")
+                                    KLog.e("请求到数据students.size" + newsDataList.size)
                                 }
                             } else {
                                 KLog.e("数据返回null")
@@ -54,12 +56,13 @@ class NetWorkViewModel(application: Application) : BaseViewModel(application) {
                         } else {
                             //code错误时也可以定义Observable回调到View层去处理
                             ToastUtils.showShort("提醒开发者:本页无数据...")
-                            KLog.e("请求失败response.getCode():" + response.code)
-//                            liveData.postValue(null)
+                            KLog.e("请求失败response.getCode():" + baseResponse.code)
+                            //                            liveData.postValue(null)
                         }
                     }
 
                     override fun onError(throwable: Throwable) {
+                        super.onError(throwable)
                         KLog.e("进入onError" + throwable.message)
                         //关闭对话框
                         stateLiveData.postError()
@@ -69,11 +72,12 @@ class NetWorkViewModel(application: Application) : BaseViewModel(application) {
                     }
 
                     override fun onComplete() {
+                        super.onComplete()
                         KLog.e("进入onComplete")
                         //关闭对话框
                     }
-                })
 
+                })
 
     }
 
@@ -119,13 +123,13 @@ class NetWorkViewModel(application: Application) : BaseViewModel(application) {
     /**
      * 删除条目
      */
-    fun deleteItem(itemsEntity: ItemsEntity?) {
+    fun deleteItem(newsData: NewsData?) {
         //点击确定，在 observableList 绑定中删除，界面立即刷新
         KLog.e("调用了删除")
-        KLog.e("size" + liveData.value!!.size)
-        liveData.value!!.remove(itemsEntity)
-        KLog.e("size" + liveData.value!!.size)
+        KLog.e("size" + liveData.value?.size)
+        val newsDataList = liveData.value
+        newsDataList?.remove(newsData)
+        KLog.e("size" + liveData.value?.size)
     }
-
 
 }

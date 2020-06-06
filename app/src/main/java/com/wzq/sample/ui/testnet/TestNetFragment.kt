@@ -33,11 +33,12 @@ class TestNetFragment : BaseFragment<FragmentTestNetBinding, TestNetViewModel>()
         super.initViewObservable()
         binding.button.setOnClickListener { v: View? ->
             KLog.e("发起请求")
-            viewModel.demoGet(1) // 请求网络数据;
+            viewModel.demoGetNews(1) // 请求网络数据;
         }
-        viewModel.userLiveData.observe(this, Observer {
-            binding.tvJson.text = it.toString()
+        viewModel.liveData.observe(this, Observer {
+            if (it.isNotEmpty()) {
+                binding.tvJson.text = it[0].news_summary
+            }
         })
     }
-
 }
