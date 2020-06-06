@@ -8,5 +8,5 @@ import java.util.LinkedHashMap;
  * 多态使用
  * 多个参数封装到LinkedHashMap
  */
-public class BaseParamsLinkedHashMap extends LinkedHashMap<String, Object> implements Serializable {
+class BaseParamsLinkedHashMap extends LinkedHashMap<String, Object> implements Serializable {
 }

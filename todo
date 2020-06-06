@@ -1,18 +1,9 @@
+    网络请求根据what值进行判断处理
     diff条目实现
     重复点击功能    https://github.com/zhujiang521/AndroidAOP // android-aspectjx,https://juejin.im/post/5ea66d64f265da480836d2b2?utm_source=gold_browser_extension
-    网络框架优化
-    HttpDataSourceImpl
-    TokenInterceptor
-    gson解析,字段少了问题
-    HttpDisposableObserver  Disposable
-    BaseObserver和HttpDisposableObserver 考虑合并处理
-    DADA_ENVIRONMENT 封装为常量的来龙去脉
+    rxjava泄露的统一解决
+    rxjava线程切换的处理
 
-    <!-- 配置Bugly调试模式（true或者false）每次上线是否需要更改-->
-            <meta-data
-                android:name="BUGLY_ENABLE_DEBUG"
-                android:value="true" />
 
-    test
 
 

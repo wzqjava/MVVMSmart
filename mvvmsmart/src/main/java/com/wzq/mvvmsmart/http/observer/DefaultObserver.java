@@ -11,6 +11,8 @@ import retrofit2.HttpException;
 
 /**
  * created 王志强 2020.04.30
+ * Observer回调的统一处理,封装的状态码一般服务器定好好,Android判断使用即可;
+ * 训词根据自己的公司服务端情况修改;
  */
 public abstract class DefaultObserver<T> implements Observer<BaseResponse<T>> {
 
@@ -61,14 +63,12 @@ public abstract class DefaultObserver<T> implements Observer<BaseResponse<T>> {
     @Override
     public void onNext(BaseResponse<T> baseResponse) {
         if (baseResponse == null) {
-            //if (listener != null) listener.error(what, new Throwable("后台直接返回空了"));
             return;
         }
         int code = baseResponse.getCode();
         switch (code) {
             case 0:
             case RESPONSE_OK:
-                //if (listener != null) listener.success(what, true, baseResponse);
                 break;
             case RESPONSE_LOG_RETRY:
                 break;
@@ -105,14 +105,11 @@ public abstract class DefaultObserver<T> implements Observer<BaseResponse<T>> {
                     onNext(baseResponse);
 
                 } else {
-                    //if (listener != null)
-                    //    listener.error(what, throwable);
                 }
 
             }
         } catch (Exception e) {
             e.printStackTrace();
-
         }
 
     }

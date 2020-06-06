@@ -5,12 +5,10 @@ import java.util.Map;
 
 /**
  * created 王志强 2020.04.30
- * Get参数
+ * 参数封装,许多公司的参数要放到HashMap里, 这里统一封装;
  */
 public class ParamsLinkedHashMap extends BaseParamsLinkedHashMap {
-    /**
-     * 添加参数
-     */
+
     public void addParams(String key, Object object) {
         this.put(key, object);
     }
