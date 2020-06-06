@@ -5,6 +5,8 @@ import com.wzq.mvvmsmart.http.base.BaseResponse;
 
 /**
  * created 王志强 2020.04.30
+ * 有些开发者喜欢用Listener, 可以在写具体接口的时候
+ * 在viewMode中的Observer里使用这个接口进行回调, (但建议使用LiveData观察ViewMode,不建议用listener)
  */
 public interface OnServerResponseListener<T> {
     /**

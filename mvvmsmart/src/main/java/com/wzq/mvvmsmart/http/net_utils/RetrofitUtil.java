@@ -34,6 +34,7 @@ public class RetrofitUtil<T> {
         return retrofit;
     }
 
+    // todo 这个方法没有执行
     public void toSubscribe(Observable observable, DisposableObserver<BaseResponse<T>> disposableObserver) {
         observable.subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())

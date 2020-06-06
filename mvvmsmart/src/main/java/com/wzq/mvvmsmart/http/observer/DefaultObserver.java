@@ -2,9 +2,9 @@ package com.wzq.mvvmsmart.http.observer;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.wzq.mvvmsmart.http.base.BaseObserver;
 import com.wzq.mvvmsmart.http.base.BaseResponse;
 import com.wzq.mvvmsmart.http.net_utils.Utils;
-import io.reactivex.Observer;
 import java.lang.reflect.Type;
 import okhttp3.ResponseBody;
 import retrofit2.HttpException;
@@ -14,7 +14,8 @@ import retrofit2.HttpException;
  * Observer回调的统一处理,封装的状态码一般服务器定好好,Android判断使用即可;
  * 训词根据自己的公司服务端情况修改;
  */
-public abstract class DefaultObserver<T> implements Observer<BaseResponse<T>> {
+
+public abstract class DefaultObserver<T> extends BaseObserver<T> {
 
     // 刷新 token
     private final static int EXPIRED_TOKEN = 2007;//（expired_token）- token过期
