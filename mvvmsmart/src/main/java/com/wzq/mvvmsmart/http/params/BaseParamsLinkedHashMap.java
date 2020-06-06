@@ -1,4 +1,4 @@
-package com.wzq.mvvmsmart.http.oldhelper;
+package com.wzq.mvvmsmart.http.params;
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;
