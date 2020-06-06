@@ -10,4 +10,5 @@
     <string name="customactivityoncrash_error_activity_error_details_title">Error details</string>
     <string name="customactivityoncrash_error_activity_error_occurred_explanation">An unexpected error occurred.</string>
     <string name="customactivityoncrash_error_activity_restart_app">Restart</string>
+    <string name="tip_a_page_no_data" >this page no data</string>
 </resources>
