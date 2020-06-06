@@ -35,7 +35,7 @@ class MultiRecycleViewFragment : BaseFragment<FragmentMultiRvBinding, MultiRecyc
 
     override fun initViewObservable() {
         super.initViewObservable()
-        viewModel.itemsEntityLiveData.observe(this, Observer { itemsEntities: ArrayList<ItemsEntity>? -> mAdapter!!.setNewData(itemsEntities) })
+        viewModel.itemsEntityLiveData.observe(this, Observer { itemsEntities: ArrayList<ItemsEntity>? -> mAdapter.setNewData(itemsEntities) })
     }
 
     private fun initRecyclerView() {

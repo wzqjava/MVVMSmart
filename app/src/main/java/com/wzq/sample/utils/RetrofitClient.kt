@@ -3,8 +3,8 @@ package com.wzq.sample.utils
 import android.text.TextUtils
 import com.wzq.mvvmsmart.http.net_utils.BaseConfig
 import com.wzq.mvvmsmart.http.net_utils.HttpsUtils
-import com.wzq.mvvmsmart.http.Interceptor.HttpCommonInterceptor
-import com.wzq.mvvmsmart.http.Interceptor.TokenInterceptor
+import com.wzq.mvvmsmart.http.interceptor.HttpCommonInterceptor
+import com.wzq.mvvmsmart.http.interceptor.TokenInterceptor
 import com.wzq.mvvmsmart.http.cookie.CookieJarImpl
 import com.wzq.mvvmsmart.http.cookie.MemoryCookieStore
 import com.wzq.mvvmsmart.utils.KLog

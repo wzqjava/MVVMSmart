@@ -17,7 +17,6 @@ import com.wzq.sample.base.BaseFragment
 import com.wzq.sample.bean.FormEntity
 import com.wzq.sample.databinding.FragmentHomeBinding
 import com.wzq.sample.ui.bottom_tab.activity.TabBarActivity
-import okhttp3.ResponseBody
 
 /**
  * 截止2019年12月21日累计投入时间:45小时

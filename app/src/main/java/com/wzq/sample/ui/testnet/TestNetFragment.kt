@@ -24,11 +24,6 @@ class TestNetFragment : BaseFragment<FragmentTestNetBinding, TestNetViewModel>()
         return BR.viewModel
     }
 
-    override fun initData() {
-        super.initData()
-
-    }
-
     override fun initViewObservable() {
         super.initViewObservable()
         binding.button.setOnClickListener { v: View? ->

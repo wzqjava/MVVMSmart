@@ -1,4 +1,4 @@
-package com.wzq.mvvmsmart.http.Interceptor;
+package com.wzq.mvvmsmart.http.interceptor;
 
 import android.content.Context;
 import android.os.Build;

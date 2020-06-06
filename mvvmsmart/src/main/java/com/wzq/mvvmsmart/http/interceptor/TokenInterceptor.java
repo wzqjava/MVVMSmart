@@ -1,4 +1,4 @@
-package com.wzq.mvvmsmart.http.Interceptor;
+package com.wzq.mvvmsmart.http.interceptor;
 
 
 import com.wzq.mvvmsmart.http.net_utils.MmkvUtils;

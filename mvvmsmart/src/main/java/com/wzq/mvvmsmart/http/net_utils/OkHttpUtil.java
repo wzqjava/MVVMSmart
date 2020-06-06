@@ -1,7 +1,7 @@
 package com.wzq.mvvmsmart.http.net_utils;
 
-import com.wzq.mvvmsmart.http.Interceptor.HttpCommonInterceptor;
-import com.wzq.mvvmsmart.http.Interceptor.TokenInterceptor;
+import com.wzq.mvvmsmart.http.interceptor.HttpCommonInterceptor;
+import com.wzq.mvvmsmart.http.interceptor.TokenInterceptor;
 import com.wzq.mvvmsmart.http.cookie.CookieJarImpl;
 import com.wzq.mvvmsmart.http.cookie.MemoryCookieStore;
 

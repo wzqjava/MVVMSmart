@@ -3,9 +3,7 @@ package com.wzq.sample.ui.recycler_single_network
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.wzq.mvvmsmart.utils.GlideLoadUtils
-import com.wzq.mvvmsmart.utils.KLog
 import com.wzq.sample.R
-import com.wzq.sample.bean.DemoBean.ItemsEntity
 import com.wzq.sample.bean.NewsData
 
 /**

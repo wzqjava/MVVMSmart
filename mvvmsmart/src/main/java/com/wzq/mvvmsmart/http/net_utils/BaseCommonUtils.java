@@ -100,16 +100,7 @@ public class BaseCommonUtils {
         try {
             Intent intent = null;
             // 判断手机系统的版本 即API大于10 就是3.0或以上版本
-            if (Build.VERSION.SDK_INT > 10) {
-                intent = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);
-            } else {
-                intent = new Intent();
-                ComponentName component = new ComponentName(
-                        "com.android.settings",
-                        "com.android.settings.wifi.WifiSettings");
-                intent.setComponent(component);
-                intent.setAction("android.intent.action.VIEW");
-            }
+            intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
             //1.在Activity上下文之外启动Activity需要给Intent设置FLAG_ACTIVITY_NEW_TASK标志，不然会报异常。
             //2.加了该标志，如果在同一个应用中进行Activity跳转，不会创建新的Task，只有在不同的应用中跳转才会创建新的Task
             //为了减少崩溃，再增加一个try拦截，2019年5月5日16:18:04 -- bobby改
