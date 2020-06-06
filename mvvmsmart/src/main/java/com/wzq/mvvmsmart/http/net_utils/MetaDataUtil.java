@@ -22,6 +22,7 @@ public class MetaDataUtil {
 
     /**
      * Return the context of Application object.
+     *
      * @return the context of Application object
      */
     public static Application getApp() {
@@ -62,18 +63,15 @@ public class MetaDataUtil {
         int serviceEnvironment = getEnvironment();
         switch (serviceEnvironment) {
             case 0://测试环境
-                baseUrl = "http://10.0.3.200:8919";//dev环境
-                //                baseUrl = "http://10.0.18.15:8081";//赵迪本机dev环境
+                baseUrl = "http://api.expoon.com/"; //  dev环境
                 break;
 
             case 1://qa环境
-                //baseUrl = "https://www.oschina.net/";//qa环境
-                baseUrl = "http://api.expoon.com/";//qa环境
+                //baseUrl = "https://www.oschina.net/"; //  qa环境
+                baseUrl = "http://api.expoon.com/"; //  qa环境
                 break;
             default:
-                // baseUrl = "https://qa-ireading-gw.tope365.com";//qa环境
-                baseUrl = "https://qa-ireading-gw.tope365.com";//dev环境
-
+                baseUrl = "http://api.expoon.com/"; //  线上环境
                 break;
         }
         KLog.INSTANCE.e("baseUrl:" + baseUrl);
