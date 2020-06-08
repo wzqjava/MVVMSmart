@@ -44,9 +44,9 @@ public class OkHttpUtil {
         SslUtils.SSLParams sslParams = SslUtils.getSslSocketFactory();// https证书认证,封装了认证方法,可根据自己公司进行调整;
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
         okHttpClientBuilder.cookieJar(new CookieJarImpl(mStore));
-        okHttpClientBuilder.connectTimeout(BaseConfig.OKHTTP_CONNECTTIMEOUT, TimeUnit.SECONDS);
-        okHttpClientBuilder.readTimeout(BaseConfig.OKHTTP_READTIMEOUT, TimeUnit.SECONDS);
-        okHttpClientBuilder.writeTimeout(BaseConfig.OKHTTP_READTIMEOUT, TimeUnit.SECONDS);
+        okHttpClientBuilder.connectTimeout(NetConfig.OKHTTP_CONNECTTIMEOUT, TimeUnit.SECONDS);
+        okHttpClientBuilder.readTimeout(NetConfig.OKHTTP_READTIMEOUT, TimeUnit.SECONDS);
+        okHttpClientBuilder.writeTimeout(NetConfig.OKHTTP_READTIMEOUT, TimeUnit.SECONDS);
         okHttpClientBuilder.addInterceptor(new HttpCommonInterceptor());
         okHttpClientBuilder.sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager); // https的证书校验
         okHttpClientBuilder.addInterceptor(new TokenInterceptor());

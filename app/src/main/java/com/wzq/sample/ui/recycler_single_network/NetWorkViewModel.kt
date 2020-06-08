@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.wzq.mvvmsmart.net.base.BaseResponse
 import com.wzq.mvvmsmart.net.observer.DefaultObserver
 import com.wzq.mvvmsmart.utils.KLog
-import com.wzq.mvvmsmart.net.net_utils.RxUtils
+import com.wzq.mvvmsmart.net.net_utils.RxUtil
 import com.wzq.mvvmsmart.utils.ToastUtils
 import com.wzq.sample.base.BaseViewModel
 import com.wzq.sample.bean.NewsData
@@ -26,8 +26,8 @@ class NetWorkViewModel(application: Application) : BaseViewModel(application) {
     fun requestNetWork() {
         //可以调用addSubscribe()添加Disposable，请求与View周期同步
         val observable = model.demoGet(pageNum)
-        observable.compose(RxUtils.observableToMain()) //线程调度,compose操作符是直接对当前Observable进行操作（可简单理解为不停地.方法名（）.方法名（）链式操作当前Observable）
-                .compose(RxUtils.exceptionTransformer()) // 网络错误的异常转换, 这里可以换成自己的ExceptionHandle
+        observable.compose(RxUtil.observableToMain()) //线程调度,compose操作符是直接对当前Observable进行操作（可简单理解为不停地.方法名（）.方法名（）链式操作当前Observable）
+                .compose(RxUtil.exceptionTransformer()) // 网络错误的异常转换, 这里可以换成自己的ExceptionHandle
                 .doOnSubscribe(this@NetWorkViewModel) //  请求与ViewModel周期同步
                 .doOnSubscribe {
                     d -> stateLiveData.postLoading()

@@ -7,7 +7,7 @@ import com.wzq.sample.base.BaseViewModel
 import com.wzq.sample.net.MRequest
 import com.wzq.mvvmsmart.net.base.BaseResponse
 import com.wzq.mvvmsmart.net.observer.DefaultObserver
-import com.wzq.mvvmsmart.net.net_utils.RxUtils
+import com.wzq.mvvmsmart.net.net_utils.RxUtil
 import com.wzq.sample.bean.NewsData
 import io.reactivex.disposables.Disposable
 import java.util.*
@@ -30,8 +30,8 @@ class TestNetViewModel(application: Application) : BaseViewModel(application) {
     fun demoGetNews(pageNum: Int) {
 //        val param: Map<String, String> = HashMap()
         val observable = MRequest.getInstance().demoGetNews(0, pageNum)
-        observable.compose(RxUtils.observableToMain()) //线程调度,compose操作符是直接对当前Observable进行操作（可简单理解为不停地.方法名（）.方法名（）链式操作当前Observable）
-                .compose(RxUtils.exceptionTransformer()) // 网络错误的异常转换, 这里可以换成自己的ExceptionHandle
+        observable.compose(RxUtil.observableToMain()) //线程调度,compose操作符是直接对当前Observable进行操作（可简单理解为不停地.方法名（）.方法名（）链式操作当前Observable）
+                .compose(RxUtil.exceptionTransformer()) // 网络错误的异常转换, 这里可以换成自己的ExceptionHandle
                 .doOnSubscribe(this@TestNetViewModel) //  请求与ViewModel周期同步
                 .subscribe(object : DefaultObserver<ArrayList<NewsData>>() {
                     override fun onSubscribe(d: Disposable) {

@@ -11,7 +11,7 @@ import io.reactivex.schedulers.Schedulers;
  * 有关Rx的工具类
  *  线程调度器
  */
-public class RxUtils {
+public class RxUtil {
 
     public static <T> ObservableTransformer<T, T> observableToMain() {
         return upstream -> upstream.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
