@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import com.wzq.mvvmsmart.utils.KLog
 import com.wzq.sample.base.BaseViewModel
 import com.wzq.sample.net.MRequest
-import com.wzq.mvvmsmart.http.base.BaseResponse
-import com.wzq.mvvmsmart.http.observer.DefaultObserver
-import com.wzq.mvvmsmart.http.net_utils.RxUtils
+import com.wzq.mvvmsmart.net.base.BaseResponse
+import com.wzq.mvvmsmart.net.observer.DefaultObserver
+import com.wzq.mvvmsmart.net.net_utils.RxUtils
 import com.wzq.sample.bean.NewsData
 import io.reactivex.disposables.Disposable
 import java.util.*
