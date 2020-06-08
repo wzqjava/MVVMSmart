@@ -11,18 +11,25 @@ object TestUtils {
         return girlImgs[index]
     }
 
-    var girlImgs = arrayOf( // --------------------sex girl------------------------
+    var girlImgs = arrayOf(
+            // --------------------sex girl------------------------
+//            "xxx",
             "http://ww1.sinaimg.cn/large/0065oQSqly1g2pquqlp0nj30n00yiq8u.jpg",
             "https://ww1.sinaimg.cn/large/0065oQSqly1g2hekfwnd7j30sg0x4djy.jpg",
-            "https://pixabay.com/get/55e0d0404a57ad14f6da8c7dda79367a1d39d8e65b526c48702873d2954ecc5ebf_640.jpg",
-            "https://pixabay.com/get/54e6d2444d55ab14f6da8c7dda79367a1d39d8e65b526c48702873d2954ecc5ebf_640.jpg",
-            "https://pixabay.com/get/52e9dc444f54b108f5d08460962933761339dded504c704c72277dd69444c35f_640.jpg",
-            "https://pixabay.com/get/54e2d5454856a414f6da8c7dda79367a1d39d8e65b526c48702873d2954ecc5ebf_640.jpg",
-            "https://pixabay.com/get/52e6dd454955aa14f6da8c7dda79367a1d39d8e65b526c48702873d2954ecc5ebf_640.jpg",
-            "https://pixabay.com/get/54e8d54b4a55af14f6da8c7dda79367a1d39d8e65b526c48702873d2954ecc5ebf_640.jpg",
-            "https://pixabay.com/get/52e6dc4b4e55ac14f6da8c7dda79367a1d39d8e65b526c48702873d2954ecc5ebf_640.jpg",
-            "https://pixabay.com/get/52e6dc4b4e54ab14f6da8c7dda79367a1d39d8e65b526c48702873d2954ecc5ebf_640.jpg",
-            "https://pixabay.com/get/54e7d5474854ae14f6da8c7dda79367a1d39d8e65b526c48702873d2954ecc5ebf_640.jpg",  //----------------------not sex girl----------
+            "https://gank.io/images/aebca647b3054757afd0e54d83e0628e",
+            "https://gank.io/images/f4f6d68bf30147e1bdd4ddbc6ad7c2a2",
+            "https://gank.io/images/dc75cbde1d98448183e2f9514b4d1320",
+            "https://gank.io/images/6b2efa591564475fb8bc32291fb0007c",
+            "https://gank.io/images/d6bba8cf5b8c40f9ad229844475e9149",
+            "https://gank.io/images/9fa43020cf724c69842eec3e13f6d21c",
+            "https://gank.io/images/19c99c447e0a40a6b3ff89951957cfb1",
+            "https://gank.io/images/f0c192e3e335400db8a709a07a891b2e",
+            "https://gank.io/images/bdb35e4b3c0045c799cc7a494a3db3e0",
+            "https://gank.io/images/3fdbaffdf3374578a82313621123dace",
+            "https://gank.io/images/f08e8ab6030d41a0ada3e6cecea0e60c",
+            "https://gank.io/images/e92911f5ff9446d5a899b652b1934b93",
+
+            //----------------------not sex girl----------
             "http://f.expoon.com/sub/news/2016/01/21/887844_230x162_0.jpg",
             "http://f.expoon.com/sub/news/2016/01/21/580828_230x162_0.jpg",
             "http://f.expoon.com/sub/news/2016/01/21/745921_230x162_0.jpg",

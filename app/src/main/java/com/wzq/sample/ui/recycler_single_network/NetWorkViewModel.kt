@@ -2,10 +2,10 @@ package com.wzq.sample.ui.recycler_single_network
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import com.wzq.mvvmsmart.http.base.BaseResponse
-import com.wzq.mvvmsmart.http.observer.DefaultObserver
+import com.wzq.mvvmsmart.net.base.BaseResponse
+import com.wzq.mvvmsmart.net.observer.DefaultObserver
 import com.wzq.mvvmsmart.utils.KLog
-import com.wzq.mvvmsmart.http.net_utils.RxUtils
+import com.wzq.mvvmsmart.net.net_utils.RxUtils
 import com.wzq.mvvmsmart.utils.ToastUtils
 import com.wzq.sample.base.BaseViewModel
 import com.wzq.sample.bean.NewsData
@@ -29,8 +29,13 @@ class NetWorkViewModel(application: Application) : BaseViewModel(application) {
         observable.compose(RxUtils.observableToMain()) //线程调度,compose操作符是直接对当前Observable进行操作（可简单理解为不停地.方法名（）.方法名（）链式操作当前Observable）
                 .compose(RxUtils.exceptionTransformer()) // 网络错误的异常转换, 这里可以换成自己的ExceptionHandle
                 .doOnSubscribe(this@NetWorkViewModel) //  请求与ViewModel周期同步
+                .doOnSubscribe {
+                    d -> stateLiveData.postLoading()
+                }
+                .doFinally { stateLiveData.postIdle() }
                 .subscribe(object : DefaultObserver<ArrayList<NewsData>>() {
                     override fun onSubscribe(d: Disposable) {
+                        super.onSubscribe(d)
                         KLog.e("进入 onSubscribe方法")
                         stateLiveData.postLoading()
                     }
@@ -41,7 +46,6 @@ class NetWorkViewModel(application: Application) : BaseViewModel(application) {
                         // 请求成功
                         if (baseResponse.status == 1) {  // 接口返回code=1 代表成功
                             val newsDataList = baseResponse.data
-                            KLog.e(newsDataList?.toString())
                             if (newsDataList != null) {
                                 if (newsDataList.size > 0) {
                                     liveData.postValue(newsDataList)

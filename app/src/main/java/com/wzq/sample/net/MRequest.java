@@ -1,8 +1,8 @@
 package com.wzq.sample.net;
 
 import android.annotation.SuppressLint;
-import com.wzq.mvvmsmart.http.base.BaseRequest;
-import com.wzq.mvvmsmart.http.base.BaseResponse;
+import com.wzq.mvvmsmart.net.base.BaseRequest;
+import com.wzq.mvvmsmart.net.base.BaseResponse;
 import com.wzq.sample.bean.DemoBean;
 import com.wzq.sample.bean.NewsData;
 import io.reactivex.Observable;

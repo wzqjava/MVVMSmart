@@ -1,6 +1,6 @@
 package com.wzq.sample.net
 
-import com.wzq.mvvmsmart.http.base.BaseResponse
+import com.wzq.mvvmsmart.net.base.BaseResponse
 import com.wzq.sample.bean.DemoBean
 import com.wzq.sample.bean.NewsData
 import io.reactivex.Observable
