@@ -15,10 +15,7 @@ import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.widget.Toast;
-
 import androidx.core.app.ActivityCompat;
-
-import java.io.DataOutputStream;
 
 /**
  * created 王志强 2020.04.30
@@ -68,29 +65,6 @@ public class BaseCommonUtils {
             return false;
         }
     }
-
-    /**
-     * 暂停使用iptables白名单
-     */
-    public static void I3PadCloseWhiteList() {
-        try {
-            String name = Build.FINGERPRINT;
-            if (!TextUtils.isEmpty(name) && (name.contains("IENG") || (name.contains("alps") && name.contains("7.0")))) {
-                Process process = null;
-                process = Runtime.getRuntime().exec("su");
-                DataOutputStream os = new DataOutputStream(process.getOutputStream());
-                os.writeBytes("iptables -F\n");
-                os.writeBytes("exit\n");
-                os.flush();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /* */
-
-
 
     /**
      * 跳转到网络设置页

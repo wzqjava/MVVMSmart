@@ -28,7 +28,6 @@ object TestUtils {
             "https://gank.io/images/3fdbaffdf3374578a82313621123dace",
             "https://gank.io/images/f08e8ab6030d41a0ada3e6cecea0e60c",
             "https://gank.io/images/e92911f5ff9446d5a899b652b1934b93",
-
             //----------------------not sex girl----------
             "http://f.expoon.com/sub/news/2016/01/21/887844_230x162_0.jpg",
             "http://f.expoon.com/sub/news/2016/01/21/580828_230x162_0.jpg",

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.wzq.mvvmsmart.utils.KLog
+import com.wzq.mvvmsmart.utils.ToastUtils
 import com.wzq.sample.BR
 import com.wzq.sample.R
 import com.wzq.sample.base.BaseFragment
