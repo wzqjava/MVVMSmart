@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.wzq.mvvmsmart.R;
 
 /**
- * created by ccl on 2019/2/28
+ * 封装loading
  **/
 public class BaseLoadingDialog {
 
