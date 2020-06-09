@@ -1,6 +1,12 @@
 # MVVMSmart-kotlin
 > 目前，android基于MVVM模式开发框架比较少。**MVVMSmart-kotlin是以谷歌Jetpack架构组件ViewModel+Lifecycles+Navigation+DataBinding+LiveData+Okhttp+Retrofit+RxJava+Glide等，加上各种原生控件自定义的BindingAdapter，让事件与数据源完美绑定的一款容易上瘾的实用性MVVM快速开发框架**。告别findViewById()，告别setText()，告别setOnClickListener()...
 ## 技术讨QQ群：531944409
+## 最新日志 **v2.0：2020年6月9日**
+1. 重构优化网络框架
+2. 全局的Loading封装,loading包含动画功能,rxjava封装调用
+3. 修改开源稳定的测试网络接口
+4. 添加TestNetFragment,方便开发者调试自己喜欢的任何接口
+5. 开发环境动态切换(dev,qa,release)+渠道管理+动态配置BaseUrl+企业级签名配置规范.
 ## 最新日志 **v2.0：2020年4月28日**
 1. 上线kotlin稳定版
 2. 增加recyclerview无数据的默认页,同时支持其他任何布局层次无数据的默认页,一行代码显示默认页
