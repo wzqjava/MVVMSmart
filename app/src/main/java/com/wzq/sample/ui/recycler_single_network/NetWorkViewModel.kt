@@ -30,19 +30,17 @@ class NetWorkViewModel(application: Application) : BaseViewModel(application) {
                 .compose(RxUtil.exceptionTransformer()) // 网络错误的异常转换, 这里可以换成自己的ExceptionHandle
                 .doOnSubscribe(this@NetWorkViewModel) //  请求与ViewModel周期同步
                 .doOnSubscribe {
-                    d -> stateLiveData.postLoading()
+                    d ->
+                    stateLiveData.postLoading()
                 }
                 .doFinally { stateLiveData.postIdle() }
                 .subscribe(object : DefaultObserver<ArrayList<NewsData>>() {
                     override fun onSubscribe(d: Disposable) {
                         super.onSubscribe(d)
-                        KLog.e("进入 onSubscribe方法")
-                        stateLiveData.postLoading()
                     }
 
                     override fun onNext(baseResponse: BaseResponse<ArrayList<NewsData>>) {
                         super.onNext(baseResponse)
-                        KLog.e("进入onNext")
                         // 请求成功
                         if (baseResponse.status == 1) {  // 接口返回code=1 代表成功
                             val newsDataList = baseResponse.data
@@ -77,7 +75,6 @@ class NetWorkViewModel(application: Application) : BaseViewModel(application) {
 
                     override fun onComplete() {
                         super.onComplete()
-                        KLog.e("进入onComplete")
                         //关闭对话框
                     }
 
