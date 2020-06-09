@@ -55,6 +55,7 @@ google AAC(Android Architecture Components:安卓架构组件):
 9. app崩溃重启功能(任意指定重启Activity即可,一般是欢迎页),debug模式崩溃后测试人员可以直接截屏崩溃日志给开发,再也不会听到测试说"又崩啦.."
 10. AppManagerMVVM管理类用两个栈管理Activity和Fragment,能动态获取栈顶UI,任何页面一行代码安全退出程序.
 11. 全局的Loading封装,loading包含动画功能,rxjava封装调用
+12. gradle企业级:签名配置+渠道配置+BaseUrl管理+ 打包apk命名区分环境管理
   
 
 ## 1、准备工作
