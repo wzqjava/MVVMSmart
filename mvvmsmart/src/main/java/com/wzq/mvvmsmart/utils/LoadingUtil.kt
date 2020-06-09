@@ -1,7 +1,6 @@
-package com.wzq.sample.utils
+package com.wzq.mvvmsmart.utils
 
 import android.app.Activity
-import android.content.Context
 import com.wzq.mvvmsmart.widget.BaseLoadingDialog
 
 /**
