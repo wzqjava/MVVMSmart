@@ -1,6 +1,5 @@
 package com.wzq.mvvmsmart.net.download
 
-
 import com.wzq.mvvmsmart.net.interceptor.ProgressInterceptor
 import com.wzq.mvvmsmart.net.net_utils.NetworkUtil
 import io.reactivex.Observable
@@ -19,39 +18,12 @@ import java.util.concurrent.TimeUnit
  * 文件下载管理，封装一行代码实现下载
  */
 class DownLoadManager private constructor() {
-    //下载
-    fun load(downUrl: String?, callBack: ProgressCallBack<*>) {
-        retrofit!!.create(ApiService::class.java)
-                .download(downUrl)
-                .subscribeOn(Schedulers.io()) //请求网络 在调度者的io线程
-                .observeOn(Schedulers.io()) //指定线程保存文件
-                .doOnNext { responseBody -> callBack.saveFile(responseBody!!) }
-                .observeOn(AndroidSchedulers.mainThread()) //在主线程中更新ui
-                .subscribe(DownLoadSubscriber(callBack))
+    init {
+        getRetrofit()
     }
-
-    private fun buildNetWork() {
-        val okHttpClient = OkHttpClient.Builder() //  添加下载拦截器，里面用ProgressResponseBody拦截下载进度信息，在里面的source方法中发送进度改变事件儿
-                .addInterceptor(ProgressInterceptor())
-                .connectTimeout(20, TimeUnit.SECONDS)
-                .build()
-        retrofit = Retrofit.Builder()
-                .client(okHttpClient)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl(NetworkUtil.url)
-                .build()
-    }
-
-    private interface ApiService {
-        @Streaming
-        @GET
-        fun download(@Url url: String?): Observable<ResponseBody?>
-    }
-
     companion object {
         /**
          * 单例模式
-         *
          * @return DownLoadManager
          */
         var instance: DownLoadManager? = null
@@ -66,7 +38,26 @@ class DownLoadManager private constructor() {
 
     }
 
-    init {
-        buildNetWork()
+    private interface ApiService {
+        @Streaming
+        @GET
+        fun download(@Url url: String?): Observable<ResponseBody?>
     }
+
+    //下载
+    fun load(downUrl: String?, callBack: ProgressCallBack<*>) {
+        retrofit!!.create(ApiService::class.java).download(downUrl).subscribeOn(Schedulers.io()) //请求网络 在调度者的io线程
+                .observeOn(Schedulers.io()) //指定线程保存文件
+                .doOnNext { responseBody -> callBack.saveFile(responseBody!!) }
+                .observeOn(AndroidSchedulers.mainThread()) //在主线程中更新ui
+                .subscribe(DownLoadSubscriber(callBack))
+    }
+
+    private fun getRetrofit() {
+        val okHttpClient = OkHttpClient.Builder() //  添加下载拦截器，里面用ProgressResponseBody拦截下载进度信息，在里面的source方法中发送进度改变事件儿
+                .addInterceptor(ProgressInterceptor()).connectTimeout(20, TimeUnit.SECONDS).build()
+        retrofit = Retrofit.Builder().client(okHttpClient).addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .baseUrl(NetworkUtil.url).build()
+    }
+
 }

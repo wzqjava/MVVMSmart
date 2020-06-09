@@ -16,6 +16,9 @@ abstract class ProgressCallBack<T>(lifecycleOwner: LifecycleOwner?, // 本地文
     open fun onStart() {}
     open fun onCompleted() {}
     abstract fun onError(e: Throwable?)
+    init {
+        subscribeLoadProgress(lifecycleOwner)
+    }
     fun saveFile(body: ResponseBody) {
         var `is`: InputStream? = null
         val buf = ByteArray(2048)
@@ -49,7 +52,6 @@ abstract class ProgressCallBack<T>(lifecycleOwner: LifecycleOwner?, // 本地文
 
     /**
      * 订阅加载的进度条
-     *
      * @param lifecycleOwner
      */
     fun subscribeLoadProgress(lifecycleOwner: LifecycleOwner?) {
@@ -58,7 +60,5 @@ abstract class ProgressCallBack<T>(lifecycleOwner: LifecycleOwner?, // 本地文
                 .observe(lifecycleOwner!!, Observer { progressLoadBean -> progress(progressLoadBean.bytesLoaded, progressLoadBean.total) })
     }
 
-    init {
-        subscribeLoadProgress(lifecycleOwner)
-    }
+
 }

@@ -161,10 +161,14 @@ class MainFragment : BaseFragment<FragmentHomeBinding, MainViewModel>() {
 
             override fun onSuccess(responseBody: Any?) {
                 KLog.e("下载--onSuccess")
-
                 ToastUtils.showShort("文件下载完成！")
             }
 
+            /**
+             * ProgressInterceptor拦截response变化,封装到ProgressResponseBody中
+             * ProgressResponseBody中,Okio读取response在大小,当前获取到的大小,实时发送LiveEventBus
+             * LiveEventBus收到进度改变值,多次调用更新进度
+             */
             override fun progress(progress: Long, total: Long) {
                 KLog.e("下载--progress")
                 progressDialog.max = total.toInt()

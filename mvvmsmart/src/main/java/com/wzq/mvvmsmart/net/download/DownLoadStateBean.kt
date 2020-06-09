@@ -8,12 +8,9 @@ import java.io.Serializable
  * 下载状态封装类
  */
 class DownLoadStateBean : Serializable, Parcelable {
-    var total //  文件总大小
-            : Long
-    var bytesLoaded //已加载文件的大小
-            : Long
-    var tag // 多任务下载时的一个标记
-            : String? = null
+    var total: Long//  文件总大小
+    var bytesLoaded: Long   //已加载文件的大小
+    var tag: String? = null // 多任务下载时的一个标记
 
     constructor(total: Long, bytesLoaded: Long) {
         this.total = total
