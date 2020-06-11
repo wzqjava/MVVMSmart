@@ -23,9 +23,9 @@ class NetWorkViewModel(application: Application) : BaseViewModel(application) {
     /**
      * 网络请求方法，在ViewModel中调用Model层，通过Okhttp+Retrofit+RxJava发起请求
      */
-    fun requestNetWork() {
+    fun doGetServerNews() {
         //可以调用addSubscribe()添加Disposable，请求与View周期同步
-        val observable = model.demoGet(pageNum)
+        val observable = model.doGetServerNews(pageNum)
         observable.compose(RxUtil.observableToMain()) //线程调度,compose操作符是直接对当前Observable进行操作（可简单理解为不停地.方法名（）.方法名（）链式操作当前Observable）
                 .compose(RxUtil.exceptionTransformer()) // 网络错误的异常转换, 这里可以换成自己的ExceptionHandle
                 .doOnSubscribe(this@NetWorkViewModel) //  请求与ViewModel周期同步

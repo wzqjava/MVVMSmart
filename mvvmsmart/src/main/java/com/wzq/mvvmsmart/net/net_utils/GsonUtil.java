@@ -45,7 +45,6 @@ public class GsonUtil {
      * 转成json
      *
      * @param object
-     * @return 和GsonString方法相同, 历史遗留问题, 暂不用修改
      */
     public static String bean2String(Object object) {
         String gsonString = null;
