@@ -66,6 +66,7 @@ google AAC(Android Architecture Components:安卓架构组件):
 14. 支持Post请求多参数封装成json提交
 15. 全局任何位置Toast功能,ViewModel中有许多toast需求使用很方便.
 16. 全局Tasks任务类管理,里面封装全局Handler,可以发送runnable到UIThread或普通Thread,都支持延迟发送,这个工具很实用.
+17. 生产环境都有token,封装自动请求token更新token,app长期不用token过期跳转登录页面(拦截器功能).
 
 ## 1、准备工作
 > 网上有很多MVVM入门资料，在此就不再阐述什么是MVVM了，不清楚的朋友可以先去了解一下。
