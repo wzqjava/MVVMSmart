@@ -13,10 +13,9 @@ import io.reactivex.Observable
  * 文件描述：
  */
 class NetWorkModel : BaseModelMVVM() {
-    fun demoGet(pageNum: Int): Observable<BaseResponse<ArrayList<NewsData>>> {
-        return MRequest.getInstance().demoGetNews(0, pageNum)
+    fun doGetServerNews(pageNum: Int): Observable<BaseResponse<ArrayList<NewsData>>> {
+        return MRequest.getInstance().doGetServerNews(pageNum)
     }
-
     fun loadMore(): Completable? {
         return null
         /* fun loadMore(): Observable<DemoBean> {

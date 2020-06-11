@@ -7,6 +7,8 @@ import com.wzq.sample.bean.DemoBean;
 import com.wzq.sample.bean.NewsData;
 import io.reactivex.Observable;
 import java.util.ArrayList;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 /**
  * author :王志强
@@ -30,15 +32,23 @@ public class MRequest extends BaseRequest {
         super();
         this.service = retrofit.create(DemoApiService.class);
     }
+
     // 获取列表条目
-    public Observable<BaseResponse<DemoBean>> demoGet( int what, int num) {
+    public Observable<BaseResponse<DemoBean>> demoGet(int what, int num) {
         Observable<BaseResponse<DemoBean>> observable = service.demoGet(num);
         return observable;
     }
+
     // 获取新闻列表
-    public Observable<BaseResponse<ArrayList<NewsData>>> demoGetNews( int what, int pageNum) {
-        //RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonParams);
-        Observable<BaseResponse<ArrayList<NewsData>>> observable = service.demoGetNews(pageNum);
+    public Observable<BaseResponse<ArrayList<NewsData>>> doGetServerNews(int pageNum) {
+        Observable<BaseResponse<ArrayList<NewsData>>> observable = service.doGetServerNews(pageNum);
+        return observable;
+    }
+
+    // post请求
+    public Observable<BaseResponse<ArrayList<NewsData>>> doPostServerNews(String jsonParams) {
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonParams);
+        Observable<BaseResponse<ArrayList<NewsData>>> observable = service.doPostServerNews(requestBody);
         return observable;
     }
 
