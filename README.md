@@ -62,7 +62,10 @@ google AAC(Android Architecture Components:安卓架构组件):
 10. AppManagerMVVM管理类用两个栈管理Activity和Fragment,能动态获取栈顶UI,任何页面一行代码安全退出程序.
 11. 全局的Loading封装,loading包含动画功能,rxjava封装调用
 12. gradle企业级:签名配置+渠道配置+BaseUrl管理+ 打包apk命名区分环境管理
-  
+13. 支持Arouter组件化
+14. 支持Post请求多参数封装成json提交
+15. 全局任何位置Toast功能,ViewModel中有许多toast需求使用很方便.
+16. 全局Tasks任务类管理,里面封装全局Handler,可以发送runnable到UIThread或普通Thread,都支持延迟发送,这个工具很实用.
 
 ## 1、准备工作
 > 网上有很多MVVM入门资料，在此就不再阐述什么是MVVM了，不清楚的朋友可以先去了解一下。
