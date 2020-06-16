@@ -48,9 +48,8 @@ abstract class BaseActivityMVVM<V : ViewDataBinding, VM : BaseViewModelMVVM> : A
         //DataBindingUtil类需要在project的build中配置 dataBinding {enabled true }, 同步后会自动关联android.binding包
         binding = DataBindingUtil.setContentView(this, initContentView(savedInstanceState))
         viewModelId = initVariableId()
-//        viewModel = initViewModel()
+        //        viewModel = initViewModel()
         binding.lifecycleOwner = this
-
         val modelClass: Class<VM>
         val type = javaClass.genericSuperclass
 
@@ -123,6 +122,7 @@ abstract class BaseActivityMVVM<V : ViewDataBinding, VM : BaseViewModelMVVM> : A
     override fun initViewObservable() {
         //私有的ViewModel与View的契约事件回调逻辑
     }
+
     override fun onContentReload() {
         //  有列表的页面,无数据的时候点击空白页重新加载网络
     }
@@ -133,7 +133,6 @@ abstract class BaseActivityMVVM<V : ViewDataBinding, VM : BaseViewModelMVVM> : A
      * @return 生成的viewMode实例
     </T> */
     private fun <T : ViewModel> createViewModel(activity: FragmentActivity, cls: Class<T>): T {
-//        return ViewModelProviders.of(activity).get(cls)
         return ViewModelProvider(activity).get(cls)
     }
 
