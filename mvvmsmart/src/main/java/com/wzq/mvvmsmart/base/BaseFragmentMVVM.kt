@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.wzq.mvvmsmart.widget.EmptyViewHelper
 import java.lang.reflect.ParameterizedType
@@ -28,7 +29,8 @@ abstract class BaseFragmentMVVM<V : ViewDataBinding, VM : BaseViewModelMVVM> : F
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         //如果fragment的view已经创建则不再重新创建
         if (lastView == null) {
-            binding = DataBindingUtil.inflate(inflater, initContentView(inflater, container, savedInstanceState), container, false)
+            binding =
+                DataBindingUtil.inflate(inflater, initContentView(inflater, container, savedInstanceState), container, false)
             binding.lifecycleOwner = this
             lastView = binding.root
         }
@@ -112,7 +114,7 @@ abstract class BaseFragmentMVVM<V : ViewDataBinding, VM : BaseViewModelMVVM> : F
      * @return 生成的viewMode实例
     </T> */
     private fun <T : ViewModel?> createViewModel(fragment: Fragment, cls: Class<T>): T {
-        return ViewModelProviders.of(fragment)[cls]
+        return ViewModelProvider(fragment)[cls]
     }
 
     //刷新布局数据
@@ -152,7 +154,6 @@ abstract class BaseFragmentMVVM<V : ViewDataBinding, VM : BaseViewModelMVVM> : F
             binding.unbind()
         }
     }
-
 
     protected fun showNormalLayout(view: View?) {
         if (emptyViewHelper == null) {
