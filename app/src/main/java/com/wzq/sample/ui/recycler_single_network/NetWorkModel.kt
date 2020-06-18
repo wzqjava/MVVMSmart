@@ -13,25 +13,25 @@ import io.reactivex.Observable
  * 文件描述：
  */
 class NetWorkModel : BaseModelMVVM() {
+    /**
+     * 数据来自内存
+     */
+    fun doGetServerNews1(pageNum: Int): Observable<BaseResponse<ArrayList<NewsData>>> {
+        return MRequest.getInstance().doGetServerNews(pageNum)
+    }
+
+    /**
+     * 数据来自DB
+     */
+    fun doGetServerNews2(pageNum: Int): Observable<BaseResponse<ArrayList<NewsData>>> {
+        return MRequest.getInstance().doGetServerNews(pageNum)
+    }
+
+    /**
+     * 数据来自网络
+     */
     fun doGetServerNews(pageNum: Int): Observable<BaseResponse<ArrayList<NewsData>>> {
         return MRequest.getInstance().doGetServerNews(pageNum)
     }
-    fun loadMore(): Completable? {
-        return null
-        /* fun loadMore(): Observable<DemoBean> {
-             return Observable.create<DemoBean> { observableEmitter ->
-                 val entity = DemoBean()
-                 val students: MutableList<ItemsEntity> = ArrayList()
-                 //模拟一部分假数据
-                 for (i in 0..9) {
-                     val student = ItemsEntity()
-                     student.id = -1
-                     student.name = "模拟条目"
-                     students.add(student)
-                 }
-                 entity.items = students
-                 observableEmitter.onNext(entity)
-             }.delay(2, TimeUnit.SECONDS) //延迟3秒
-         }*/
-    }
+
 }
