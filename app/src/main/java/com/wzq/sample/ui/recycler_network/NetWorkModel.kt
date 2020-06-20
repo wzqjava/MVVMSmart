@@ -1,10 +1,9 @@
-package com.wzq.sample.ui.recycler_single_network
+package com.wzq.sample.ui.recycler_network
 
 import com.wzq.mvvmsmart.base.BaseModelMVVM
 import com.wzq.mvvmsmart.net.base.BaseResponse
 import com.wzq.sample.bean.NewsData
 import com.wzq.sample.net.MRequest
-import io.reactivex.Completable
 import io.reactivex.Observable
 
 /**

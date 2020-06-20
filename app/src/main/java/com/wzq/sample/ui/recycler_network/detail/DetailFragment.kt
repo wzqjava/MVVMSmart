@@ -1,4 +1,4 @@
-package com.wzq.sample.ui.recycler_single_network.detail
+package com.wzq.sample.ui.recycler_network.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater

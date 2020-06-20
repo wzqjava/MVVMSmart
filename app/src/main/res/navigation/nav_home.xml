@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/netWorkFragment"
-        android:name="com.wzq.sample.ui.recycler_single_network.NetWorkFragment"
+        android:name="com.wzq.sample.ui.recycler_network.NetWorkFragment"
         android:label="NetWorkFragment" >
         <action
             android:id="@+id/action_netWorkFragment_to_detailFragment"
@@ -51,7 +51,7 @@
         android:label="FormFragment" />
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.wzq.sample.ui.recycler_single_network.detail.DetailFragment"
+        android:name="com.wzq.sample.ui.recycler_network.detail.DetailFragment"
         android:label="DetailFragment" />
     <fragment
         android:id="@+id/roomSampleFragment"

@@ -1,4 +1,4 @@
-package com.wzq.sample.ui.recycler_single_network
+package com.wzq.sample.ui.recycler_network
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
