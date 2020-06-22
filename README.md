@@ -67,7 +67,7 @@ google AAC(Android Architecture Components:安卓架构组件):
 15. 全局任何位置Toast功能,ViewModel中有许多toast需求使用很方便.
 16. 全局Tasks任务类管理,里面封装全局Handler,可以发送runnable到UIThread或普通Thread,都支持延迟发送,这个工具很实用.
 17. 生产环境都有token,封装自动请求token更新token,app长期不用token过期跳转登录页面(拦截器功能).
-18. 添加最小宽度适配fhan, 目前全球主流适配方案.几乎适配所有手机.适配方案技术细节https://www.jianshu.com/p/1302ad5a4b04
+18. 添加最小宽度适配方案, 目前全球主流适配方案.几乎适配所有手机.适配方案技术细节https://www.jianshu.com/p/1302ad5a4b04
 
 ## 1、准备工作
 > 网上有很多MVVM入门资料，在此就不再阐述什么是MVVM了，不清楚的朋友可以先去了解一下。
