@@ -21,13 +21,28 @@
       android:layout_marginTop="20dp"
       android:text="请求接口" />
 
+    <Button
+        android:id="@+id/button_base_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="20dp"
+        android:text="动态设置BaseURL请求接口" />
+
+    <Button
+        android:id="@+id/button_custom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="20dp"
+        android:text="请求接口非BaseResponse处理" />
     <TextView
-      android:id="@+id/tvJson"
-      android:layout_width="match_parent"
-      android:layout_marginHorizontal="15dp"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="20dp"
-      android:lineSpacingExtra="5dp"
-      android:text="result: " />
+        android:id="@+id/tvJson"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="15dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:lineSpacingExtra="5dp"
+        android:text="result: " />
   </LinearLayout>
 </layout>

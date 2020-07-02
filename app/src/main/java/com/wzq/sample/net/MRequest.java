@@ -52,5 +52,14 @@ public class MRequest extends BaseRequest {
         Observable<BaseResponse<ArrayList<NewsData>>> observable = service.doPostServerNews(requestBody);
         return observable;
     }
-
+    // post请求 返回字符串数据由用户自己解析，特定场景使用
+    public Observable<String> doPostServerNewsCustom(String jsonParams) {
+        RequestBody requestBody = RequestBody.create(MediaType.parse(NetConstants.APPLICATION_JSON), jsonParams);
+        Observable<String> observable = service.doPostServerNewsCustom(requestBody);
+        return observable;
+    }
+    // 动态设置baseUrl，针对baseUrl从配置文件配置的场景
+    public Observable<String> doBaseUrl() {
+        return service.doBaseUrl();
+    }
 }

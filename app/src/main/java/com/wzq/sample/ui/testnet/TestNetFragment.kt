@@ -5,11 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import com.google.gson.reflect.TypeToken
+import com.wzq.mvvmsmart.net.base.BaseResponse
+import com.wzq.mvvmsmart.net.net_utils.GsonUtil
 import com.wzq.mvvmsmart.utils.KLog
 import com.wzq.sample.BR
 import com.wzq.sample.R
 import com.wzq.sample.base.BaseFragment
+import com.wzq.sample.bean.BaseUrlData
+import com.wzq.sample.bean.NewsData
 import com.wzq.sample.databinding.FragmentTestNetBinding
+import me.jessyan.retrofiturlmanager.RetrofitUrlManager
+import java.lang.Exception
 
 /**
  * Create Date：2019/01/25
@@ -35,5 +42,41 @@ class TestNetFragment : BaseFragment<FragmentTestNetBinding, TestNetViewModel>()
                 binding.tvJson.text = it[0].news_summary
             }
         })
+
+        binding.buttonCustom.setOnClickListener {
+            //此处请求 返回结果需要用户自己解析
+            viewModel.doPostServerNewsCustom()
+        }
+        viewModel.liveDataString.observe(this, Observer {
+            try {
+                KLog.d(it)
+                val data = GsonUtil.getGson().fromJson<BaseResponse<ArrayList<NewsData>>>(it,
+                        object : TypeToken<BaseResponse<ArrayList<NewsData>>>(){}.type)
+                if (data != null && data.data.isNotEmpty()){
+                    binding.tvJson.text = data.data[0].news_summary
+                }
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
+        })
+
+        binding.buttonBaseUrl.setOnClickListener {
+            //只针对该接口动态使用https://api.apiopen.top
+            RetrofitUrlManager.getInstance().putDomain("api","https://api.apiopen.top")
+            viewModel.doBaseUrl()
+        }
+        viewModel.liveDataBaseUrl.observe(this, Observer {
+            try {
+                KLog.d(it)
+                val data = GsonUtil.getGson().fromJson<BaseUrlData>(it,
+                        object : TypeToken<BaseUrlData>(){}.type)
+                if (data != null){
+                    binding.tvJson.text = data.message+"--"+data.code
+                }
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
+        })
+
     }
 }

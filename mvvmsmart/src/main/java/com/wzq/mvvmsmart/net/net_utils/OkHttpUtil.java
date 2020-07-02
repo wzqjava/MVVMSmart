@@ -8,6 +8,7 @@ import com.wzq.mvvmsmart.net.cookie.MemoryCookieStore;
 
 import java.util.concurrent.TimeUnit;
 
+import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 import okhttp3.OkHttpClient;
 
 /**
@@ -35,7 +36,7 @@ public class OkHttpUtil {
      */
     OkHttpClient okHttpsCacheClient() {
         if (okHttpClient == null) {
-            okHttpClient = okHttpsBuilder().build();
+            okHttpClient = RetrofitUrlManager.getInstance().with(okHttpsBuilder()).build();
         }
         return okHttpClient;
     }

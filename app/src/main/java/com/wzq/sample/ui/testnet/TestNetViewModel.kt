@@ -10,6 +10,7 @@ import com.wzq.mvvmsmart.net.net_utils.GsonUtil
 import com.wzq.mvvmsmart.net.observer.DefaultObserver
 import com.wzq.mvvmsmart.net.net_utils.RxUtil
 import com.wzq.sample.bean.NewsData
+import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import java.util.*
 
@@ -21,6 +22,8 @@ import java.util.*
 class TestNetViewModel(application: Application) : BaseViewModel(application) {
     //给RecyclerView添加ObservableList
     var liveData = MutableLiveData<List<NewsData>>()
+    var liveDataString = MutableLiveData<String>()
+    var liveDataBaseUrl = MutableLiveData<String>()
 
     /**
     线程调度,compose操作符是直接对当前Observable进行操作（可简单理解为不停地.方法名（）.方法名（）链式操作当前Observable）
@@ -75,6 +78,51 @@ class TestNetViewModel(application: Application) : BaseViewModel(application) {
                         //关闭对话框
                     }
 
+                })
+
+    }
+    fun doPostServerNewsCustom() {
+//        val param: Map<String, String> = HashMap()
+        // 这里的参数是随便模拟的
+        val param = mapOf("key" to 24,"name" to "zhangsan","age" to 25)
+        val observable = MRequest.getInstance().doPostServerNewsCustom(GsonUtil.bean2String(param))
+        observable.compose(RxUtil.observableToMain()) //线程调度,compose操作符是直接对当前Observable进行操作（可简单理解为不停地.方法名（）.方法名（）链式操作当前Observable）
+                .compose(RxUtil.exceptionTransformer()) // 网络错误的异常转换, 这里可以换成自己的ExceptionHandle
+                .doOnSubscribe(this@TestNetViewModel) //  请求与ViewModel周期同步
+                .subscribe(object :Observer<String>{
+                    override fun onNext(t: String) {
+                        KLog.d(t)
+                        liveDataString.postValue(t)
+                    }
+                    override fun onComplete() {
+                    }
+
+                    override fun onSubscribe(d: Disposable) {
+                    }
+
+                    override fun onError(e: Throwable) {
+                    }
+                })
+
+    }
+    fun doBaseUrl() {
+        val observable = MRequest.getInstance().doBaseUrl()
+        observable.compose(RxUtil.observableToMain()) //线程调度,compose操作符是直接对当前Observable进行操作（可简单理解为不停地.方法名（）.方法名（）链式操作当前Observable）
+                .compose(RxUtil.exceptionTransformer()) // 网络错误的异常转换, 这里可以换成自己的ExceptionHandle
+                .doOnSubscribe(this@TestNetViewModel) //  请求与ViewModel周期同步
+                .subscribe(object :Observer<String>{
+                    override fun onNext(t: String) {
+                        KLog.d(t)
+                        liveDataBaseUrl.postValue(t)
+                    }
+                    override fun onComplete() {
+                    }
+
+                    override fun onSubscribe(d: Disposable) {
+                    }
+
+                    override fun onError(e: Throwable) {
+                    }
                 })
 
     }
