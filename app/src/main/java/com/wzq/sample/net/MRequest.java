@@ -3,6 +3,7 @@ package com.wzq.sample.net;
 import android.annotation.SuppressLint;
 import com.wzq.mvvmsmart.net.base.BaseRequest;
 import com.wzq.mvvmsmart.net.base.BaseResponse;
+import com.wzq.mvvmsmart.utils.constant.NetConstants;
 import com.wzq.sample.bean.DemoBean;
 import com.wzq.sample.bean.NewsData;
 import io.reactivex.Observable;
@@ -45,9 +46,9 @@ public class MRequest extends BaseRequest {
         return observable;
     }
 
-    // post请求
+    // post请求 JSON
     public Observable<BaseResponse<ArrayList<NewsData>>> doPostServerNews(String jsonParams) {
-        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonParams);
+        RequestBody requestBody = RequestBody.create(MediaType.parse(NetConstants.APPLICATION_JSON), jsonParams);
         Observable<BaseResponse<ArrayList<NewsData>>> observable = service.doPostServerNews(requestBody);
         return observable;
     }

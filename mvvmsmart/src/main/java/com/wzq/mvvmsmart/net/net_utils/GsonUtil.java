@@ -3,10 +3,12 @@ package com.wzq.mvvmsmart.net.net_utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.wzq.mvvmsmart.net.net_utils.gsontypeadapter.BooleanTypeAdapter;
 import com.wzq.mvvmsmart.net.net_utils.gsontypeadapter.IntegerTypeAdapter;
 import com.wzq.mvvmsmart.net.net_utils.gsontypeadapter.LongTypeAdapter;
 import com.wzq.mvvmsmart.net.net_utils.gsontypeadapter.DoubleTypeAdapter;
 import com.wzq.mvvmsmart.net.net_utils.gsontypeadapter.FloatTypeAdapter;
+import com.wzq.mvvmsmart.net.net_utils.gsontypeadapter.StringTypeAdapter;
 
 import java.util.List;
 import java.util.Map;
@@ -29,6 +31,9 @@ public class GsonUtil {
                     .registerTypeAdapter(long.class, new LongTypeAdapter())
                     .registerTypeAdapter(Float.class, new FloatTypeAdapter())
                     .registerTypeAdapter(float.class, new FloatTypeAdapter())
+                    .registerTypeAdapter(Boolean.class, new BooleanTypeAdapter())
+                    .registerTypeAdapter(boolean.class, new BooleanTypeAdapter())
+                    .registerTypeAdapter(String.class, new StringTypeAdapter())
                     .create();
         }
     }

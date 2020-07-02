@@ -11,6 +11,8 @@ import com.wzq.mvvmsmart.net.net_utils.MetaDataUtil;
 import com.wzq.mvvmsmart.net.net_utils.MmkvUtils;
 import com.wzq.mvvmsmart.net.net_utils.Utils;
 import com.wzq.mvvmsmart.utils.KLog;
+import com.wzq.mvvmsmart.utils.constant.NetConstants;
+
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Iterator;
@@ -20,6 +22,7 @@ import okhttp3.Cookie;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okhttp3.internal.Util;
@@ -50,17 +53,34 @@ public class HttpCommonInterceptor implements Interceptor {
         response = chain.proceed(request);
 
         if (BuildConfig.DEBUG) {
-            ResponseBody responseBody = response.body();
-            KLog.INSTANCE.e(TAG, "网络请求--#" + response.request().url());
-            BufferedSource source = responseBody.source();
-            Buffer buffer = source.buffer();
-            MediaType contentType = responseBody.contentType();
-            Charset charset = contentType != null ? contentType.charset(Charset.forName("UTF-8")) : Charset.forName("UTF-8");
-            Charset newCharset = Util.bomAwareCharset(source, charset);
-            String string = buffer.clone().readString(newCharset);
-            //String string2 = decodeUnicode(string);
-            KLog.INSTANCE.json(TAG, string);  // Warn级别查看 带格式的json
+            //请求拦截 LOG
+            RequestBody requestBody = request.body();
+            Buffer bufferReq = new Buffer();
+            String resultRequestBody = "";// GET 无参数时默认 resultRequestBody=""
+            if (requestBody != null){
+                requestBody.writeTo(bufferReq);
+                MediaType reqContentType = requestBody.contentType();
+                resultRequestBody = bufferReq.readString(reqContentType.charset(Charset.forName("UTF-8")));
+            }
 
+            //响应拦截 LOG
+            ResponseBody responseBody = response.body();
+            String resultResponseBody="";
+            if (responseBody != null){
+                BufferedSource source = responseBody.source();
+                Buffer buffer = source.buffer();
+                MediaType contentType = responseBody.contentType();
+                Charset charset = contentType != null ? contentType.charset(Charset.forName("UTF-8")) : Charset.forName("UTF-8");
+                Charset newCharset = Util.bomAwareCharset(source, charset);
+                resultResponseBody = buffer.clone().readString(newCharset);
+            }
+            //String string2 = decodeUnicode(string);
+            KLog.INSTANCE.e(TAG, String.format("发送请求\nmethod：%s\n原请求url：%s\nheaders: %s\n请求body：%s\n" +
+                            "收到响应\n%s %s\n新的真实请求url：%s",
+                    request.method(), request.url(), request.headers(), resultRequestBody,
+                    response.code(), response.message(), response.request().url()));
+
+            KLog.INSTANCE.json(TAG+"返回结果", resultResponseBody);  // Warn级别查看 带格式的json
         }
         return response;
     }
@@ -90,16 +110,16 @@ public class HttpCommonInterceptor implements Interceptor {
         String uuidStr = UUID.randomUUID().toString();
         String finaluuIDStr = uuidStr.replaceAll("-", "");
         Request.Builder mBuilder = request.newBuilder();
-        mBuilder.addHeader("traceId", finaluuIDStr);
-        mBuilder.addHeader("deviceName", DEVICENAME);
-        mBuilder.addHeader("appVersion", VERSIONCODE);
-        mBuilder.addHeader("mac", MAC);
-        mBuilder.addHeader("deviceNumber", IMEI);
-        mBuilder.addHeader("iccid", iccid);
-        if (!TextUtils.isEmpty(MmkvUtils.getStringValue("accessToken"))) {
-            mBuilder.addHeader("Authorization",  MmkvUtils.getStringValue("accessToken"));//添加token
-            KLog.INSTANCE.w("token",  MmkvUtils.getStringValue("accessToken"));
-            mBuilder.addHeader("versionCode", VERSIONCODE);//登录的时候不传versioncode
+        mBuilder.addHeader(NetConstants.TRACE_ID, finaluuIDStr);
+        mBuilder.addHeader(NetConstants.DEVICE_NAME, DEVICENAME);
+        mBuilder.addHeader(NetConstants.APP_VERSION, VERSIONCODE);
+        mBuilder.addHeader(NetConstants.MAC, MAC);
+        mBuilder.addHeader(NetConstants.DEVICE_NUMBER, IMEI);
+        mBuilder.addHeader(NetConstants.ICCID, iccid);
+        if (!TextUtils.isEmpty(MmkvUtils.getStringValue(NetConstants.TOKEN))) {
+            mBuilder.addHeader(NetConstants.AUTH,  MmkvUtils.getStringValue(NetConstants.TOKEN));//添加token
+            KLog.INSTANCE.w("token",  MmkvUtils.getStringValue(NetConstants.TOKEN));
+            mBuilder.addHeader(NetConstants.VERSION_CODE, VERSIONCODE);//登录的时候不传versioncode
         } else {
             KLog.INSTANCE.e("accessToken为空");
         }

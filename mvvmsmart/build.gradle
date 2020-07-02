@@ -75,6 +75,7 @@ dependencies {
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api rootProject.ext.dependencies["MMKV"]  //共享参数
+    api 'me.jessyan:retrofit-url-manager:1.4.0'// 多baseUrl替换 https://github.com/JessYanCoding/RetrofitUrlManager
 }
 repositories {
     mavenCentral()
