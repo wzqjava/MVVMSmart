@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.wzq.mvvmsmart.net.base.BaseObserver;
 import com.wzq.mvvmsmart.net.base.BaseResponse;
+import com.wzq.mvvmsmart.net.net_utils.GsonUtil;
 import com.wzq.mvvmsmart.utils.KLog;
 import io.reactivex.disposables.Disposable;
 import java.lang.reflect.Type;
@@ -48,7 +49,7 @@ public abstract class DefaultObserver<T> extends BaseObserver<T> {
                     Type type = new TypeToken<BaseResponse<Object>>() {
                     }.getType();
 
-                    BaseResponse baseResponse = new Gson().fromJson(responseBody.string(), type);
+                    BaseResponse baseResponse = GsonUtil.getGson().fromJson(responseBody.string(), type);
                     onNext(baseResponse);
                 }
             }

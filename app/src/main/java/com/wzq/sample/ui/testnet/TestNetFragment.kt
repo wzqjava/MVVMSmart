@@ -43,35 +43,17 @@ class TestNetFragment : BaseFragment<FragmentTestNetBinding, TestNetViewModel>()
             }
         })
 
-        binding.buttonCustom.setOnClickListener {
-            //此处请求 返回结果需要用户自己解析
-            viewModel.doPostServerNewsCustom()
-        }
-        viewModel.liveDataString.observe(this, Observer {
-            try {
-                KLog.d(it)
-                val data = GsonUtil.getGson().fromJson<BaseResponse<ArrayList<NewsData>>>(it,
-                        object : TypeToken<BaseResponse<ArrayList<NewsData>>>(){}.type)
-                if (data != null && data.data.isNotEmpty()){
-                    binding.tvJson.text = data.data[0].news_summary
-                }
-            }catch (e:Exception){
-                e.printStackTrace()
-            }
-        })
 
         binding.buttonBaseUrl.setOnClickListener {
-            //只针对该接口动态使用https://api.apiopen.top
+            //只针对该接口动态使用https://api.apiopen.top，其他接口依旧采用全局BaseUrl，更多用法参考 https://github.com/JessYanCoding/RetrofitUrlManager
             RetrofitUrlManager.getInstance().putDomain("api","https://api.apiopen.top")
             viewModel.doBaseUrl()
         }
         viewModel.liveDataBaseUrl.observe(this, Observer {
             try {
                 KLog.d(it)
-                val data = GsonUtil.getGson().fromJson<BaseUrlData>(it,
-                        object : TypeToken<BaseUrlData>(){}.type)
-                if (data != null){
-                    binding.tvJson.text = data.message+"--"+data.code
+                if (it != null){
+                    binding.tvJson.text = it.message+"--"+it.code
                 }
             }catch (e:Exception){
                 e.printStackTrace()
