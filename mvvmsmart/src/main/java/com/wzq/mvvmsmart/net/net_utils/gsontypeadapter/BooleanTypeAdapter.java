@@ -42,7 +42,7 @@ public class BooleanTypeAdapter extends TypeAdapter<Boolean> {
             if (in.peek() == JsonToken.STRING) {
                 String str = in.nextString();
                 if (NumberUtils.isFloatOrDouble(str)){
-                    return Double.valueOf(str)== Double.valueOf(0) ? false:true;
+                    return Double.valueOf(str)== Double.valueOf(1) ? true:false;
                 } else {
                     Log.e("TypeAdapter", str + " is not a number");
                 }
