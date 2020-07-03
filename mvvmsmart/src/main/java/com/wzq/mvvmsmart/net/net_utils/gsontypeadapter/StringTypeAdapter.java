@@ -10,7 +10,7 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 /**
- * created 王志强 2020.04.30
+ * created @hloong 2020.06.30
  */
 public class StringTypeAdapter extends TypeAdapter<String> {
 
