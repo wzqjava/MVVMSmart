@@ -31,8 +31,8 @@ class NetWorkViewModel(application: Application) : BaseViewModel(application) {
                 .doOnSubscribe(this@NetWorkViewModel) //  请求与ViewModel周期同步
                 .doOnSubscribe {
                     d ->
-                    stateLiveData.postLoading()
-                }
+                stateLiveData.postLoading()
+            }
                 .doFinally { stateLiveData.postIdle() }
                 .subscribe(object : DefaultObserver<ArrayList<NewsData>>() {
                     override fun onSubscribe(d: Disposable) {
